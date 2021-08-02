@@ -3,27 +3,56 @@
     "edition": "Enterprise",
     "release": "Current",
     "adminEmail": "fakeemail@nav.no.scratchorg",
-    "features": ["ProcessBuilder", "API", "LiveAgent", "PersonAccounts", "ContactsToMultipleAccounts"],
+    "features": ["Sites",
+        "ForceComPlatform",
+        "Communities",
+        "CustomerCommunity",
+        "CustomerCommunityPlus",
+        "PersonAccounts",
+        "ProcessBuilder",
+        "API",
+        "ServiceCloud",
+        "LiveAgent",
+        "LightningServiceConsole",
+        "FIELDSERVICE:1"],
     "country": "NO",
     "language": "en_US",
     "settings": {
+        "communitiesSettings": {
+            "enableNetworksEnabled": true
+        },
         "lightningExperienceSettings": {
             "enableS1DesktopEnabled": true
+        },
+        "accountSettings": {
+            "enableRelateContactToMultipleAccounts": true
         },
         "languageSettings": {
             "enableTranslationWorkbench": true
         },
-        "accountSettings": {
-            "enableAccountTeams": true
+        "nameSettings": {
+            "enableMiddleName": true
         },
         "liveAgentSettings": {
             "enableLiveAgent": true
         },
-        "emailAdministrationSettings": {
-            "enableEnhancedEmailEnabled": true
+        "securitySettings": {
+            "sessionSettings": {
+                "forceRelogin": false
+            },
+            "enableAdminLoginAsAnyUser": true
         },
-        "nameSettings": {
-            "enableMiddleName": true
+        "userManagementSettings": {
+            "enableNewProfileUI": true
+        },
+        "fieldServiceSettings": {
+            "fieldServiceOrgPref": true,
+            "doesShareSaParentWoWithAr": false,
+            "doesShareSaWithAr": false,
+            "enableWorkOrders": true,
+            "isGeoCodeSyncEnabled": false,
+            "isLocationHistoryEnabled": false,
+            "fieldServiceNotificationsOrgPref": true
         }
     }
 }

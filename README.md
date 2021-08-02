@@ -1,25 +1,3 @@
-Template repository for CRM packages. Necessary steps after using template:
-
-1. Add secrets (see [description](https://github.com/navikt/crm-workflows-base))
-    - PROD_SFDX_URL `[REQUIRED]` (contact #crm-platform-team on Slack)
-    - PREPROD_SFDX_URL `[REQUIRED]` (contact #crm-platform-team on Slack)
-    - INTEGRATION_SANDBOX_SFDX_URL `[REQUIRED]` (contact #crm-platform-team on Slack)
-    - PACKAGE_KEY `[REQUIRED]`
-    - DEPLOYMENT_PAT `[REQUIRED]` ([documentation](https://docs.github.com/en/github/authenticating-to-github/creating-a-personal-access-token), give repo access)
-    - UAT_SFDX_URL `[OPTIONAL]`
-    - DEV_SFDX_URL `[OPTIONAL]`
-    - DEPLOY_TO_DEV_AFTER_PACKAGE_CREATION `[OPTIONAL]`
-    - DEPLOY_TO_UAT_AFTER_PACKAGE_CREATION `[OPTIONAL]`
-2. Create an init release in GitHub (not pre-release)
-    - Important! Release creation will fail if an init release has not been made!
-3. Create file `.sfdx/sfdx-config.json` (to create package)
-    - Add `{"defaultdevhubusername": "[your_devhub_user]","defaultusername": "" }` to it and change the DevHub username
-4. Create a package in SFDX
-    - `sfdx force:package:create -n YourPackageName -t Unlocked -r force-app`
-    - If you receive an error, contact #crm-platform-team on Slack to create the package
-5. Create an test metadata file in `force-app` folder to initiate init package creation (can be just a CustomLabel file)
-6. Push changes made to `force-app` and `sfdx-project.json` (remember to fetch Package ID if #crm-platform-team creates the package)
-
 # crm-shared-template
 
 [![Build](https://github.com/navikt/XXXXXXXXXXXXX/workflows/%5BPUSH%5D%20Create%20Package/badge.svg)](https://github.com/navikt/XXXXXXXXXXXXX/actions?query=workflow%3Acreate)
@@ -30,8 +8,8 @@ Template repository for CRM packages. Necessary steps after using template:
 
 This package is dependant on the following packages
 
--   [XXXXXXXXXXXXX](https://github.com/navikt/XXXXXXXXXXXXX)
--   [XXXXXXXXXXXXX](https://github.com/navikt/XXXXXXXXXXXXX)
+-   [crm-platform-base](https://github.com/navikt/crm-platform-base)
+-   [crm-platform-integration](https://github.com/navikt/crm-platform-integration)
 
 ## Installation
 
