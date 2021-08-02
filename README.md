@@ -1,8 +1,8 @@
 # crm-shared-template
 
-[![Build](https://github.com/navikt/XXXXXXXXXXXXX/workflows/%5BPUSH%5D%20Create%20Package/badge.svg)](https://github.com/navikt/XXXXXXXXXXXXX/actions?query=workflow%3Acreate)
-[![GitHub version](https://badgen.net/github/release/navikt/XXXXXXXXXXXXX/stable)](https://github.com/navikt/XXXXXXXXXXXXX)
-[![MIT License](https://img.shields.io/apm/l/atomic-design-ui.svg?)](https://github.com/navikt/XXXXXXXXXXXXX/blob/master/LICENSE)
+[![Build](https://github.com/navikt/crm-shared-user-notification/workflows/%5BPUSH%5D%20Create%20Package/badge.svg)](https://github.com/navikt/crm-shared-user-notification/actions?query=workflow%3Acreate)
+[![GitHub version](https://badgen.net/github/release/navikt/crm-shared-user-notification/stable)](https://github.com/navikt/crm-shared-user-notification)
+[![MIT License](https://img.shields.io/apm/l/atomic-design-ui.svg?)](https://github.com/navikt/crm-shared-user-notification/blob/master/LICENSE)
 
 ## Dependencies
 
