@@ -1,0 +1,54 @@
+{
+    "records": [
+        {
+            "attributes": {
+                "type": "KafkaMessage__c",
+                "referenceId": "KafkaMessage__cRef1"
+            },
+            "CRM_Topic__c": "aapen-brukernotifikasjon-nyOppgave-v1",
+            "CRM_Status__c": "Pending",
+            "CRM_Key__c": "ew0KInN5c3RlbWJydWtlciI6InRlc3QtYnJ1a2VyIiwNCiJldmVudElkIjoiMTIzNDU2Nzg5MDEtMDMiDQp9",
+            "CRM_Value__c": "ew0KInRpZHNwdW5rdCI6IjE1OTc1NzkyMDAwMDAiLA0KImZvZHNlbHNudW1tZXIiOiIxMjM0NTY3ODkwMSIsDQoiZ3J1cHBlcmluZ3NJZCI6ImFiYzEyMzQiLA0KInRla3N0IjoiVGVzdCBvcHBnYXZlIHNvbSB0ZXN0ZXIgYXQgYnJ1a2VyIGhhciBtb3R0YXR0IGVuIG1lbGRpbmcuIiwNCiJsaW5rIjoiaHR0cHM6Ly93d3cubmF2Lm5vIiwNCiJzaWtrZXJoZXRzbml2YWEiOjQsDQoiZWtzdGVyblZhcnNsaW5nIjpmYWxzZSwNCiJwcmVmZXJlcnRlS2FuYWxlciI6WyJFUE9TVCJdDQp9"
+        },
+        {
+            "attributes": {
+                "type": "KafkaMessage__c",
+                "referenceId": "KafkaMessage__cRef2"
+            },
+            "CRM_Topic__c": "aapen-brukernotifikasjon-nyBeskjed-v1",
+            "CRM_Status__c": "Pending",
+            "CRM_Key__c": "ew0KInN5c3RlbWJydWtlciI6InRlc3QtYnJ1a2VyIiwNCiJldmVudElkIjoiMTIzNDU2Nzg5MDEtMDEiDQp9",
+            "CRM_Value__c": "ew0KInRpZHNwdW5rdCI6IjE2Mjc5MDM4Njg3MzgiLA0KInN5bmxpZ0ZyZW1UaWwiOjE2MjkxMTUyMDAwMDAsDQoiZm9kc2Vsc251bW1lciI6IjEyMzQ1Njc4OTAxIiwNCiJncnVwcGVyaW5nc0lkIjoiYWJjMTIzNCIsDQoidGVrc3QiOiJUZXN0IGJlc2tqZWQgc29tIHRlc3RlciBhdCBicnVrZXIgaGFyIG1vdHRhdHQgZW4gbWVsZGluZy4iLA0KImxpbmsiOiJodHRwczovL3d3dy5uYXYubm8iLA0KInNpa2tlcmhldHNuaXZhYSI6NCwNCiJla3N0ZXJuVmFyc2xpbmciOmZhbHNlLA0KInByZWZlcmVydGVLYW5hbGVyIjpbXQ0KfQ"
+        },
+        {
+            "attributes": {
+                "type": "KafkaMessage__c",
+                "referenceId": "KafkaMessage__cRef3"
+            },
+            "CRM_Topic__c": "aapen-brukernotifikasjon-nyStatusoppdatering-v1",
+            "CRM_Status__c": "Pending",
+            "CRM_Key__c": "ew0KInN5c3RlbWJydWtlciI6InRlc3QtYnJ1a2VyIiwNCiJldmVudElkIjoiMTIzNDU2Nzg5MDEtMDQiDQp9",
+            "CRM_Value__c": "ew0KInRpZHNwdW5rdCI6IjE1OTc1NzkyMDAwMDAiLA0KImZvZHNlbHNudW1tZXIiOiIxMjM0NTY3ODkwMSIsDQoiZ3J1cHBlcmluZ3NJZCI6ImFiYzEyMzQiLA0KImxpbmsiOiJodHRwczovL3d3dy5uYXYubm8iLA0KInNpa2tlcmhldHNuaXZhYSI6NCwNCiJzdGF0dXNHbG9iYWwiOiJNT1RUQVRUIiwNCiJzdGF0dXNJbnRlcm4iOiJIZW52ZW5kZWxzZW4gZXIgbW90dGF0dCIsDQoic2Frc3RlbWEiOiJBQVAiDQp9"
+        },
+        {
+            "attributes": {
+                "type": "KafkaMessage__c",
+                "referenceId": "KafkaMessage__cRef4"
+            },
+            "CRM_Topic__c": "aapen-brukernotifikasjon-done-v1",
+            "CRM_Status__c": "Pending",
+            "CRM_Key__c": "ew0KInN5c3RlbWJydWtlciI6InRlc3QtYnJ1a2VyIiwNCiJldmVudElkIjoiMTIzNDU2Nzg5MDEtMDIiDQp9",
+            "CRM_Value__c": "ew0KInRpZHNwdW5rdCI6IjE2MjkxMTUyMDAwMDAiLA0KImZvZHNlbHNudW1tZXIiOiIxMjM0NTY3ODkwMSIsDQoiZ3J1cHBlcmluZ3NJZCI6ImFiYzEyMzQiDQp9"
+        },
+        {
+            "attributes": {
+                "type": "KafkaMessage__c",
+                "referenceId": "KafkaMessage__cRef5"
+            },
+            "CRM_Topic__c": "aapen-brukernotifikasjon-nyBeskjed-v1",
+            "CRM_Status__c": "Pending",
+            "CRM_Key__c": "ew0KInN5c3RlbWJydWtlciI6InRlc3QtYnJ1a2VyIiwNCiJldmVudElkIjoiMTIzNDU2Nzg5MDEtMDIiDQp9",
+            "CRM_Value__c": "ew0KInRpZHNwdW5rdCI6IjE1OTc1NzkyMDAwMDAiLA0KInN5bmxpZ0ZyZW1UaWwiOm51bGwsDQoiZm9kc2Vsc251bW1lciI6IjEyMzQ1Njc4OTAxIiwNCiJncnVwcGVyaW5nc0lkIjoiYWJjMTIzNCIsDQoidGVrc3QiOiJUZXN0IGJlc2tqZWQgc29tIHRlc3RlciBhdCBicnVrZXIgaGFyIG1vdHRhdHQgZW4gbWVsZGluZy4iLA0KImxpbmsiOiJodHRwczovL3d3dy5uYXYubm8iLA0KInNpa2tlcmhldHNuaXZhYSI6NCwNCiJla3N0ZXJuVmFyc2xpbmciOnRydWUsDQoicHJlZmVyZXJ0ZUthbmFsZXIiOlsiRVBPU1QiXQ0KfQ"
+        }
+    ]
+}

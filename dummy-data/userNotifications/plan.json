@@ -1,0 +1,31 @@
+[
+    {
+        "sobject": "Common_Code__c",
+        "saveRefs": true,
+        "resolveRefs": true,
+        "files": [
+            "CountryCode_p1.json",
+            "CountryCode_p2.json",
+            "CountryCode_p3.json",
+            "CountryCode_p4.json",
+            "theme_groups.json",
+            "themes.json",
+            "subthemes.json",
+            "tasktypes.json"
+        ]
+    },
+    {
+        "sobject": "Person__c",
+        "saveRefs": false,
+        "resolveRefs": false,
+        "files": ["persons.json"]
+    },
+    {
+        "sobject": "KafkaMessage__c",
+        "saveRefs": false,
+        "resolveRefs": false,
+        "files": [
+            "KafkaMessages.json"
+        ]
+    }
+]
