@@ -2,7 +2,9 @@
 private with sharing class UserNotification_StatusKafkaHandlerTest {
     @TestSetup
     static void makeData() {
-        UserNotification_TestDataFactory.createRecord(new Person__c(INT_ActorId__c = '123456789', Name = '12345678901'));
+        UserNotification_TestDataFactory.createRecord(
+            new Person__c(INT_ActorId__c = '123456789', Name = '12345678901')
+        );
 
         UserNotification_TestDataFactory.createRecord(
             new Common_Code__c(CRM_Code__c = 'BAR', Name = 'Barnebidrag', CRM_Code_Set__c = 'Tema')
@@ -97,7 +99,9 @@ private with sharing class UserNotification_StatusKafkaHandlerTest {
         // prettier-ignore
         System.assertEquals(key.systembruker, userNotification.INT_SystemUser__c, 'Expected value to be set');
         // prettier-ignore
-        System.assertEquals(key.key, userNotification.INT_Key__c, 'Expected value to be set');
+        System.assertEquals(true, userNotification.INT_Key__c.startsWith(key.systembruker), 'Expected value to be set');
+        // prettier-ignore
+        System.assertEquals(true, userNotification.INT_Key__c.endsWith(key.eventId), 'Expected value to be set');
         // prettier-ignore
         System.assertEquals(UserNotification_Util.longTimeToDateTime(statusoppdatering.tidspunkt), userNotification.INT_EventTime__c, 'Expected value to be set');
         // prettier-ignore
@@ -212,7 +216,9 @@ private with sharing class UserNotification_StatusKafkaHandlerTest {
         // prettier-ignore
         System.assertEquals(key.systembruker, userNotification.INT_SystemUser__c, 'Expected value to be set');
         // prettier-ignore
-        System.assertEquals(key.key, userNotification.INT_Key__c, 'Expected value to be set');
+        System.assertEquals(true, userNotification.INT_Key__c.startsWith(key.systembruker), 'Expected value to be set');
+        // prettier-ignore
+        System.assertEquals(true, userNotification.INT_Key__c.endsWith(key.eventId), 'Expected value to be set');
         // prettier-ignore
         System.assertEquals(UserNotification_Util.longTimeToDateTime(statusoppdatering.tidspunkt), userNotification.INT_EventTime__c, 'Expected value to be set');
         // prettier-ignore

@@ -158,7 +158,7 @@ public without sharing virtual class UserNotification_KafkaHandler implements IK
         UserNotification__c notification = new UserNotification__c();
         notification.INT_EventId__c = key.eventId;
         notification.INT_SystemUser__c = key.systembruker;
-        notification.INT_Key__c = key.key;
+        UserNotification_Util.setKey(notification);
         return notification;
     }
 

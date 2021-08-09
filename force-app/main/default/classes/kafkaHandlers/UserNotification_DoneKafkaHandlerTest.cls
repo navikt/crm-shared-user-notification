@@ -2,7 +2,9 @@
 private with sharing class UserNotification_DoneKafkaHandlerTest {
     @TestSetup
     static void makeData() {
-        UserNotification_TestDataFactory.createRecord(new Person__c(INT_ActorId__c = '123456789', Name = '12345678901'));
+        UserNotification_TestDataFactory.createRecord(
+            new Person__c(INT_ActorId__c = '123456789', Name = '12345678901')
+        );
 
         Id accountId = [SELECT Id FROM Account LIMIT 1].Id;
 
@@ -128,7 +130,9 @@ private with sharing class UserNotification_DoneKafkaHandlerTest {
         // prettier-ignore
         System.assertEquals(key.systembruker, userNotification.INT_SystemUser__c, 'Expected value to be set');
         // prettier-ignore
-        System.assertEquals(key.key, userNotification.INT_Key__c, 'Expected value to be set');
+        System.assertEquals(true, userNotification.INT_Key__c.startsWith(key.systembruker), 'Expected value to be set');
+        // prettier-ignore
+        System.assertEquals(true, userNotification.INT_Key__c.endsWith(key.eventId), 'Expected value to be set');
         // prettier-ignore
         System.assertNotEquals(null, userNotification.INT_EventTime__c, 'Expected value to be set');
         // prettier-ignore
@@ -239,7 +243,9 @@ private with sharing class UserNotification_DoneKafkaHandlerTest {
         // prettier-ignore
         System.assertEquals(key.systembruker, userNotification.INT_SystemUser__c, 'Expected value to be set');
         // prettier-ignore
-        System.assertEquals(key.key, userNotification.INT_Key__c, 'Expected value to be set');
+        System.assertEquals(true, userNotification.INT_Key__c.startsWith(key.systembruker), 'Expected value to be set');
+        // prettier-ignore
+        System.assertEquals(true, userNotification.INT_Key__c.endsWith(key.eventId), 'Expected value to be set');
         // prettier-ignore
         System.assertNotEquals(null, userNotification.INT_EventTime__c, 'Expected value to be set');
         // prettier-ignore

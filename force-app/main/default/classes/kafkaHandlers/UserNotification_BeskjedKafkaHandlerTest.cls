@@ -2,7 +2,9 @@
 public with sharing class UserNotification_BeskjedKafkaHandlerTest {
     @TestSetup
     static void makeData() {
-        UserNotification_TestDataFactory.createRecord(new Person__c(INT_ActorId__c = '123456789', Name = '12345678901'));
+        UserNotification_TestDataFactory.createRecord(
+            new Person__c(INT_ActorId__c = '123456789', Name = '12345678901')
+        );
     }
     @IsTest
     static void testCreateBeskjedEvent() {
@@ -19,7 +21,7 @@ public with sharing class UserNotification_BeskjedKafkaHandlerTest {
         beskjed.link = 'https://www.nav.no/no/ditt-nav';
         beskjed.sikkerhetsnivaa = 4;
         beskjed.eksternVarsling = true;
-        beskjed.prefererteKanaler = new List<String>{'SMS','EPOST'};
+        beskjed.prefererteKanaler = new List<String>{ 'SMS', 'EPOST' };
 
         KafkaMessage__c message = new KafkaMessage__c();
         message.CRM_Key__c = EncodingUtil.base64Encode(Blob.valueOf(JSON.serialize(key)));
@@ -85,7 +87,9 @@ public with sharing class UserNotification_BeskjedKafkaHandlerTest {
         // prettier-ignore
         System.assertEquals(key.systembruker, userNotification.INT_SystemUser__c, 'Expected value to be set');
         // prettier-ignore
-        System.assertEquals(key.key, userNotification.INT_Key__c, 'Expected value to be set');
+        System.assertEquals(true, userNotification.INT_Key__c.startsWith(key.systembruker), 'Expected value to be set');
+        // prettier-ignore
+        System.assertEquals(true, userNotification.INT_Key__c.endsWith(key.eventId), 'Expected value to be set');
         // prettier-ignore
         System.assertEquals(UserNotification_Util.longTimeToDateTime(beskjed.tidspunkt), userNotification.INT_EventTime__c, 'Expected value to be set');
         // prettier-ignore
@@ -203,7 +207,9 @@ public with sharing class UserNotification_BeskjedKafkaHandlerTest {
         // prettier-ignore
         System.assertEquals(key.systembruker, userNotification.INT_SystemUser__c, 'Expected value to be set');
         // prettier-ignore
-        System.assertEquals(key.key, userNotification.INT_Key__c, 'Expected value to be set');
+        System.assertEquals(true, userNotification.INT_Key__c.startsWith(key.systembruker), 'Expected value to be set');
+        // prettier-ignore
+        System.assertEquals(true, userNotification.INT_Key__c.endsWith(key.eventId), 'Expected value to be set');
         // prettier-ignore
         System.assertEquals(UserNotification_Util.longTimeToDateTime(beskjed.tidspunkt), userNotification.INT_EventTime__c, 'Expected value to be set');
         // prettier-ignore
