@@ -9,7 +9,7 @@ private with sharing class UN_NokkelBuilderLegacyTest {
         UN_NokkelLegacy result;
 
         Test.startTest();
-        //result = UN_NokkelBuilderLegacy.build(notification);
+        result = new UN_NokkelBuilderLegacy(notification).build();
         Test.stopTest();
 
         System.assertEquals(notification.INT_SystemUser__c, result.systembruker, 'Expected same value');

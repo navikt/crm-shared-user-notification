@@ -16,7 +16,7 @@ private with sharing class UN_BeskjedBuilderLegacyTest {
         UN_BeskjedLegacy result;
 
         Test.startTest();
-        //result = UN_BeskjedBuilderLegacy.build(notification);
+        result = new UN_BeskjedBuilderLegacy(notification).build();
         Test.stopTest();
 
         System.assertEquals(

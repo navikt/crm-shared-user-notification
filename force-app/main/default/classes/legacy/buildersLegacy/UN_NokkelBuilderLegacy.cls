@@ -19,7 +19,7 @@ public with sharing class UN_NokkelBuilderLegacy {
         return this;
     }
 
-    public UN_NokkelLegacy build(UserNotification__c notification) {
+    public UN_NokkelLegacy build() {
         UN_NokkelLegacy nokkel = new UN_NokkelLegacy();
         nokkel.systembruker = UN_BuilderValidationUtil.validateNonNullFieldMaxLength(
             this.systembruker,

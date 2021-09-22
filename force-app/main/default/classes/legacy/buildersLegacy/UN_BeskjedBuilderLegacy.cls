@@ -7,7 +7,7 @@ public with sharing class UN_BeskjedBuilderLegacy {
     private String link;
     private Integer sikkerhetsnivaa;
     private Boolean eksternVarsling = false;
-    private List<String> prefererteKanaler;
+    private List<UN_PreferertKanal> prefererteKanaler;
 
     public UN_BeskjedBuilderLegacy() {
     }
@@ -23,7 +23,9 @@ public with sharing class UN_BeskjedBuilderLegacy {
         this.fodselsnummer = notification.INT_SocialSecurityNumber__c;
         this.grupperingsId = notification.INT_GroupingId__c;
         this.eksternVarsling = notification.INT_ExternalNotification__c;
-        this.prefererteKanaler = UN_Util.multiSelectToList(notification.INT_PreferredChannel__c);
+        this.prefererteKanaler = UN_Util.stringListToPreferertKanalList(
+            UN_Util.multiSelectToList(notification.INT_PreferredChannel__c)
+        );
     }
 
     public UN_BeskjedBuilderLegacy withTidspunkt(DateTime tidspunkt) {
@@ -66,36 +68,26 @@ public with sharing class UN_BeskjedBuilderLegacy {
         return this;
     }
 
-    public UN_BeskjedBuilderLegacy withPrefererteKanaler(List<String> prefererteKanaler) {
+    public UN_BeskjedBuilderLegacy withPrefererteKanaler(List<UN_PreferertKanal> prefererteKanaler) {
         if (prefererteKanaler != null) {
             this.prefererteKanaler = prefererteKanaler;
         }
         return this;
     }
 
+    // prettier-ignore
     public UN_BeskjedLegacy build() {
         UN_BeskjedLegacy beskjed = new UN_BeskjedLegacy();
 
         beskjed.tidspunkt = UN_BuilderValidationUtil.localDateTimeToUtcTimestamp(this.tidspunkt, 'tidspunkt', true);
-        beskjed.synligFremTil = UN_BuilderValidationUtil.localDateTimeToUtcTimestamp(
-            this.synligFremTil,
-            'synligFremTil',
-            false
-        );
+        beskjed.synligFremTil = UN_BuilderValidationUtil.localDateTimeToUtcTimestamp( this.synligFremTil, 'synligFremTil', false );
         beskjed.fodselsnummer = UN_BuilderValidationUtil.validateFodselsnummer(this.fodselsnummer);
-        beskjed.grupperingsId = UN_BuilderValidationUtil.validateNonNullFieldMaxLength(
-            this.grupperingsId,
-            'grupperingsId',
-            100
-        );
-        beskjed.tekst = UN_BuilderValidationUtil.validateNonNullFieldMaxLength(this.tekst, 'tekst', 500);
-        beskjed.link = UN_BuilderValidationUtil.validateLinkAndConvertToString(this.link, 'link', 200, false);
+        beskjed.grupperingsId = UN_BuilderValidationUtil.validateNonNullFieldMaxLength( this.grupperingsId, 'grupperingsId', UN_BuilderValidationUtil.MAX_LENGTH_GRUPPERINGSID );
+        beskjed.tekst = UN_BuilderValidationUtil.validateNonNullFieldMaxLength( this.tekst, 'tekst', UN_BuilderValidationUtil.MAX_LENGTH_TEXT_BESKJED );
+        beskjed.link = UN_BuilderValidationUtil.validateLinkAndConvertToString( this.link, 'link', UN_BuilderValidationUtil.MAX_LENGTH_LINK, UN_BuilderValidationUtil.isLinkRequired(UN_EventType.BESKJED) );
         beskjed.sikkerhetsnivaa = UN_BuilderValidationUtil.validateSikkerhetsnivaa(this.sikkerhetsnivaa);
         beskjed.eksternVarsling = this.eksternVarsling;
-        beskjed.prefererteKanaler = UN_BuilderValidationUtil.validatePrefererteKanaler(
-            this.eksternVarsling,
-            this.prefererteKanaler
-        );
+        beskjed.prefererteKanaler = UN_BuilderValidationUtil.validatePrefererteKanaler( this.eksternVarsling, this.prefererteKanaler );
 
         return beskjed;
     }
