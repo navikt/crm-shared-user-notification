@@ -2,12 +2,12 @@ public with sharing class UN_NokkelBuilderLegacy {
     private String systembruker;
     private String eventId;
 
-    public UN_NokkelBuilderLegacy() {
-    }
-    public UN_NokkelBuilderLegacy(UserNotification__c notification) {
-        this.systembruker = notification.INT_SystemUser__c;
-        this.eventId = notification.INT_EventId__c;
-    }
+    // public UN_NokkelBuilderLegacy() {
+    // }
+    // public UN_NokkelBuilderLegacy(UserNotification__c notification) {
+    //     this.systembruker = notification.INT_SystemUser__c;
+    //     this.eventId = notification.INT_EventId__c;
+    // }
 
     public UN_NokkelBuilderLegacy withSystembruker(String systembruker) {
         this.systembruker = systembruker;

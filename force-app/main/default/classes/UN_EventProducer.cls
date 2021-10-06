@@ -2,7 +2,6 @@ public virtual inherited sharing class UN_EventProducer {
     protected UserNotification__c userNotification;
     protected UN_EventType eventType;
     protected UN_NokkelLegacy nokkel;
-    protected String error;
     protected Object value;
 
     public UN_EventProducer(UN_EventType eventType) {
@@ -59,12 +58,12 @@ public virtual inherited sharing class UN_EventProducer {
     }
 
     public UN_EventProducer setError(String error) {
-        this.error = error;
+        this.userNotification.CRM_NotificationError__c = error;
         return this;
     }
 
     public UN_EventProducer store() {
-        insert this.userNotification;
+        upsert this.userNotification INT_Key__c;
         return this;
     }
 

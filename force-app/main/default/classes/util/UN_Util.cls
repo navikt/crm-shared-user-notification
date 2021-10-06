@@ -1,13 +1,13 @@
 public with sharing class UN_Util {
     private static Set<String> SF_SYSTEM_USERS = new Set<String>{ 'teamnks' };
 
-    public static DateTime longTimeToDateTime(Long milliseconds) {
-        return milliseconds == null ? null : DateTime.newInstance(milliseconds);
-    }
+    // public static DateTime longTimeToDateTime(Long milliseconds) {
+    //     return milliseconds == null ? null : DateTime.newInstance(milliseconds);
+    // }
 
-    public static Long dateTimeToLong(DateTime dt) {
-        return dt == null ? null : dt.getTime();
-    }
+    // public static Long dateTimeToLong(DateTime dt) {
+    //     return dt == null ? null : dt.getTime();
+    // }
 
     public static String stringToMultiSelect(String str, String delimiter) {
         return String.isBlank(str) ? null : listToMultiSelect(str.split(delimiter));
@@ -17,46 +17,46 @@ public with sharing class UN_Util {
         return stringList != null && stringList.size() > 0 ? String.join(stringList, ';') : null;
     }
 
-    public static List<String> multiSelectToList(String multiSelect) {
-        return String.isNotBlank(multiSelect) ? multiSelect.split(';') : new List<String>();
-    }
+    // public static List<String> multiSelectToList(String multiSelect) {
+    //     return String.isNotBlank(multiSelect) ? multiSelect.split(';') : new List<String>();
+    // }
 
-    public static Boolean isSfMessage(UserNotification__c notification) {
-        return SF_SYSTEM_USERS.contains(notification.INT_SystemUser__c);
-    }
+    // public static Boolean isSfMessage(UserNotification__c notification) {
+    //     return SF_SYSTEM_USERS.contains(notification.INT_SystemUser__c);
+    // }
 
-    public static Boolean isUnpublishedMessage(UserNotification__c notification) {
-        return isSfMessage(notification) && null == notification.INT_LastUpdatedFromKafka__c;
-    }
+    // public static Boolean isUnpublishedMessage(UserNotification__c notification) {
+    //     return isSfMessage(notification) && null == notification.INT_LastUpdatedFromKafka__c;
+    // }
 
-    public static String createErrorMessage(Exception e) {
-        return e.getTypeName() + ': ' + e.getMessage() + ' Stack trace: ' + e.getStackTraceString();
-    }
+    // public static String createErrorMessage(Exception e) {
+    //     return e.getTypeName() + ': ' + e.getMessage() + ' Stack trace: ' + e.getStackTraceString();
+    // }
 
-    public static void setKey(UserNotification__c notification) {
-        notification.INT_Key__c = createKey(notification.INT_SystemUser__c, notification.INT_EventId__c);
-    }
+    // public static void setKey(UserNotification__c notification) {
+    //     notification.INT_Key__c = createKey(notification.INT_SystemUser__c, notification.INT_EventId__c);
+    // }
 
-    public static String createKey(String systemUser, String eventId) {
-        return systemUser + eventId;
-    }
+    // public static String createKey(String systemUser, String eventId) {
+    //     return systemUser + eventId;
+    // }
 
-    public static void setEventId(UserNotification__c notification) {
-        Blob b = Crypto.GenerateAESKey(128);
-        String h = EncodingUtil.ConvertTohex(b);
-        String guid =
-            h.SubString(0, 8) +
-            '-' +
-            h.SubString(8, 12) +
-            '-' +
-            h.SubString(12, 16) +
-            '-' +
-            h.SubString(16, 20) +
-            '-' +
-            h.substring(20);
+    // public static void setEventId(UserNotification__c notification) {
+    //     Blob b = Crypto.GenerateAESKey(128);
+    //     String h = EncodingUtil.ConvertTohex(b);
+    //     String guid =
+    //         h.SubString(0, 8) +
+    //         '-' +
+    //         h.SubString(8, 12) +
+    //         '-' +
+    //         h.SubString(12, 16) +
+    //         '-' +
+    //         h.SubString(16, 20) +
+    //         '-' +
+    //         h.substring(20);
 
-        notification.INT_EventId__c = guid;
-    }
+    //     notification.INT_EventId__c = guid;
+    // }
 
     public static Map<String, UN_PreferertKanal> getPreferertKanalStringMap() {
         return new Map<String, UN_PreferertKanal>{

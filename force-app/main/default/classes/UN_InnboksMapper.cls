@@ -1,20 +1,20 @@
 public with sharing class UN_InnboksMapper {
-    public static UN_InnboksLegacy userNotificationToInnboksLegacy(UserNotification__c userNotification) {
-        UN_InnboksLegacy innboks = new UN_InnboksLegacy();
+    // public static UN_InnboksLegacy userNotificationToInnboksLegacy(UserNotification__c userNotification) {
+    //     UN_InnboksLegacy innboks = new UN_InnboksLegacy();
 
-        innboks.grupperingsId = userNotification.INT_GroupingId__c;
-        innboks.fodselsnummer = userNotification.INT_SocialSecurityNumber__c;
-        innboks.link = userNotification.INT_Link__c;
-        innboks.sikkerhetsnivaa = userNotification.INT_SecurityLevel__c.intValue();
-        innboks.tekst = userNotification.INT_Description__c;
-        innboks.tidspunkt = userNotification.INT_EventTime__c;
+    //     innboks.grupperingsId = userNotification.INT_GroupingId__c;
+    //     innboks.fodselsnummer = userNotification.INT_SocialSecurityNumber__c;
+    //     innboks.link = userNotification.INT_Link__c;
+    //     innboks.sikkerhetsnivaa = userNotification.INT_SecurityLevel__c.intValue();
+    //     innboks.tekst = userNotification.INT_Description__c;
+    //     innboks.tidspunkt = userNotification.INT_EventTime__c;
 
-        return innboks;
-    }
+    //     return innboks;
+    // }
 
-    public static UserNotification__c innboksLegacyToUserNotification(UN_InnboksLegacy innboks) {
-        return innboksLegacyToUserNotification(innboks, new UserNotification__c());
-    }
+    // public static UserNotification__c innboksLegacyToUserNotification(UN_InnboksLegacy innboks) {
+    //     return innboksLegacyToUserNotification(innboks, new UserNotification__c());
+    // }
 
     public static UserNotification__c innboksLegacyToUserNotification(
         UN_InnboksLegacy innboks,
