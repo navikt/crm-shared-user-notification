@@ -58,27 +58,27 @@ public with sharing class UN_Util {
     //     notification.INT_EventId__c = guid;
     // }
 
-    public static Map<String, UN_PreferertKanal> getPreferertKanalStringMap() {
-        return new Map<String, UN_PreferertKanal>{
-            UN_PreferertKanal.SMS.name() => UN_PreferertKanal.SMS,
-            UN_PreferertKanal.EPOST.name() => UN_PreferertKanal.EPOST
-        };
-    }
+    // public static Map<String, UN_PreferertKanal> getPreferertKanalStringMap() {
+    //     return new Map<String, UN_PreferertKanal>{
+    //         UN_PreferertKanal.SMS.name() => UN_PreferertKanal.SMS,
+    //         UN_PreferertKanal.EPOST.name() => UN_PreferertKanal.EPOST
+    //     };
+    // }
 
-    public static List<UN_PreferertKanal> stringListToPreferertKanalList(List<String> stringList) {
-        List<UN_PreferertKanal> pkList;
-        if (stringList != null && false == stringList.isEmpty()) {
-            Map<String, UN_PreferertKanal> pkMap = getPreferertKanalStringMap();
+    // public static List<UN_PreferertKanal> stringListToPreferertKanalList(List<String> stringList) {
+    //     List<UN_PreferertKanal> pkList;
+    //     if (stringList != null && false == stringList.isEmpty()) {
+    //         Map<String, UN_PreferertKanal> pkMap = getPreferertKanalStringMap();
 
-            pkList = new List<UN_PreferertKanal>();
+    //         pkList = new List<UN_PreferertKanal>();
 
-            for (String name : stringList) {
-                if (pkMap.containsKey(name.toUpperCase())) {
-                    pkList.add(pkMap.get(name.toUpperCase()));
-                }
-            }
-        }
+    //         for (String name : stringList) {
+    //             if (pkMap.containsKey(name.toUpperCase())) {
+    //                 pkList.add(pkMap.get(name.toUpperCase()));
+    //             }
+    //         }
+    //     }
 
-        return pkList;
-    }
+    //     return pkList;
+    // }
 }

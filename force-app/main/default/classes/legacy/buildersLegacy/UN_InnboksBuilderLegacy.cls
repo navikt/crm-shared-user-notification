@@ -8,19 +8,6 @@ public with sharing class UN_InnboksBuilderLegacy {
     public Boolean eksternVarsling;
     public List<UN_PreferertKanal> prefererteKanaler;
 
-    // public UN_InnboksBuilderLegacy() {
-    // }
-    // public UN_InnboksBuilderLegacy(UserNotification__c notification) {
-    //     this.tidspunkt = notification.INT_EventTime__c;
-    //     this.fodselsnummer = notification.INT_SocialSecurityNumber__c;
-    //     this.grupperingsId = notification.INT_GroupingId__c;
-    //     this.tekst = notification.INT_Description__c;
-    //     this.link = notification.INT_Link__c;
-    //     this.sikkerhetsnivaa = notification.INT_SecurityLevel__c == null
-    //         ? null
-    //         : notification.INT_SecurityLevel__c.IntValue();
-    // }
-
     public UN_InnboksBuilderLegacy withTidspunkt(DateTime tidspunkt) {
         this.tidspunkt = tidspunkt;
         return this;
