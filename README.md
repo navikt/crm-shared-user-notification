@@ -1,4 +1,6 @@
-# crm-shared-template
+# crm-shared-user-notification
+
+Package for producing user notifications from Salesforce
 
 [![Build](https://github.com/navikt/crm-shared-user-notification/workflows/%5BPUSH%5D%20Create%20Package/badge.svg)](https://github.com/navikt/crm-shared-user-notification/actions?query=workflow%3Acreate)
 [![GitHub version](https://badgen.net/github/release/navikt/crm-shared-user-notification/stable)](https://github.com/navikt/crm-shared-user-notification)
