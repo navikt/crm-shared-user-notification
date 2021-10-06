@@ -1,5 +1,5 @@
 public with sharing class UN_DoneLegacy {
-    public Long tidspunkt;
+    public DateTime tidspunkt;
     public String fodselsnummer;
     public String grupperingsId;
 }

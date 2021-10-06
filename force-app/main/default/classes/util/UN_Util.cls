@@ -9,6 +9,10 @@ public with sharing class UN_Util {
         return dt == null ? null : dt.getTime();
     }
 
+    public static String stringToMultiSelect(String str, String delimiter) {
+        return String.isBlank(str) ? null : listToMultiSelect(str.split(delimiter));
+    }
+
     public static String listToMultiSelect(List<String> stringList) {
         return stringList != null && stringList.size() > 0 ? String.join(stringList, ';') : null;
     }

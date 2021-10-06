@@ -7,5 +7,5 @@ public with sharing class UN_OppgaveLegacy {
     public String link;
     public Integer sikkerhetsnivaa = 4;
     public Boolean eksternVarsling = false;
-    public List<UN_PreferertKanal> prefererteKanaler = new List<UN_PreferertKanal>();
+    public String prefererteKanaler;
 }

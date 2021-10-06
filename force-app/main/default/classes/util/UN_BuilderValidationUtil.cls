@@ -70,9 +70,9 @@ public with sharing class UN_BuilderValidationUtil {
         }
     }
 
-    public static Long localDateTimeToUtcTimestamp(Datetime dataAndTime, String fieldName, boolean required) {
+    public static Datetime localDateTimeToUtcTimestamp(Datetime dataAndTime, String fieldName, boolean required) {
         if (dataAndTime != null) {
-            return dataAndTime.getTime();
+            return dataAndTime;
         } else {
             if (required) {
                 throw new FieldValidationException('Field ' + fieldName + ' kan ikke være null.');
@@ -108,29 +108,33 @@ public with sharing class UN_BuilderValidationUtil {
         }
     }
 
-    public static List<UN_PreferertKanal> validatePrefererteKanaler(
-        boolean eksternVarsling,
-        List<UN_PreferertKanal> field
-    ) {
+    public static String validatePrefererteKanaler(boolean eksternVarsling, List<UN_PreferertKanal> field) {
         String fieldName = 'prefererteKanaler';
+        String prefererteKanaler = '';
         if (field == null) {
-            return new List<UN_PreferertKanal>();
+            return null;
         } else if (!eksternVarsling && !field.isEmpty()) {
             throw new FieldValidationException(
                 'Field ' +
                 fieldName +
                 ' cannot be set as long as eksternVarsling is set to false.'
             );
-        } else if (field != null) {
-            return field;
+        } else if (field != null && field.isEmpty() != true) {
+            for (UN_PreferertKanal preferertKanal : field) {
+                prefererteKanaler += preferertKanal.name() + ',';
+            }
+            prefererteKanaler.removeEnd(',');
+            return prefererteKanaler;
         } else {
-            return new List<UN_PreferertKanal>();
+            return null;
         }
     }
 
     public static String validateEventId(String eventId) {
         validateNonNullFieldMaxLength(eventId, 'eventId', MAX_LENGTH_EVENTID);
-        //TODO ADD UUID-ULID patterns
+        if (false == Uuid.isValid(eventId)) {
+            throw new FieldValidationException('Field eventId is not a valid uuid.');
+        }
         return eventId;
     }
 
