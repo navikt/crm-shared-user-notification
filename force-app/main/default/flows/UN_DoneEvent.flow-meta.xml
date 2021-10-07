@@ -24,8 +24,8 @@
     </actionCalls>
     <apiVersion>52.0</apiVersion>
     <decisions>
-        <name>Can_user_notification_be_closed</name>
-        <label>Can user notification be closed</label>
+        <name>Can_create_Done_Event_on_User_Notification</name>
+        <label>Can create Done Event on User Notification</label>
         <locationX>182</locationX>
         <locationY>158</locationY>
         <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
@@ -56,11 +56,12 @@
             <connector>
                 <targetReference>Create_Done_message</targetReference>
             </connector>
-            <label>Is Correct Type</label>
+            <label>Can create Done Event</label>
         </rules>
     </decisions>
-    <interviewLabel>Done event {!$Flow.CurrentDateTime}</interviewLabel>
-    <label>Done event</label>
+    <description>This flow will decide if we can create a done event or not.</description>
+    <interviewLabel>Done Event {!$Flow.CurrentDateTime}</interviewLabel>
+    <label>User Notification - Create Done Event</label>
     <processMetadataValues>
         <name>BuilderType</name>
         <value>
@@ -84,7 +85,7 @@
         <locationX>56</locationX>
         <locationY>0</locationY>
         <connector>
-            <targetReference>Can_user_notification_be_closed</targetReference>
+            <targetReference>Can_create_Done_Event_on_User_Notification</targetReference>
         </connector>
     </start>
     <status>Active</status>
