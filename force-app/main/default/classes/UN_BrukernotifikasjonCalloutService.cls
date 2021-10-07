@@ -1,6 +1,6 @@
 public with sharing class UN_BrukernotifikasjonCalloutService {
     private final static string API_CONFIG_NAME = 'BRUKERNOTIFIKASJONER'; //API Config name to set when using the ApiController
-    private final static string SERVICE_AUTH_HEADER = 'BrukerNotifikasjoner';
+    private final static string SERVICE_AUTH_HEADER = 'Brukernotifikasjon';
 
     public static HttpResponse postInnboksNotificationLegacy(UN_InnboksLegacy innboksEvent, UN_NokkelLegacy nokkel) {
         ApiController apiCtrl = new ApiController();
