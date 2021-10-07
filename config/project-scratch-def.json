@@ -3,7 +3,8 @@
     "edition": "Enterprise",
     "release": "Current",
     "adminEmail": "fakeemail@nav.no.scratchorg",
-    "features": ["Sites",
+    "features": [
+        "Sites",
         "ForceComPlatform",
         "Communities",
         "CustomerCommunity",
@@ -14,7 +15,8 @@
         "ServiceCloud",
         "LiveAgent",
         "LightningServiceConsole",
-        "FIELDSERVICE:1"],
+        "FIELDSERVICE:1"
+    ],
     "country": "NO",
     "language": "en_US",
     "settings": {
