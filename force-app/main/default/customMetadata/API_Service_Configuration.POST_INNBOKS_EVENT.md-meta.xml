@@ -36,6 +36,6 @@
     </values>
     <values>
         <field>Service_Path__c</field>
-        <value xsi:type="xsd:string">/innboks</value>
+        <value xsi:type="xsd:string">/brukernotifikasjon/innboks</value>
     </values>
 </CustomMetadata>
