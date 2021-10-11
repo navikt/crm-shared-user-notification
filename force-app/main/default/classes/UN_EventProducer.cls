@@ -37,7 +37,7 @@ public virtual inherited sharing class UN_EventProducer {
     }
 
     public UN_EventProducer setRelatedSfRecord(String sfId) {
-        this.userNotification.CRM_NotificationError__c = sfId;
+        this.userNotification.CRM_RelatedSfRecord__c = sfId;
         return this;
     }
 
