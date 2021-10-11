@@ -8,7 +8,7 @@ public with sharing class UN_BrukernotifikasjonCalloutService {
         apiCtrl.addServiceAuthHeader(SERVICE_AUTH_HEADER);
         apiCtrl.addHeader('Content-Type', 'application/json');
         apiCtrl.addUrlParam('eventId', nokkel.eventId);
-        apiCtrl.setBody(JSON.serialize(innboksEvent, true));
+        apiCtrl.setBody(JSON.serialize(innboksEvent));
         apiCtrl.doCallout();
 
         return apiCtrl.getResponse();
@@ -20,7 +20,7 @@ public with sharing class UN_BrukernotifikasjonCalloutService {
         apiCtrl.addServiceAuthHeader(SERVICE_AUTH_HEADER);
         apiCtrl.addHeader('Content-Type', 'application/json');
         apiCtrl.addUrlParam('eventId', nokkel.eventId);
-        apiCtrl.setBody(JSON.serialize(doneEvent, true));
+        apiCtrl.setBody(JSON.serialize(doneEvent));
         apiCtrl.doCallout();
 
         return apiCtrl.getResponse();
