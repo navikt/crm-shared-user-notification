@@ -112,7 +112,7 @@ public with sharing class UN_BuilderValidationUtil {
         String fieldName = 'prefererteKanaler';
         String prefererteKanaler = '';
         if (field == null) {
-            return null;
+            return '';
         } else if (!eksternVarsling && !field.isEmpty()) {
             throw new FieldValidationException(
                 'Field ' +
@@ -126,7 +126,7 @@ public with sharing class UN_BuilderValidationUtil {
             prefererteKanaler.removeEnd(',');
             return prefererteKanaler;
         } else {
-            return null;
+            return '';
         }
     }
 
