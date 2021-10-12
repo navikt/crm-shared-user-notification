@@ -22,27 +22,6 @@
         </value>
     </processMetadataValues>
     <processType>Flow</processType>
-    <recordLookups>
-        <name>Get_User_Notification</name>
-        <label>Get User Notification</label>
-        <locationX>176</locationX>
-        <locationY>278</locationY>
-        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
-        <connector>
-            <targetReference>Create_Done_Event</targetReference>
-        </connector>
-        <filterLogic>and</filterLogic>
-        <filters>
-            <field>Id</field>
-            <operator>EqualTo</operator>
-            <value>
-                <elementReference>User_Notification_Id</elementReference>
-            </value>
-        </filters>
-        <getFirstRecordOnly>true</getFirstRecordOnly>
-        <object>UserNotification__c</object>
-        <storeOutputAutomatically>true</storeOutputAutomatically>
-    </recordLookups>
     <screens>
         <name>Test_Done_Event</name>
         <label>Test Done Event</label>
@@ -52,14 +31,34 @@
         <allowFinish>true</allowFinish>
         <allowPause>false</allowPause>
         <connector>
-            <targetReference>Get_User_Notification</targetReference>
+            <targetReference>Create_Done_Event</targetReference>
         </connector>
         <fields>
-            <name>User_Notification_Id</name>
+            <name>User_Notification_Related_SF_Id</name>
             <dataType>String</dataType>
-            <fieldText>User Notification Id</fieldText>
+            <fieldText>User Notification Related SF Id</fieldText>
             <fieldType>InputField</fieldType>
-            <isRequired>false</isRequired>
+            <isRequired>true</isRequired>
+        </fields>
+        <fields>
+            <name>Done_Date_Time</name>
+            <dataType>DateTime</dataType>
+            <defaultValue>
+                <elementReference>$Flow.CurrentDateTime</elementReference>
+            </defaultValue>
+            <fieldText>Done Date Time</fieldText>
+            <fieldType>InputField</fieldType>
+            <isRequired>true</isRequired>
+        </fields>
+        <fields>
+            <name>System_User</name>
+            <dataType>String</dataType>
+            <defaultValue>
+                <stringValue>teamCRM</stringValue>
+            </defaultValue>
+            <fieldText>System User</fieldText>
+            <fieldType>InputField</fieldType>
+            <isRequired>true</isRequired>
         </fields>
         <showFooter>true</showFooter>
         <showHeader>true</showHeader>
@@ -76,12 +75,24 @@
         <name>Create_Done_Event</name>
         <label>Create Done Event</label>
         <locationX>176</locationX>
-        <locationY>398</locationY>
-        <flowName>UN_DoneEvent</flowName>
+        <locationY>278</locationY>
+        <flowName>UN_UserNotificationCreateDoneEventFromRelatedRecordId</flowName>
         <inputAssignments>
-            <name>UserNotification</name>
+            <name>DoneDateTime</name>
             <value>
-                <elementReference>Get_User_Notification</elementReference>
+                <elementReference>Done_Date_Time</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <name>RelatedRecordId</name>
+            <value>
+                <elementReference>User_Notification_Related_SF_Id</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <name>systemuser</name>
+            <value>
+                <elementReference>System_User</elementReference>
             </value>
         </inputAssignments>
     </subflows>
