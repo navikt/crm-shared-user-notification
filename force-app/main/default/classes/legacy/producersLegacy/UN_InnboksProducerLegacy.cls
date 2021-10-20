@@ -28,6 +28,7 @@ public with sharing class UN_InnboksProducerLegacy {
                     .setValue(innboks)
                     .setAccountId(input.accountId)
                     .setRelatedSfRecord(input.relatedRecordSfId)
+                    .setSystemContext()
             );
         }
 

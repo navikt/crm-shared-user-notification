@@ -3,6 +3,7 @@ public virtual inherited sharing class UN_EventProducer {
     protected UN_EventType eventType;
     protected UN_NokkelLegacy nokkel;
     protected Object value;
+    protected Boolean isSystemContext = false;
 
     public UN_EventProducer(UN_EventType eventType) {
         this.userNotification = new UserNotification__c();
@@ -14,10 +15,18 @@ public virtual inherited sharing class UN_EventProducer {
 
         switch on this.eventType {
             when INNBOKS {
-                UN_InnboksMapper.innboksLegacyToUserNotification((UN_InnboksLegacy) value, this.userNotification);
+                UN_InnboksMapper.innboksLegacyToUserNotification(
+                    (UN_InnboksLegacy) value,
+                    this.userNotification,
+                    this.isSystemContext
+                );
             }
             when DONE {
-                UN_DoneMapper.doneLegacyToUserNotification((UN_DoneLegacy) value, this.userNotification);
+                UN_DoneMapper.doneLegacyToUserNotification(
+                    (UN_DoneLegacy) value,
+                    this.userNotification,
+                    this.isSystemContext
+                );
             }
         }
 
@@ -38,6 +47,11 @@ public virtual inherited sharing class UN_EventProducer {
 
     public UN_EventProducer setRelatedSfRecord(String sfId) {
         this.userNotification.CRM_RelatedSfRecord__c = sfId;
+        return this;
+    }
+
+    public UN_EventProducer setSystemContext() {
+        this.isSystemContext = true;
         return this;
     }
 
