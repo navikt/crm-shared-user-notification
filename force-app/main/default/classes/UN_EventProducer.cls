@@ -15,18 +15,10 @@ public virtual inherited sharing class UN_EventProducer {
 
         switch on this.eventType {
             when INNBOKS {
-                UN_InnboksMapper.innboksLegacyToUserNotification(
-                    (UN_InnboksLegacy) value,
-                    this.userNotification,
-                    this.isSystemContext
-                );
+                UN_InnboksMapper.innboksLegacyToUserNotification((UN_InnboksLegacy) value, this.userNotification);
             }
             when DONE {
-                UN_DoneMapper.doneLegacyToUserNotification(
-                    (UN_DoneLegacy) value,
-                    this.userNotification,
-                    this.isSystemContext
-                );
+                UN_DoneMapper.doneLegacyToUserNotification((UN_DoneLegacy) value, this.userNotification);
             }
         }
 
@@ -59,10 +51,14 @@ public virtual inherited sharing class UN_EventProducer {
         try {
             switch on this.eventType {
                 when INNBOKS {
-                    UN_UserNotifications.publishInboksEvent((UN_InnboksLegacy) value, this.nokkel);
+                    UN_UserNotifications.publishInboksEvent(
+                        (UN_InnboksLegacy) value,
+                        this.nokkel,
+                        this.isSystemContext
+                    );
                 }
                 when DONE {
-                    UN_UserNotifications.publishDoneEvent((UN_DoneLegacy) value, this.nokkel);
+                    UN_UserNotifications.publishDoneEvent((UN_DoneLegacy) value, this.nokkel, this.isSystemContext);
                 }
             }
         } catch (Exception e) {
