@@ -3,6 +3,7 @@ public virtual inherited sharing class UN_EventProducer {
     protected UN_EventType eventType;
     protected UN_NokkelLegacy nokkel;
     protected Object value;
+    protected Boolean isSystemContext = false;
 
     public UN_EventProducer(UN_EventType eventType) {
         this.userNotification = new UserNotification__c();
@@ -41,14 +42,23 @@ public virtual inherited sharing class UN_EventProducer {
         return this;
     }
 
+    public UN_EventProducer setSystemContext() {
+        this.isSystemContext = true;
+        return this;
+    }
+
     public UN_EventProducer publish() {
         try {
             switch on this.eventType {
                 when INNBOKS {
-                    UN_UserNotifications.publishInboksEvent((UN_InnboksLegacy) value, this.nokkel);
+                    UN_UserNotifications.publishInboksEvent(
+                        (UN_InnboksLegacy) value,
+                        this.nokkel,
+                        this.isSystemContext
+                    );
                 }
                 when DONE {
-                    UN_UserNotifications.publishDoneEvent((UN_DoneLegacy) value, this.nokkel);
+                    UN_UserNotifications.publishDoneEvent((UN_DoneLegacy) value, this.nokkel, this.isSystemContext);
                 }
             }
         } catch (Exception e) {

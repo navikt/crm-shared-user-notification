@@ -12,6 +12,7 @@
                     <value>Test_new_event</value>
                 </componentInstanceProperties>
                 <componentName>flowruntime:interview</componentName>
+                <identifier>flowruntime_interview1</identifier>
             </componentInstance>
         </itemInstances>
         <name>column1</name>
@@ -29,6 +30,7 @@
                     <value>Test_Done_Event</value>
                 </componentInstanceProperties>
                 <componentName>flowruntime:interview</componentName>
+                <identifier>flowruntime_interview2</identifier>
             </componentInstance>
         </itemInstances>
         <name>column2</name>

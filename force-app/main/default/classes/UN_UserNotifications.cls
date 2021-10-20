@@ -1,6 +1,18 @@
 public with sharing class UN_UserNotifications {
     public static void publishInboksEvent(UN_InnboksLegacy innboksEvent, UN_NokkelLegacy nokkel) {
-        HttpResponse resp = UN_BrukernotifikasjonCalloutService.postInnboksNotificationLegacy(innboksEvent, nokkel);
+        publishInboksEvent(innboksEvent, nokkel, false);
+    }
+
+    public static void publishInboksEvent(
+        UN_InnboksLegacy innboksEvent,
+        UN_NokkelLegacy nokkel,
+        Boolean isSystemContext
+    ) {
+        HttpResponse resp = UN_BrukernotifikasjonCalloutService.postInnboksNotificationLegacy(
+            innboksEvent,
+            nokkel,
+            isSystemContext
+        );
 
         if (resp.getStatusCode() != 200) {
             String logUuid;
@@ -13,7 +25,14 @@ public with sharing class UN_UserNotifications {
     }
 
     public static void publishDoneEvent(UN_DoneLegacy doneEvent, UN_NokkelLegacy nokkel) {
-        HttpResponse resp = UN_BrukernotifikasjonCalloutService.postDoneNotificationLegacy(doneEvent, nokkel);
+        publishDoneEvent(doneEvent, nokkel, false);
+    }
+    public static void publishDoneEvent(UN_DoneLegacy doneEvent, UN_NokkelLegacy nokkel, Boolean isSystemContext) {
+        HttpResponse resp = UN_BrukernotifikasjonCalloutService.postDoneNotificationLegacy(
+            doneEvent,
+            nokkel,
+            isSystemContext
+        );
 
         if (resp.getStatusCode() != 200) {
             String logUuid;
