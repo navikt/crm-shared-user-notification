@@ -123,7 +123,7 @@ public with sharing class UN_BuilderValidationUtil {
             for (UN_PreferertKanal preferertKanal : field) {
                 prefererteKanaler += preferertKanal.name() + ',';
             }
-            prefererteKanaler.removeEnd(',');
+            prefererteKanaler = prefererteKanaler.removeEnd(',');
             return prefererteKanaler;
         } else {
             return '';
