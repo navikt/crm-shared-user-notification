@@ -93,4 +93,26 @@ public virtual inherited sharing class UN_EventProducer {
 
         return userNotifications;
     }
+
+    public static UN_EventProducer getEventProducer(UserNotification__c un, Boolean isDoneEvent) {
+        UN_EventType eventType = isDoneEvent ? UN_EventType.DONE : UN_EventType.valueOf(un.INT_Type__c);
+        Object eventValue = null;
+
+        switch on eventType {
+            when INNBOKS {
+                eventValue = UN_InnboksMapper.userNotificationToInnboksLegacy(un);
+            }
+            when DONE {
+                if (un.CRM_Done__c) {
+                    eventValue = UN_DoneMapper.userNotificationToDoneLegacy(un);
+                }
+            }
+        }
+
+        return new UN_EventProducer(eventType)
+            .setKey(UN_NokkelMapper.userNotificationToNokkelLegacy(un))
+            .setAccountId(un.CRM_Account__c)
+            .setRelatedSfRecord(un.CRM_RelatedSfRecord__c)
+            .setValue(eventValue);
+    }
 }

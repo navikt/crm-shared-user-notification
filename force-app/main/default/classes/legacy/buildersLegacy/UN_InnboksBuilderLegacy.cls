@@ -33,6 +33,11 @@ public with sharing class UN_InnboksBuilderLegacy {
         return this;
     }
 
+    public UN_InnboksBuilderLegacy withSikkerhetsnivaa(Decimal sikkerhetsnivaa) {
+        this.withSikkerhetsnivaa(sikkerhetsnivaa.intValue());
+        return this;
+    }
+
     public UN_InnboksBuilderLegacy withSikkerhetsnivaa(Integer sikkerhetsnivaa) {
         this.sikkerhetsnivaa = sikkerhetsnivaa;
         return this;
@@ -52,16 +57,15 @@ public with sharing class UN_InnboksBuilderLegacy {
         List<UN_PreferertKanal> kanaler;
         if (String.isNotBlank(prefererteKanaler)) {
             for (String kanal : prefererteKanaler.split(',')) {
+                if (String.isBlank(kanal)) {
+                    continue;
+                }
+
                 if (kanaler == null) {
                     kanaler = new List<UN_PreferertKanal>();
                 }
-                if (UN_PreferertKanal.EPOST.name() == kanal) {
-                    kanaler.add(UN_PreferertKanal.EPOST);
-                }
 
-                if (UN_PreferertKanal.SMS.name() == kanal) {
-                    kanaler.add(UN_PreferertKanal.SMS);
-                }
+                kanaler.add(UN_PreferertKanal.valueOf(kanal));
             }
 
             this.prefererteKanaler = kanaler;
