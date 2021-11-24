@@ -9,4 +9,12 @@ public with sharing class UN_DoneMapper {
         userNotification.CRM_Done__c = true;
         return userNotification;
     }
+
+    public static UN_DoneLegacy userNotificationToDoneLegacy(UserNotification__c userNotification) {
+        return new UN_DoneBuilderLegacy()
+            .withTidspunkt(userNotification.INT_DoneEventTime__c)
+            .withGrupperingsId(userNotification.INT_GroupingId__c)
+            .withFodselsnummer(userNotification.INT_SocialSecurityNumber__c)
+            .build();
+    }
 }
