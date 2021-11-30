@@ -3,7 +3,7 @@
     <actionCalls>
         <name>Create_Done_Event</name>
         <label>Create Done Event</label>
-        <locationX>704</locationX>
+        <locationX>572</locationX>
         <locationY>638</locationY>
         <actionName>UN_DoneProducerLegacy</actionName>
         <actionType>apex</actionType>
@@ -29,15 +29,15 @@
     <decisions>
         <name>Can_create_Done_Event</name>
         <label>Can create Done Event</label>
-        <locationX>616</locationX>
+        <locationX>704</locationX>
         <locationY>518</locationY>
         <defaultConnector>
-            <targetReference>Create_Done_Event</targetReference>
+            <targetReference>User_Notification</targetReference>
         </defaultConnector>
-        <defaultConnectorLabel>Yes</defaultConnectorLabel>
+        <defaultConnectorLabel>No</defaultConnectorLabel>
         <rules>
-            <name>Can_create_Done_Event_No</name>
-            <conditionLogic>and</conditionLogic>
+            <name>Can_create_Done_Event_Yes</name>
+            <conditionLogic>or</conditionLogic>
             <conditions>
                 <leftValueReference>User_Notification.INT_Type__c</leftValueReference>
                 <operator>EqualTo</operator>
@@ -60,9 +60,9 @@
                 </rightValue>
             </conditions>
             <connector>
-                <targetReference>User_Notification</targetReference>
+                <targetReference>Create_Done_Event</targetReference>
             </connector>
-            <label>No</label>
+            <label>Yes</label>
         </rules>
     </decisions>
     <decisions>
@@ -94,7 +94,7 @@ The query filter will filter on user notifications where Done = false, System us
     <loops>
         <name>User_Notification</name>
         <label>User Notification</label>
-        <locationX>440</locationX>
+        <locationX>484</locationX>
         <locationY>398</locationY>
         <collectionReference>User_Notification_Collection</collectionReference>
         <iterationOrder>Asc</iterationOrder>
@@ -124,7 +124,7 @@ The query filter will filter on user notifications where Done = false, System us
     <recordLookups>
         <name>User_Notification_Collection</name>
         <label>User Notification Collection</label>
-        <locationX>440</locationX>
+        <locationX>484</locationX>
         <locationY>278</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
