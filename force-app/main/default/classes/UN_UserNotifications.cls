@@ -44,6 +44,24 @@ public with sharing class UN_UserNotifications {
         }
     }
 
+    public static UserNotification__c rePublishEvent(Id userNotificationId, Boolean isDoneEvent) {
+        List<UserNotification__c> notifications = rePublishEvents(new Set<Id>{ userNotificationId }, isDoneEvent);
+        return notifications == null || notifications.isEmpty() ? null : notifications[0];
+    }
+
+    public static List<UserNotification__c> rePublishEvents(Set<Id> userNotificationIdSet, Boolean isDoneEvent) {
+        List<UN_EventProducer> producerList = new List<UN_EventProducer>();
+
+        for (UserNotification__c un : UN_Util.getUserNotifications(userNotificationIdSet)) {
+            if (String.isBlank(un.CRM_NotificationError__c)) {
+                continue;
+            }
+            producerList.add(UN_EventProducer.getEventProducer(un, isDoneEvent).setError(''));
+        }
+
+        return UN_EventProducer.publish(producerList);
+    }
+
     public class UN_UserNotificationsException extends Exception {
     }
 }
