@@ -1,4 +1,4 @@
-public with sharing class UN_DoneProducerLegacy {
+public inherited sharing class UN_DoneProducerLegacy {
     @InvocableMethod(
         label='Create Done Notification'
         description='Create an done notification that appears on Nav.no. See https://navikt.github.io/dittnav-brukernotifikasjoner-intro/ for details'
