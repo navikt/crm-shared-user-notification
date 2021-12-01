@@ -92,6 +92,7 @@ public with sharing class UN_Util {
 
     private static fflib_QueryFactory getBaseUserNotificationQuery() {
         return new fflib_QueryFactory(UserNotification__c.SObjectType)
+            .selectField('Id')
             .selectField('INT_GroupingId__c')
             .selectField('INT_SocialSecurityNumber__c')
             .selectField('INT_Link__c')

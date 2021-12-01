@@ -56,7 +56,7 @@ private with sharing class UN_UserNotificationsTest {
         un.INT_PreferredChannel__c = 'SMS';
         un.INT_SecurityLevel__c = 4;
         un.INT_Description__c = 'Test test test';
-        un.INT_EventTime__c = Datetime.now().addDays(-1);
+        un.INT_EventTime__c = Datetime.now().addDays(-1).addMinutes(-2);
         un.CRM_Done__c = true;
         un.INT_DoneEventTime__c = Datetime.now().addDays(-1);
         un.CRM_NotificationError__c = 'Error Error Error';
