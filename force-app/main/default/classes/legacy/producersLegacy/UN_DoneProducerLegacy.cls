@@ -6,12 +6,15 @@ public without sharing class UN_DoneProducerLegacy {
     )
     public static List<UserNotification__c> produceDoneNotification(List<Input> inputList) {
         List<UN_EventProducer> producerList = new List<UN_EventProducer>();
-        Set<Id> userNotificationIdSet = new Set<Id>();
+        Set<Id> userNotificationsToUpdateIdSet = new Set<Id>();
+        List<UserNotification__c> response = new List<UserNotification__c>();
         for (Input input : inputList) {
-            if (userNotificationIdSet.contains(input.userNotification.Id)) {
+            response.add(input.userNotification);
+            if (userNotificationsToUpdateIdSet.contains(input.userNotification.Id)) {
                 continue;
             }
-            userNotificationIdSet.add(input.userNotification.Id);
+            userNotificationsToUpdateIdSet.add(input.userNotification.Id);
+
             UN_NokkelLegacy nokkel = new UN_NokkelBuilderLegacy()
                 .withEventId(input.userNotification.INT_EventId__c)
                 .withSystembruker(input.userNotification.INT_SystemUser__c)
@@ -30,7 +33,9 @@ public without sharing class UN_DoneProducerLegacy {
             );
         }
 
-        return UN_EventProducer.publish(producerList);
+        UN_EventProducer.publish(producerList);
+
+        return response;
     }
 
     public class Input {
