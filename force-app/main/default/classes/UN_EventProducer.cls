@@ -6,7 +6,13 @@ public virtual inherited sharing class UN_EventProducer {
     protected Boolean isSystemContext = false;
 
     public UN_EventProducer(UN_EventType eventType) {
-        this.userNotification = new UserNotification__c();
+        //this.userNotification = new UserNotification__c();
+        //this.eventType = eventType;
+        this(eventType, new UserNotification__c());
+    }
+
+    public UN_EventProducer(UN_EventType eventType, UserNotification__c userNotification) {
+        this.userNotification = userNotification;
         this.eventType = eventType;
     }
 
@@ -81,15 +87,33 @@ public virtual inherited sharing class UN_EventProducer {
         return this.userNotification;
     }
 
+    public Boolean isNewNotification() {
+        return String.isBlank(getUserNotification().Id);
+    }
+
     public static List<UserNotification__c> publish(List<UN_EventProducer> produserList) {
         List<UserNotification__c> userNotifications = new List<UserNotification__c>();
+        List<UserNotification__c> userNotificationsInsert = new List<UserNotification__c>();
+        List<UserNotification__c> userNotificationsUpdate = new List<UserNotification__c>();
 
         for (UN_EventProducer producer : produserList) {
             producer.publish();
             userNotifications.add(producer.getUserNotification());
+            if (true == producer.isNewNotification()) {
+                userNotificationsInsert.add(producer.getUserNotification());
+            } else {
+                userNotificationsUpdate.add(producer.getUserNotification());
+            }
         }
 
-        upsert userNotifications INT_Key__c;
+        //upsert userNotifications INT_Key__c;
+        if (false == userNotificationsInsert.isEmpty()) {
+            insert userNotificationsInsert;
+        }
+
+        if (false == userNotificationsUpdate.isEmpty()) {
+            update userNotificationsUpdate;
+        }
 
         return userNotifications;
     }
@@ -109,7 +133,7 @@ public virtual inherited sharing class UN_EventProducer {
             }
         }
 
-        return new UN_EventProducer(eventType)
+        return new UN_EventProducer(eventType, un)
             .setKey(UN_NokkelMapper.userNotificationToNokkelLegacy(un))
             .setAccountId(un.CRM_Account__c)
             .setRelatedSfRecord(un.CRM_RelatedSfRecord__c)

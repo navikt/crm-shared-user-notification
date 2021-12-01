@@ -18,7 +18,12 @@ public with sharing class UN_DoneProducerLegacy {
                 .withTidspunkt(input.tidspunkt)
                 .build();
 
-            producerList.add(new UN_EventProducer(UN_EventType.DONE).setKey(nokkel).setValue(done).setSystemContext());
+            producerList.add(
+                new UN_EventProducer(UN_EventType.DONE, input.userNotification)
+                    .setKey(nokkel)
+                    .setValue(done)
+                    .setSystemContext()
+            );
         }
 
         return UN_EventProducer.publish(producerList);
