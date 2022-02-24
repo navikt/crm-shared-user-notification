@@ -120,9 +120,8 @@ private with sharing class UN_RepublishUsernotificationBatchTest {
         Test.startTest();
         new UN_RepublishUsernotificationBatch()
             .setIsDoneNotifications()
-            .setFilter(
-                'CreatedDate = TODAY  AND INT_Type__c =\'INNBOKS\' AND INT_ExternalNotification__c = false AND CRM_NotificationError__c != null'
-            )
+            .setFilter('CreatedDate = TODAY  AND INT_Type__c =\'INNBOKS\' AND CRM_NotificationError__c != null')
+            .setIsDoneNotifications()
             .run();
         Test.stopTest();
 
