@@ -6,8 +6,6 @@ public virtual inherited sharing class UN_EventProducer {
     protected Boolean isSystemContext = false;
 
     public UN_EventProducer(UN_EventType eventType) {
-        //this.userNotification = new UserNotification__c();
-        //this.eventType = eventType;
         this(eventType, new UserNotification__c());
     }
 
@@ -106,7 +104,6 @@ public virtual inherited sharing class UN_EventProducer {
             }
         }
 
-        //upsert userNotifications INT_Key__c;
         if (false == userNotificationsInsert.isEmpty()) {
             insert userNotificationsInsert;
         }
