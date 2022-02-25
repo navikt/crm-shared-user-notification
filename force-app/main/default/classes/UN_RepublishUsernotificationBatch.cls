@@ -36,14 +36,14 @@ public without sharing class UN_RepublishUsernotificationBatch implements Databa
 
         for (UserNotification__c un : UN_Util.getUserNotifications(scope)) {
             if (true == isDoneNotifications && true == un.CRM_Done__c) {
-                producerList.add(UN_EventProducer.getEventProducer(un, true).setError(''));
+                producerList.add(UN_EventProducer.getEventProducer(un, true).setError('').setSystemContext());
             } else if (false == isDoneNotifications) {
                 if (true == un.CRM_Done__c) {
                     un.INT_ExternalNotification__c = false;
                     un.INT_PreferredChannel__c = '';
-                    producerList.add(UN_EventProducer.getEventProducer(un, false));
+                    producerList.add(UN_EventProducer.getEventProducer(un, false).setSystemContext());
                 } else {
-                    producerList.add(UN_EventProducer.getEventProducer(un, false).setError(''));
+                    producerList.add(UN_EventProducer.getEventProducer(un, false).setError('').setSystemContext());
                 }
             }
         }
