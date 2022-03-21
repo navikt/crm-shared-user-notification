@@ -55,7 +55,7 @@ public virtual inherited sharing class UN_EventProducer {
         try {
             switch on this.eventType {
                 when INNBOKS {
-                    UN_UserNotifications.publishInboksEvent(
+                    UN_UserNotifications.publishInnboksEvent(
                         (UN_InnboksLegacy) value,
                         this.nokkel,
                         this.isSystemContext
