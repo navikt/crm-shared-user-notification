@@ -1,4 +1,4 @@
-public inherited sharing class UN_nokkelFeilrespons {
+public inherited sharing class UN_NokkelFeilrespons {
     public String eventId;
     public String brukernotifikasjonstype;
     public String namespace;
