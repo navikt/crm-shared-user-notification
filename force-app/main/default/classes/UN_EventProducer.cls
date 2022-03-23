@@ -55,6 +55,7 @@ public virtual inherited sharing class UN_EventProducer {
         try {
             switch on this.eventType {
                 when INNBOKS {
+                    this.userNotification.CRM_SuccessfullySentNotification__c = true;
                     UN_UserNotifications.publishInboksEvent(
                         (UN_InnboksLegacy) value,
                         this.nokkel,
@@ -62,6 +63,7 @@ public virtual inherited sharing class UN_EventProducer {
                     );
                 }
                 when DONE {
+                    this.userNotification.CRM_SuccessfullySentDone__c = true;
                     UN_UserNotifications.publishDoneEvent((UN_DoneLegacy) value, this.nokkel, this.isSystemContext);
                 }
             }
@@ -73,6 +75,16 @@ public virtual inherited sharing class UN_EventProducer {
 
     public UN_EventProducer setError(String error) {
         this.userNotification.CRM_NotificationError__c = error;
+
+        switch on this.eventType {
+            when INNBOKS {
+                this.userNotification.CRM_SuccessfullySentNotification__c = false;
+            }
+            when DONE {
+                this.userNotification.CRM_SuccessfullySentDone__c = false;
+            }
+        }
+
         return this;
     }
 
