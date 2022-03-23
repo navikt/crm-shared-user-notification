@@ -36,7 +36,7 @@ private with sharing class UN_UserNotificationsTest {
         ApiMock.setTestMock('POST_INNBOKS_EVENT', 200, 'OK');
 
         Test.startTest();
-        UN_UserNotifications.rePublishEvent(un.Id, false);
+        UN_UserNotifications.rePublishEventLegacy(un.Id, false);
         Test.stopTest();
 
         un = [SELECT Id, CRM_NotificationError__c FROM UserNotification__c WHERE Id = :un.Id LIMIT 1];
@@ -71,7 +71,7 @@ private with sharing class UN_UserNotificationsTest {
         ApiMock.setTestMock('POST_INNBOKS_EVENT', 200, 'OK');
 
         Test.startTest();
-        UN_UserNotifications.rePublishEvent(un.Id, true);
+        UN_UserNotifications.rePublishEventLegacy(un.Id, true);
         Test.stopTest();
 
         un = [SELECT Id, CRM_NotificationError__c FROM UserNotification__c WHERE Id = :un.Id LIMIT 1];

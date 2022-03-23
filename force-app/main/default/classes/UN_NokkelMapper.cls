@@ -26,6 +26,7 @@ public with sharing class UN_NokkelMapper {
         userNotification.INT_SocialSecurityNumber__c = nokkel.fodselsnummer;
         userNotification.INT_AppName__c = nokkel.appnavn;
         userNotification.INT_Namespace__c = nokkel.namespace;
+        userNotification.INT_Key__c = nokkel.appnavn + nokkel.namespace + nokkel.eventId;
         return userNotification;
     }
 

@@ -37,6 +37,7 @@ private with sharing class UN_RepublishUsernotificationBatchTest {
 
         Test.startTest();
         new UN_RepublishUsernotificationBatch()
+            .setIsLegacy()
             .setFilter(
                 'CreatedDate = TODAY  AND INT_Type__c =\'INNBOKS\' AND INT_ExternalNotification__c = true AND CRM_NotificationError__c != null'
             )
@@ -77,6 +78,7 @@ private with sharing class UN_RepublishUsernotificationBatchTest {
             .setFilter(
                 'CreatedDate = TODAY  AND INT_Type__c =\'INNBOKS\' AND INT_ExternalNotification__c = true AND CRM_NotificationError__c != null'
             )
+            .setIsLegacy()
             .setBatchSize(2)
             .run();
         Test.stopTest();
@@ -119,6 +121,7 @@ private with sharing class UN_RepublishUsernotificationBatchTest {
 
         Test.startTest();
         new UN_RepublishUsernotificationBatch()
+            .setIsLegacy()
             .setIsDoneNotifications()
             .setFilter('CreatedDate = TODAY  AND INT_Type__c =\'INNBOKS\' AND CRM_NotificationError__c != null')
             .setIsDoneNotifications()
