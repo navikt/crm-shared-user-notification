@@ -1,7 +1,6 @@
 {
     "orgName": "crm-shared-user-notification",
     "edition": "Enterprise",
-    "release": "Current",
     "adminEmail": "fakeemail@nav.no.scratchorg",
     "features": [
         "Sites",
@@ -11,6 +10,7 @@
         "CustomerCommunityPlus",
         "PersonAccounts",
         "ProcessBuilder",
+        "Knowledge",
         "API",
         "ServiceCloud",
         "LiveAgent",
@@ -29,6 +29,10 @@
         "accountSettings": {
             "enableRelateContactToMultipleAccounts": true
         },
+        "knowledgeSettings": {
+            "enableKnowledge": true,
+            "enableLightningKnowledge": true
+        },
         "languageSettings": {
             "enableTranslationWorkbench": true
         },
@@ -38,14 +42,8 @@
         "liveAgentSettings": {
             "enableLiveAgent": true
         },
-        "securitySettings": {
-            "sessionSettings": {
-                "forceRelogin": false
-            },
-            "enableAdminLoginAsAnyUser": true
-        },
-        "userManagementSettings": {
-            "enableNewProfileUI": true
+        "omniChannelSettings": {
+            "enableOmniChannel": true
         },
         "fieldServiceSettings": {
             "fieldServiceOrgPref": true,

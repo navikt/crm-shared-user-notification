@@ -10,11 +10,24 @@ public with sharing class UN_DoneMapper {
         return userNotification;
     }
 
-    public static UN_DoneLegacy userNotificationToDoneLegacy(UserNotification__c userNotification) {
-        return new UN_DoneBuilderLegacy()
-            .withTidspunkt(userNotification.INT_DoneEventTime__c)
-            .withGrupperingsId(userNotification.INT_GroupingId__c)
-            .withFodselsnummer(userNotification.INT_SocialSecurityNumber__c)
-            .build();
+    // public static UN_DoneLegacy userNotificationToDoneLegacy(UserNotification__c userNotification) {
+    //     return new UN_DoneBuilderLegacy()
+    //         .withTidspunkt(userNotification.INT_DoneEventTime__c)
+    //         .withGrupperingsId(userNotification.INT_GroupingId__c)
+    //         .withFodselsnummer(userNotification.INT_SocialSecurityNumber__c)
+    //         .build();
+    // }
+
+    public static UserNotification__c doneInputToUserNotification(
+        UN_DoneInput done,
+        UserNotification__c userNotification
+    ) {
+        userNotification.INT_DoneEventTime__c = DateTime.newInstance(done.tidspunkt);
+        userNotification.CRM_Done__c = true;
+        return userNotification;
+    }
+
+    public static UN_DoneInput userNotificationToDoneInput(UserNotification__c userNotification) {
+        return new UN_DoneInputBuilder().withTidspunkt(userNotification.INT_DoneEventTime__c).build();
     }
 }

@@ -84,7 +84,7 @@ public with sharing class UN_InnboksBuilderLegacy {
         innboks.sikkerhetsnivaa = UN_BuilderValidationUtil.validateSikkerhetsnivaa(this.sikkerhetsnivaa);
         innboks.tekst = UN_BuilderValidationUtil.validateNonNullFieldMaxLength( this.tekst, 'tekst', UN_BuilderValidationUtil.MAX_LENGTH_TEXT_INNBOKS );
         innboks.eksternVarsling = this.eksternVarsling;
-        innboks.prefererteKanaler = UN_BuilderValidationUtil.validatePrefererteKanaler(this.eksternVarsling, this.prefererteKanaler);
+        innboks.prefererteKanaler = UN_BuilderValidationUtil.validatePrefererteKanalerLegacy(this.eksternVarsling, this.prefererteKanaler);
 
         return innboks;
     }

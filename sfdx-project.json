@@ -5,18 +5,18 @@
             "default": true,
             "package": "crm-shared-user-notification",
             "versionName": "ver 0.1",
-            "versionNumber": "0.3.0.NEXT",
+            "versionNumber": "0.6.0.NEXT",
             "dependencies": [
                 {
                     "package": "crm-platform-base",
-                    "versionNumber": "0.129.0.LATEST"
+                    "versionNumber": "0.150.0.LATEST"
                 }
             ]
         }
     ],
     "namespace": "",
     "sfdcLoginUrl": "https://login.salesforce.com",
-    "sourceApiVersion": "53.0",
+    "sourceApiVersion": "54.0",
     "packageAliases": {
         "crm-shared-user-notification": "0Ho2o000000fxY4CAI",
         "crm-platform-base": "0Ho2o0000008ORmCAM"

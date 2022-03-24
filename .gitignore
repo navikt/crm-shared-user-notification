@@ -2,6 +2,7 @@
 # profiles
 # ----------------------------------------------------------------------------------------
 **/profiles/*
+**/fieldRestrictionRules/**
 
 # lwc config
 **/jsconfig.json
