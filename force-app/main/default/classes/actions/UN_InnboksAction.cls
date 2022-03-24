@@ -34,6 +34,7 @@ public inherited sharing class UN_InnboksAction {
 
                 UserNotification__c un = new UserNotification__c();
                 un.CRM_Account__c = input.accountId;
+                un.CRM_RelatedSfRecord__c = input.relatedRecordSfId;
                 UN_InnboksMapper.innboksInputToUserNotification(innboks, un);
                 UN_NokkelMapper.nokkelInputToUserNotification(nokkel, un);
                 resp.userNotification = un;

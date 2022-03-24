@@ -18,14 +18,14 @@ public with sharing class UN_DoneAction {
                 );
                 userNotifications.add(input.userNotification);
 
-                resp.relatedRecordSfId = input.relatedRecordSfId;
+                resp.relatedRecordSfId = input.userNotification.CRM_RelatedSfRecord__c;
                 resp.userNotification = input.userNotification;
                 responseMap.put(nokkel.eventId, resp);
             } catch (Exception e) {
                 resp.errorMessage = e.getMessage();
-                resp.relatedRecordSfId = input.relatedRecordSfId;
+                resp.relatedRecordSfId = input.userNotification.CRM_RelatedSfRecord__c;
                 resp.success = false;
-                responseMap.put(input.relatedRecordSfId, resp);
+                responseMap.put(resp.relatedRecordSfId, resp);
             }
         }
 
@@ -47,9 +47,9 @@ public with sharing class UN_DoneAction {
     public class Input {
         @InvocableVariable(label='Tidspunkt' required=true)
         public Datetime tidspunkt;
-        @InvocableVariable(label='Related SF Record Id' required=false)
-        public String relatedRecordSfId;
-        @InvocableVariable(label='User Notification Id' required=false)
+        // @InvocableVariable(label='Related SF Record Id' required=false)
+        // public String relatedRecordSfId;
+        @InvocableVariable(label='User Notification' required=false)
         public UserNotification__c userNotification;
     }
 

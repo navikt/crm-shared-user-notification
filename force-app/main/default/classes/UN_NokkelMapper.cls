@@ -10,12 +10,12 @@ public with sharing class UN_NokkelMapper {
         return userNotification;
     }
 
-    public static UN_NokkelLegacy userNotificationToNokkelLegacy(UserNotification__c userNotification) {
-        return new UN_NokkelBuilderLegacy()
-            .withEventId(userNotification.INT_EventId__c)
-            .withSystembruker(userNotification.INT_SystemUser__c)
-            .build();
-    }
+    // public static UN_NokkelLegacy userNotificationToNokkelLegacy(UserNotification__c userNotification) {
+    //     return new UN_NokkelBuilderLegacy()
+    //         .withEventId(userNotification.INT_EventId__c)
+    //         .withSystembruker(userNotification.INT_SystemUser__c)
+    //         .build();
+    // }
 
     public static UserNotification__c nokkelInputToUserNotification(
         UN_NokkelInput nokkel,

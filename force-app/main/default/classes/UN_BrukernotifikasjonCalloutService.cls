@@ -32,41 +32,41 @@ public with sharing class UN_BrukernotifikasjonCalloutService {
         return apiCtrl.getResponse();
     }
 
-    public static HttpResponse postInnboksNotificationLegacy(
-        UN_InnboksLegacy innboksEvent,
-        UN_NokkelLegacy nokkel,
-        Boolean isSystemContext
-    ) {
-        ApiController apiCtrl = new ApiController();
-        if (isSystemContext == true) {
-            apiCtrl.setSystemContext();
-        }
-        apiCtrl.initRequest(API_CONFIG_NAME_LEGACY, 'POST_INNBOKS_EVENT');
-        apiCtrl.addServiceAuthHeader(SERVICE_AUTH_HEADER_LEGACY);
-        apiCtrl.addHeader('Content-Type', 'application/json');
-        apiCtrl.addUrlParam('eventId', nokkel.eventId);
-        apiCtrl.setBody(JSON.serialize(innboksEvent));
-        apiCtrl.doCallout();
+    // public static HttpResponse postInnboksNotificationLegacy(
+    //     UN_InnboksLegacy innboksEvent,
+    //     UN_NokkelLegacy nokkel,
+    //     Boolean isSystemContext
+    // ) {
+    //     ApiController apiCtrl = new ApiController();
+    //     if (isSystemContext == true) {
+    //         apiCtrl.setSystemContext();
+    //     }
+    //     apiCtrl.initRequest(API_CONFIG_NAME_LEGACY, 'POST_INNBOKS_EVENT');
+    //     apiCtrl.addServiceAuthHeader(SERVICE_AUTH_HEADER_LEGACY);
+    //     apiCtrl.addHeader('Content-Type', 'application/json');
+    //     apiCtrl.addUrlParam('eventId', nokkel.eventId);
+    //     apiCtrl.setBody(JSON.serialize(innboksEvent));
+    //     apiCtrl.doCallout();
 
-        return apiCtrl.getResponse();
-    }
+    //     return apiCtrl.getResponse();
+    // }
 
-    public static HttpResponse postDoneNotificationLegacy(
-        UN_DoneLegacy doneEvent,
-        UN_NokkelLegacy nokkel,
-        Boolean isSystemContext
-    ) {
-        ApiController apiCtrl = new ApiController();
-        if (isSystemContext == true) {
-            apiCtrl.setSystemContext();
-        }
-        apiCtrl.initRequest(API_CONFIG_NAME_LEGACY, 'POST_DONE_EVENT');
-        apiCtrl.addServiceAuthHeader(SERVICE_AUTH_HEADER_LEGACY);
-        apiCtrl.addHeader('Content-Type', 'application/json');
-        apiCtrl.addUrlParam('eventId', nokkel.eventId);
-        apiCtrl.setBody(JSON.serialize(doneEvent));
-        apiCtrl.doCallout();
+    // public static HttpResponse postDoneNotificationLegacy(
+    //     UN_DoneLegacy doneEvent,
+    //     UN_NokkelLegacy nokkel,
+    //     Boolean isSystemContext
+    // ) {
+    //     ApiController apiCtrl = new ApiController();
+    //     if (isSystemContext == true) {
+    //         apiCtrl.setSystemContext();
+    //     }
+    //     apiCtrl.initRequest(API_CONFIG_NAME_LEGACY, 'POST_DONE_EVENT');
+    //     apiCtrl.addServiceAuthHeader(SERVICE_AUTH_HEADER_LEGACY);
+    //     apiCtrl.addHeader('Content-Type', 'application/json');
+    //     apiCtrl.addUrlParam('eventId', nokkel.eventId);
+    //     apiCtrl.setBody(JSON.serialize(doneEvent));
+    //     apiCtrl.doCallout();
 
-        return apiCtrl.getResponse();
-    }
+    //     return apiCtrl.getResponse();
+    // }
 }

@@ -40,7 +40,6 @@ public with sharing class UN_InnboksActionTest {
         inputList[0].tekst = 'tekst';
         inputList[0].tidspunkt = Datetime.now();
 
-        List<UserNotification__c> notifications;
         List<UN_InnboksAction.Response> insertResponses;
 
         Test.startTest();
@@ -54,8 +53,14 @@ public with sharing class UN_InnboksActionTest {
             'Expected sucess, but got error. Error message: ' + insertResponses[0].errorMessage
         );
 
-        notifications = UN_Util.getUserNotifications(new Set<Id>{ insertResponses[0].userNotification.Id });
-
+        List<UserNotification__c> notifications = UN_Util.getUserNotifications(
+            new Set<Id>{ insertResponses[0].userNotification.Id }
+        );
         System.assertEquals(1, notifications.size(), 'Expected a usernotification');
+        System.assertEquals(
+            true,
+            String.isBlank(notifications[0].CRM_NotificationError__c),
+            'Expected blank, not ' + notifications[0].CRM_NotificationError__c
+        );
     }
 }
