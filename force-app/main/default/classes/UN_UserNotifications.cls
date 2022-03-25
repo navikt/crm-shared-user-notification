@@ -36,6 +36,9 @@ public inherited sharing class UN_UserNotifications {
                     un.CRM_NotificationError__c = e.getMessage();
                 }
             }
+            LoggerUtility log = new LoggerUtility();
+            log.exception(e);
+            log.publish();
         }
 
         upsert innboksNotifications;
@@ -89,6 +92,10 @@ public inherited sharing class UN_UserNotifications {
                     done.CRM_NotificationError__c = e.getMessage();
                 }
             }
+
+            LoggerUtility log = new LoggerUtility();
+            log.exception(e);
+            log.publish();
         }
 
         update userNotifications;
