@@ -8,7 +8,7 @@
     </values>
     <values>
         <field>Base_Endpoint__c</field>
-        <value xsi:type="xsd:string">https://sf-brukernotifikasjon-v2.nav.no</value>
+        <value xsi:type="xsd:string">https://sf-brukernotifikasjon-v2.ekstern.dev.nav.no</value>
     </values>
     <values>
         <field>Named_Credential_Test__c</field>
