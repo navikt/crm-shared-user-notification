@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomMetadata xmlns="http://soap.sforce.com/2006/04/metadata" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+    <label>TMS_SERVICE_PATH</label>
+    <protected>false</protected>
+    <values>
+        <field>API_Base_Configuration__c</field>
+        <value xsi:type="xsd:string">TMS_EVENT_API</value>
+    </values>
+    <values>
+        <field>HTTP_Method__c</field>
+        <value xsi:type="xsd:string">GET</value>
+    </values>
+    <values>
+        <field>Has_Path_Parameters__c</field>
+        <value xsi:type="xsd:boolean">true</value>
+    </values>
+    <values>
+        <field>Mock_Response__c</field>
+        <value xsi:type="xsd:string">{
+&quot;200&quot;: {
+&quot;headers&quot;: null,
+&quot;body&quot;: [
+	{
+        &quot;produsent&quot;: &quot;sf-brukernotifikasjon&quot;,
+        &quot;eventTidspunkt&quot;: &quot;2021-10-26T10:47:46+02:00[Europe/Oslo]&quot;,
+        &quot;fodselsnummer&quot;: &quot;10108000398&quot;,
+        &quot;eventId&quot;: &quot;6e989752-c29b-45b5-a5a5-180f3fb46452&quot;,
+        &quot;grupperingsId&quot;: &quot;a1Wcad3ac13fa488ed&quot;,
+        &quot;tekst&quot;: &quot;Dummy notifikasjon 1&quot;,
+        &quot;link&quot;: &quot;https://www.dev.nav.no/person/dittnav/&quot;,
+        &quot;sikkerhetsnivaa&quot;: 4,
+        &quot;sistOppdatert&quot;: &quot;2022-01-24T12:28:47.575496+01:00[Europe/Oslo]&quot;,
+        &quot;aktiv&quot;: false
+    },
+    {
+        &quot;produsent&quot;: &quot;sf-brukernotifikasjon&quot;,
+        &quot;eventTidspunkt&quot;: &quot;2021-11-17T14:56:05+01:00[Europe/Oslo]&quot;,
+        &quot;fodselsnummer&quot;: &quot;10108000398&quot;,
+        &quot;eventId&quot;: &quot;dec2ddbe-722d-46e6-afaf-4e47c1655df3&quot;,
+        &quot;grupperingsId&quot;: &quot;a1Ke65b88d15595c1c&quot;,
+        &quot;tekst&quot;: &quot;Dummy notifikasjon 2&quot;,
+        &quot;link&quot;: &quot;https://www.dev.nav.no/person/dittnav/&quot;,
+        &quot;sikkerhetsnivaa&quot;: 4,
+        &quot;sistOppdatert&quot;: &quot;2022-01-24T12:28:47.575539+01:00[Europe/Oslo]&quot;,
+        &quot;aktiv&quot;: false
+    },
+    {
+        &quot;produsent&quot;: &quot;tms-event-test-producer&quot;,
+        &quot;eventTidspunkt&quot;: &quot;2022-03-07T15:14:33.332+01:00[Europe/Oslo]&quot;,
+        &quot;fodselsnummer&quot;: &quot;10108000398&quot;,
+        &quot;eventId&quot;: &quot;b670d4fc-9a85-4fc9-9cab-bbe1e8baf4b5&quot;,
+        &quot;grupperingsId&quot;: &quot;1234&quot;,
+        &quot;tekst&quot;: &quot;Dummy notifikasjon 3&quot;,
+        &quot;link&quot;: &quot;https://www.dev.nav.no/person/dittnav/&quot;,
+        &quot;sikkerhetsnivaa&quot;: 4,
+        &quot;sistOppdatert&quot;: &quot;2022-03-07T15:14:33.369992+01:00[Europe/Oslo]&quot;,
+        &quot;aktiv&quot;: true
+    }
+]
+},
+&quot;401&quot;: {
+&quot;headers&quot;: null,
+&quot;body&quot;: null
+},
+&quot;404&quot;: {&quot;headers&quot;: null,
+&quot;body&quot;: null
+},
+&quot;500&quot;: {
+&quot;headers&quot;: null,
+&quot;body&quot;: null
+}
+}</value>
+    </values>
+    <values>
+        <field>Service_Path__c</field>
+        <value xsi:type="xsd:string">/{eventType}/{filter}</value>
+    </values>
+</CustomMetadata>
