@@ -17,7 +17,7 @@ public inherited sharing class UN_TmsEventApiService {
             }
         );
         apiCtrl.setSystemContext();
-        apiCtrl.addServiceAuthHeader('DittNavEventHandler');
+        apiCtrl.addServiceAuthHeader('TmsEventApi');
         apiCtrl.addHeader('fodselsnummer', ident);
         apiCtrl.doCallout();
         return apiCtrl.getResponse();
