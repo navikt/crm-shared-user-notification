@@ -11,6 +11,8 @@ public without sharing class UN_DoneProducerLegacy {
             UN_DoneAction.Input input = new UN_DoneAction.Input();
             input.tidspunkt = legacyInput.tidspunkt;
             input.userNotification = legacyInput.userNotification;
+            input.userNotification.INT_Namespace__c = 'teamnks';
+            input.userNotification.INT_AppName__c = 'sf-brukernotifikasjon';
             inputList.add(input);
         }
 
