@@ -12,7 +12,9 @@ public virtual class UN_TmsEventApiEvent {
     @AuraEnabled
     public DateTime eventTidspunktDT {
         get {
-            return String.isBlank(eventTidspunkt) ? null : DateTime.valueOf(eventTidspunkt.substringBefore('['));
+            return String.isBlank(eventTidspunkt)
+                ? null
+                : DateTime.valueOf(eventTidspunkt.substringBefore('[').replace('T', ' '));
         }
     }
     @AuraEnabled
@@ -24,7 +26,9 @@ public virtual class UN_TmsEventApiEvent {
     @AuraEnabled
     public DateTime sistOppdatertDT {
         get {
-            return String.isBlank(sistOppdatert) ? null : DateTime.valueOf(sistOppdatert.substringBefore('['));
+            return String.isBlank(sistOppdatert)
+                ? null
+                : DateTime.valueOf(sistOppdatert.substringBefore('[').replace('T', ' '));
         }
     }
     @AuraEnabled
