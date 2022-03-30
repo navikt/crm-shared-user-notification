@@ -8,7 +8,7 @@
     </values>
     <values>
         <field>Base_Endpoint__c</field>
-        <value xsi:type="xsd:string">https://tms-event-api.ekstern.dev.nav.no/tms-event-api</value>
+        <value xsi:type="xsd:string">https://person.nav.no/tms-event-api</value>
     </values>
     <values>
         <field>Named_Credential_Test__c</field>

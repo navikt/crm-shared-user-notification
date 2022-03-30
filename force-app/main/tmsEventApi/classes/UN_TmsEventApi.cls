@@ -25,33 +25,34 @@ public inherited sharing class UN_TmsEventApi {
     ) {
         HttpResponse response = UN_TmsEventApiService.fetchEvents(ident, eventType, filter);
 
+        List<UN_TmsEventApiEvent> eventList = new List<UN_TmsEventApiEvent>();
         if (response.getStatusCode() == 200) {
-            switch on eventType {
-                when INNBOKS {
-                    return (List<UN_TmsEventApiInnboks>) JSON.deserialize(
-                        response.getBody(),
-                        List<UN_TmsEventApiInnboks>.class
-                    );
-                }
-                when BESKJED {
-                    return (List<UN_TmsEventApiBeskjed>) JSON.deserialize(
-                        response.getBody(),
-                        List<UN_TmsEventApiBeskjed>.class
-                    );
-                }
-                when OPPGAVE {
-                    return (List<UN_TmsEventApiOppgave>) JSON.deserialize(
-                        response.getBody(),
-                        List<UN_TmsEventApiOppgave>.class
-                    );
-                }
-                when else {
+            for (
+                UN_TmsEventApiEvent tmsEvent : (List<UN_TmsEventApiEvent>) JSON.deserialize(
+                    response.getBody(),
+                    List<UN_TmsEventApiEvent>.class
+                )
+            ) {
+                switch on eventType {
+                    when INNBOKS {
+                        tmsEvent.type = 'INNBOKS';
+                        tmsEvent.typeLabel = 'Innboks';
+                        eventList.add(tmsEvent);
+                    }
+                    when BESKJED {
+                        tmsEvent.type = 'BESKJED';
+                        tmsEvent.typeLabel = 'Beskjed';
+                        eventList.add(tmsEvent);
+                    }
+                    when OPPGAVE {
+                        tmsEvent.type = 'OPPGAVE';
+                        tmsEvent.typeLabel = 'Oppgave';
+                        eventList.add(tmsEvent);
+                    }
                 }
             }
-
-            return (List<UN_TmsEventApiEvent>) JSON.deserialize(response.getBody(), List<UN_TmsEventApiEvent>.class);
+            return eventList;
         }
-
         return null;
     }
 }
