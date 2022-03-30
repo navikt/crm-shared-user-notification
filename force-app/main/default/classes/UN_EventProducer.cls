@@ -51,101 +51,34 @@ public virtual inherited sharing class UN_EventProducer {
         return this;
     }
 
-    public UN_EventProducer publish() {
-        try {
-            switch on this.eventType {
-                when INNBOKS {
-                    this.userNotification.CRM_SuccessfullySentNotification__c = true;
-                    UN_UserNotifications.publishInboksEvent(
-                        (UN_InnboksLegacy) value,
-                        this.nokkel,
-                        this.isSystemContext
-                    );
-                }
-                when DONE {
-                    this.userNotification.CRM_SuccessfullySentDone__c = true;
-                    UN_UserNotifications.publishDoneEvent((UN_DoneLegacy) value, this.nokkel, this.isSystemContext);
-                }
-            }
-        } catch (Exception e) {
-            return this.setError(e.getMessage());
-        }
-        return this;
-    }
-
-    public UN_EventProducer setError(String error) {
-        this.userNotification.CRM_NotificationError__c = error;
-
-        switch on this.eventType {
-            when INNBOKS {
-                this.userNotification.CRM_SuccessfullySentNotification__c = false;
-            }
-            when DONE {
-                this.userNotification.CRM_SuccessfullySentDone__c = false;
-            }
-        }
-
-        return this;
-    }
-
-    public UN_EventProducer store() {
-        upsert this.userNotification INT_Key__c;
-        return this;
-    }
-
     public UserNotification__c getUserNotification() {
         return this.userNotification;
     }
 
-    public Boolean isNewNotification() {
-        return String.isBlank(getUserNotification().Id);
-    }
-
     public static List<UserNotification__c> publish(List<UN_EventProducer> produserList) {
         List<UserNotification__c> userNotifications = new List<UserNotification__c>();
-        List<UserNotification__c> userNotificationsInsert = new List<UserNotification__c>();
-        List<UserNotification__c> userNotificationsUpdate = new List<UserNotification__c>();
+        List<UserNotification__c> doneUserNotifications = new List<UserNotification__c>();
+        List<UserNotification__c> innboksUserNotifications = new List<UserNotification__c>();
 
         for (UN_EventProducer producer : produserList) {
-            producer.publish();
-            userNotifications.add(producer.getUserNotification());
-            if (true == producer.isNewNotification()) {
-                userNotificationsInsert.add(producer.getUserNotification());
-            } else {
-                userNotificationsUpdate.add(producer.getUserNotification());
-            }
-        }
-
-        if (false == userNotificationsInsert.isEmpty()) {
-            insert userNotificationsInsert;
-        }
-
-        if (false == userNotificationsUpdate.isEmpty()) {
-            update userNotificationsUpdate;
-        }
-
-        return userNotifications;
-    }
-
-    public static UN_EventProducer getEventProducer(UserNotification__c un, Boolean isDoneEvent) {
-        UN_EventType eventType = isDoneEvent ? UN_EventType.DONE : UN_EventType.valueOf(un.INT_Type__c);
-        Object eventValue = null;
-
-        switch on eventType {
-            when INNBOKS {
-                eventValue = UN_InnboksMapper.userNotificationToInnboksLegacy(un);
-            }
-            when DONE {
-                if (un.CRM_Done__c) {
-                    eventValue = UN_DoneMapper.userNotificationToDoneLegacy(un);
+            switch on producer.eventType {
+                when INNBOKS {
+                    innboksUserNotifications.add(producer.getUserNotification());
+                }
+                when DONE {
+                    doneUserNotifications.add(producer.getUserNotification());
                 }
             }
         }
 
-        return new UN_EventProducer(eventType, un)
-            .setKey(UN_NokkelMapper.userNotificationToNokkelLegacy(un))
-            .setAccountId(un.CRM_Account__c)
-            .setRelatedSfRecord(un.CRM_RelatedSfRecord__c)
-            .setValue(eventValue);
+        if (false == innboksUserNotifications.isEmpty()) {
+            userNotifications.addAll(UN_UserNotifications.publishInboksEvent(innboksUserNotifications, true));
+        }
+
+        if (false == doneUserNotifications.isEmpty()) {
+            userNotifications.addAll(UN_UserNotifications.publishDoneEvent(innboksUserNotifications, true));
+        }
+
+        return userNotifications;
     }
 }

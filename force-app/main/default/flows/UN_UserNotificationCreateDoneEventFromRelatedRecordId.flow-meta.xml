@@ -1,30 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Flow xmlns="http://soap.sforce.com/2006/04/metadata">
-    <actionCalls>
-        <name>Create_Done_Event</name>
-        <label>Create Done Event</label>
-        <locationX>572</locationX>
-        <locationY>638</locationY>
-        <actionName>UN_DoneProducerLegacy</actionName>
-        <actionType>apex</actionType>
-        <connector>
-            <targetReference>User_Notification</targetReference>
-        </connector>
-        <flowTransactionModel>CurrentTransaction</flowTransactionModel>
-        <inputParameters>
-            <name>tidspunkt</name>
-            <value>
-                <elementReference>DoneDateTime</elementReference>
-            </value>
-        </inputParameters>
-        <inputParameters>
-            <name>userNotification</name>
-            <value>
-                <elementReference>User_Notification</elementReference>
-            </value>
-        </inputParameters>
-        <storeOutputAutomatically>true</storeOutputAutomatically>
-    </actionCalls>
     <apiVersion>53.0</apiVersion>
     <decisions>
         <name>Can_create_Done_Event</name>
@@ -60,7 +35,7 @@
                 </rightValue>
             </conditions>
             <connector>
-                <targetReference>Create_Done_Event</targetReference>
+                <targetReference>Update_user_notification</targetReference>
             </connector>
             <label>Yes</label>
         </rules>
@@ -130,7 +105,7 @@ The query filter will filter on user notifications where Done = false, System us
         <connector>
             <targetReference>User_Notification</targetReference>
         </connector>
-        <filterLogic>1 AND 2 AND (3 OR 4 OR 5) AND 6</filterLogic>
+        <filterLogic>1 AND 2 AND (3 OR 4 OR 5) AND (6 OR (7 AND 8))</filterLogic>
         <filters>
             <field>CRM_RelatedSfRecord__c</field>
             <operator>EqualTo</operator>
@@ -173,10 +148,48 @@ The query filter will filter on user notifications where Done = false, System us
                 <elementReference>systemuser</elementReference>
             </value>
         </filters>
+        <filters>
+            <field>INT_AppName__c</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>appname</elementReference>
+            </value>
+        </filters>
+        <filters>
+            <field>INT_Namespace__c</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>namespace</elementReference>
+            </value>
+        </filters>
         <getFirstRecordOnly>false</getFirstRecordOnly>
         <object>UserNotification__c</object>
         <storeOutputAutomatically>true</storeOutputAutomatically>
     </recordLookups>
+    <recordUpdates>
+        <name>Update_user_notification</name>
+        <label>Update user notification</label>
+        <locationX>572</locationX>
+        <locationY>638</locationY>
+        <connector>
+            <targetReference>User_Notification</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Id</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>User_Notification.Id</elementReference>
+            </value>
+        </filters>
+        <inputAssignments>
+            <field>INT_DoneEventTime__c</field>
+            <value>
+                <elementReference>DoneDateTime</elementReference>
+            </value>
+        </inputAssignments>
+        <object>UserNotification__c</object>
+    </recordUpdates>
     <runInMode>SystemModeWithoutSharing</runInMode>
     <start>
         <locationX>50</locationX>
@@ -185,7 +198,14 @@ The query filter will filter on user notifications where Done = false, System us
             <targetReference>Has_Related_Record_Id</targetReference>
         </connector>
     </start>
-    <status>Active</status>
+    <status>Draft</status>
+    <variables>
+        <name>appname</name>
+        <dataType>String</dataType>
+        <isCollection>false</isCollection>
+        <isInput>true</isInput>
+        <isOutput>false</isOutput>
+    </variables>
     <variables>
         <name>DoneDateTime</name>
         <dataType>DateTime</dataType>
@@ -195,6 +215,13 @@ The query filter will filter on user notifications where Done = false, System us
         <value>
             <elementReference>$Flow.CurrentDateTime</elementReference>
         </value>
+    </variables>
+    <variables>
+        <name>namespace</name>
+        <dataType>String</dataType>
+        <isCollection>false</isCollection>
+        <isInput>true</isInput>
+        <isOutput>false</isOutput>
     </variables>
     <variables>
         <name>RelatedRecordId</name>

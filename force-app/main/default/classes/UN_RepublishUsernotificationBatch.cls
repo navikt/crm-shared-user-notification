@@ -29,27 +29,12 @@ public without sharing class UN_RepublishUsernotificationBatch implements Databa
     }
 
     public void execute(Database.BatchableContext BC, List<UserNotification__c> scope) {
-        List<UN_EventProducer> producerList = new List<UN_EventProducer>();
-        fflib_QueryFactory qf = new fflib_QueryFactory(UserNotification__c.SObjectType)
-            .selectFields(new List<Schema.SObjectField>{ UserNotification__c.Id, UserNotification__c.CRM_Done__c })
-            .setCondition('Id IN :scope');
+        List<UserNotification__c> notificationsToUpdate = UN_Util.getUserNotifications(scope);
 
-        for (UserNotification__c un : UN_Util.getUserNotifications(scope)) {
-            if (true == isDoneNotifications && true == un.CRM_Done__c) {
-                producerList.add(UN_EventProducer.getEventProducer(un, true).setError('').setSystemContext());
-            } else if (false == isDoneNotifications) {
-                if (true == un.CRM_Done__c) {
-                    un.INT_ExternalNotification__c = false;
-                    un.INT_PreferredChannel__c = '';
-                    producerList.add(UN_EventProducer.getEventProducer(un, false).setSystemContext());
-                } else {
-                    producerList.add(UN_EventProducer.getEventProducer(un, false).setError('').setSystemContext());
-                }
-            }
-        }
-
-        if (producerList.size() > 0) {
-            UN_EventProducer.publish(producerList);
+        if (isDoneNotifications == true) {
+            UN_UserNotifications.publishDoneEvent(notificationsToUpdate, true);
+        } else {
+            UN_UserNotifications.publishInboksEvent(notificationsToUpdate, true);
         }
     }
 

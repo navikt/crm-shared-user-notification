@@ -2,6 +2,9 @@ public with sharing class UN_BuilderValidationUtil {
     public static final Integer MAX_LENGTH_TEXT_BESKJED = 300;
     public static final Integer MAX_LENGTH_TEXT_OPPGAVE = 500;
     public static final Integer MAX_LENGTH_TEXT_INNBOKS = 500;
+    public static final Integer MAX_LENGTH_SMS_VARSLINGSTEKST = 160;
+    public static final Integer MAX_LENGTH_EPOST_VARSLINGSTEKST = 4000;
+    private static final Integer MAX_LENGTH_EPOST_VARSLINGSTTITTEL = 40;
     public static final Integer MAX_LENGTH_LINK = 200;
     public static final Integer MAX_LENGTH_GRUPPERINGSID = 100;
     public static final Integer MAX_LENGTH_EVENTID = 50;
@@ -12,8 +15,8 @@ public with sharing class UN_BuilderValidationUtil {
     public static final Integer MAX_LENGTH_UID = 100;
     public static final Integer MAX_LENGTH_APP_NAME = 100;
     public static final Integer MAX_LENGTH_NAMESPACE = 63;
-    public static final boolean IS_REQUIRED_TIDSPUNKT = true;
-    public static final boolean IS_REQUIRED_SYNLIGFREMTIL = false;
+    public static final Boolean IS_REQUIRED_TIDSPUNKT = true;
+    public static final Boolean IS_REQUIRED_SYNLIGFREMTIL = false;
 
     public static String validateFodselsnummer(String fodselsnummer) {
         validateNonNullField(fodselsnummer, 'fodselsnummer');
@@ -108,7 +111,7 @@ public with sharing class UN_BuilderValidationUtil {
         }
     }
 
-    public static String validatePrefererteKanaler(boolean eksternVarsling, List<UN_PreferertKanal> field) {
+    public static String validatePrefererteKanalerLegacy(boolean eksternVarsling, List<UN_PreferertKanal> field) {
         String fieldName = 'prefererteKanaler';
         String prefererteKanaler = '';
         if (field == null) {
@@ -128,6 +131,26 @@ public with sharing class UN_BuilderValidationUtil {
         } else {
             return '';
         }
+    }
+
+    public static List<String> validatePrefererteKanaler(boolean eksternVarsling, List<UN_PreferertKanal> field) {
+        String fieldName = 'prefererteKanaler';
+        List<String> prefererteKanaler = new List<String>();
+        if (field == null) {
+            return prefererteKanaler;
+        } else if (!eksternVarsling && !field.isEmpty()) {
+            throw new FieldValidationException(
+                'Field ' +
+                fieldName +
+                ' cannot be set as long as eksternVarsling is set to false.'
+            );
+        } else if (field != null && field.isEmpty() != true) {
+            for (UN_PreferertKanal preferertKanal : field) {
+                prefererteKanaler.add(preferertKanal.name());
+            }
+        }
+
+        return prefererteKanaler;
     }
 
     public static String validateEventId(String eventId) {
@@ -161,6 +184,66 @@ public with sharing class UN_BuilderValidationUtil {
             );
         }
         return field;
+    }
+
+    public static String validateEksternVarslingstekst(
+        String fieldName,
+        Boolean eksternVarsling,
+        String varslingstekst
+    ) {
+        if (varslingstekst == null) {
+            return null;
+        }
+        if (!eksternVarsling) {
+            throw new FieldValidationException(
+                'Feltet ' +
+                fieldName +
+                ' kan ikke settes hvis eksternVarsling er satt til false.'
+            );
+        }
+        if (String.isBlank(varslingstekst)) {
+            throw new FieldValidationException('Feltet ' + fieldName + ' må enten være null eller ikke tom.');
+        }
+
+        switch on fieldName {
+            when 'epostVarslingstekst' {
+                if (varslingstekst.length() > MAX_LENGTH_EPOST_VARSLINGSTEKST) {
+                    throw new FieldValidationException(
+                        'Feltet ' +
+                        fieldName +
+                        ' kan ikke inneholde mer enn ' +
+                        MAX_LENGTH_EPOST_VARSLINGSTEKST +
+                        ' tegn.'
+                    );
+                }
+                return varslingstekst;
+            }
+            when 'epostVarslingstittel' {
+                if (varslingstekst.length() > MAX_LENGTH_EPOST_VARSLINGSTTITTEL) {
+                    throw new FieldValidationException(
+                        'Feltet ' +
+                        fieldName +
+                        ' kan ikke inneholde mer enn ' +
+                        MAX_LENGTH_EPOST_VARSLINGSTTITTEL +
+                        ' tegn.'
+                    );
+                }
+                return varslingstekst;
+            }
+            when 'smsVarslingstekst' {
+                if (varslingstekst.length() > MAX_LENGTH_SMS_VARSLINGSTEKST) {
+                    throw new FieldValidationException(
+                        'Feltet ' +
+                        fieldName +
+                        ' kan ikke inneholde mer enn ' +
+                        MAX_LENGTH_SMS_VARSLINGSTEKST +
+                        ' tegn.'
+                    );
+                }
+                return varslingstekst;
+            }
+        }
+        return varslingstekst;
     }
 
     public class FieldValidationException extends Exception {
