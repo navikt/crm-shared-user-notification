@@ -118,69 +118,6 @@ public inherited sharing class UN_UserNotifications {
         return resp.getBody();
     }
 
-    // public static void publishInnboksEvent(UN_InnboksLegacy innboksEvent, UN_NokkelLegacy nokkel) {
-    //     publishInnboksEvent(innboksEvent, nokkel, false);
-    // }
-
-    // public static void publishInnboksEvent(
-    //     UN_InnboksLegacy innboksEvent,
-    //     UN_NokkelLegacy nokkel,
-    //     Boolean isSystemContext
-    // ) {
-    //     HttpResponse resp = UN_BrukernotifikasjonCalloutService.postInnboksNotificationLegacy(
-    //         innboksEvent,
-    //         nokkel,
-    //         isSystemContext
-    //     );
-
-    //     if (resp.getStatusCode() != 200) {
-    //         String logUuid;
-    //         LoggerUtility log = new LoggerUtility();
-    //         log.httpError('Could not publish Innboks event', resp, null, null);
-    //         logUuid = log.peek().UUID__c;
-    //         log.publish();
-    //         throw new UN_UserNotificationsException('Could not publish notification. Log uuid: ' + logUuid);
-    //     }
-    // }
-
-    // public static void publishDoneEvent(UN_DoneLegacy doneEvent, UN_NokkelLegacy nokkel) {
-    //     publishDoneEvent(doneEvent, nokkel, false);
-    // }
-    // public static void publishDoneEvent(UN_DoneLegacy doneEvent, UN_NokkelLegacy nokkel, Boolean isSystemContext) {
-    //     HttpResponse resp = UN_BrukernotifikasjonCalloutService.postDoneNotificationLegacy(
-    //         doneEvent,
-    //         nokkel,
-    //         isSystemContext
-    //     );
-
-    //     if (resp.getStatusCode() != 200) {
-    //         String logUuid;
-    //         LoggerUtility log = new LoggerUtility();
-    //         log.httpError('Could not publish Innboks event', resp, null, null);
-    //         logUuid = log.peek().UUID__c;
-    //         log.publish();
-    //         throw new UN_UserNotificationsException('Could not publish notification. Log uuid: ' + logUuid);
-    //     }
-    // }
-
-    // public static UserNotification__c rePublishEventLegacy(Id userNotificationId, Boolean isDoneEvent) {
-    //     List<UserNotification__c> notifications = rePublishEventsLegacy(new Set<Id>{ userNotificationId }, isDoneEvent);
-    //     return notifications == null || notifications.isEmpty() ? null : notifications[0];
-    // }
-
-    // public static List<UserNotification__c> rePublishEventsLegacy(Set<Id> userNotificationIdSet, Boolean isDoneEvent) {
-    //     List<UN_EventProducer> producerList = new List<UN_EventProducer>();
-
-    //     for (UserNotification__c un : UN_Util.getUserNotifications(userNotificationIdSet)) {
-    //         if (String.isBlank(un.CRM_NotificationError__c)) {
-    //             continue;
-    //         }
-    //         producerList.add(UN_EventProducer.getEventProducer(un, isDoneEvent).setError(''));
-    //     }
-
-    //     return UN_EventProducer.publish(producerList);
-    // }
-
     public class UN_UserNotificationsException extends Exception {
     }
 }
