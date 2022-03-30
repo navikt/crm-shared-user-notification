@@ -47,8 +47,6 @@ public with sharing class UN_DoneAction {
     public class Input {
         @InvocableVariable(label='Tidspunkt' required=true)
         public Datetime tidspunkt;
-        // @InvocableVariable(label='Related SF Record Id' required=false)
-        // public String relatedRecordSfId;
         @InvocableVariable(label='User Notification' required=false)
         public UserNotification__c userNotification;
     }
