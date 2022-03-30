@@ -44,6 +44,13 @@ public with sharing class UN_Util {
             .selectField('CRM_Done__c')
             .selectField('CRM_NotificationError__c')
             .selectField('INT_Key__c')
-            .selectField('INT_DoneEventTime__c');
+            .selectField('INT_DoneEventTime__c')
+            .selectField('CRM_SuccessfullySentNotification__c')
+            .selectField('CRM_SuccessfullySentDone__c')
+            .selectField('INT_EmailBody__c')
+            .selectField('INT_EmailSubject__c')
+            .selectField('INT_SmsText__c')
+            .selectField('INT_Namespace__c')
+            .selectField('INT_AppName__c');
     }
 }
