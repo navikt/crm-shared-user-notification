@@ -1,9 +1,9 @@
-name: "[PR MERGE] DEV Quick Package Create"
+name: "[PR MERGE] UAT Quick Package Create"
 on:
   workflow_dispatch:
   push:
     branches:
-      - DEV
+      - UAT
     paths:
       - "force-app/**"
 jobs:
@@ -19,8 +19,13 @@ jobs:
         uses: actions/checkout@v2
 
       # Install SFDX
-      - name: Install SFDX
-        uses: sfdx-actions/setup-sfdx@v1
+      - name: Install Salesforce CLI
+        run: |
+           wget https://developer.salesforce.com/media/salesforce-cli/sfdx/channels/stable/sfdx-linux-x64.tar.xz
+           mkdir ~/sfdx
+           tar xJf sfdx-linux-x64.tar.xz -C ~/sfdx --strip-components 1
+           echo "$HOME/sfdx/bin" >> $GITHUB_PATH
+           ~/sfdx/bin/sfdx version
 
       # Authenticate prod
       - name: Authenticate prod
@@ -58,10 +63,10 @@ jobs:
       alphaVersionNumber: ${{ steps.package-version-create.outputs.alphaVersionNumber }}
 
   # ################################################################# # 
-  # ####################### VALIDATE IN DEV ######################### #
+  # ####################### VALIDATE IN UAT ######################### #
   # ################################################################# #
-  validate-in-dev:
-    name: Validate install in DEV Sandbox
+  validate-in-uat:
+    name: Validate install in UAT Sandbox
     needs: [create-package]
     runs-on: ubuntu-latest
     steps:
@@ -80,33 +85,47 @@ jobs:
           sfdx auth:sfdxurl:store -f ./PROD_SFDX_URL.txt -a devhub -d
           rm -f ./PROD_SFDX_URL.txt
 
-      # Authenticate dev-sandbox
-      - name: Authenticate dev-sandbox
+      # Authenticate uat-sandbox
+      - name: Authenticate uat-sandbox
         run: |
-          echo ${{ secrets.DEV_SFDX_URL}} > ./DEV_SFDX_URL.txt
-          sfdx auth:sfdxurl:store -f ./DEV_SFDX_URL.txt -a dev-sandbox -s
-          rm -f ./DEV_SFDX_URL.txt
+          echo ${{ secrets.UAT_SFDX_URL}} > ./UAT_SFDX_URL.txt
+          sfdx auth:sfdxurl:store -f ./UAT_SFDX_URL.txt -a uat-sandbox -s
+          rm -f ./UAT_SFDX_URL.txt
 
-      # Install new package version into integration org
-      - name: Install new package version into integration org
-        id: integration-installation
+      # Install new package version into UAT org
+      - name: Install new package version into UAT org
+        id: uat-installation
         run: |
-          sfdx force:package:install --package ${{ needs.create-package.outputs.packageId }} -w 20 -b 20 -u dev-sandbox -r -k ${{ secrets.PACKAGE_KEY }} --json | tee output
+          sfdx force:package:install --package ${{ needs.create-package.outputs.packageId }} -w 20 -b 20 -u uat-sandbox -r -k ${{ secrets.PACKAGE_KEY }} --json | tee output
 
           echo "::set-output name=installOutput::$(cat output | jq '.message')"
           if [ $(cat output | jq '.status') == "0" ]; then
             echo "::set-output name=successfullyInstalled::true"
+          else
+            echo
+            echo FAILED TO INSTALL PACKAGE IN UAT SANDBOX
+            echo
+
+            exit 125
+          fi
+
+      # Deploy unpackagable content
+      - name: Deploy unpackagable content
+        run: |
+          if [ -d "./force-app/unpackagable-with-auto-deploy" ]; then
+            echo "Starting deployment of ./force-app/unpackagable-with-auto-deploy"
+            sfdx force:source:deploy -p ./force-app/unpackagable-with-auto-deploy -l RunLocalTests
           fi
     outputs:
-      successfullyInstalled: ${{ steps.integration-installation.outputs.successfullyInstalled }}
-      installOutput: ${{ steps.integration-installation.outputs.installOutput }}
+      successfullyInstalled: ${{ steps.uat-installation.outputs.successfullyInstalled }}
+      installOutput: ${{ steps.uat-installation.outputs.installOutput }}
 
   # ################################################################# #
   # ######################### CREATE RELEASE ######################## #
   # ################################################################# #
   create-release:
     name: Create alpha release
-    needs: [create-package, validate-in-dev]
+    needs: [create-package, validate-in-uat]
     runs-on: ubuntu-latest
     steps:
       # Checkout source code
@@ -127,10 +146,10 @@ jobs:
 
           echo "::set-output name=packageCreation::✅ Package Creation"
 
-           if [ ${{ needs.validate-in-dev.outputs.successfullyInstalled }} == "true" ]; then
-            echo "::set-output name=integrationInstallation::✅ Package Installation (DEV)"
+           if [ ${{ needs.validate-in-uat.outputs.successfullyInstalled }} == "true" ]; then
+            echo "::set-output name=integrationInstallation::✅ Package Installation (UAT)"
           else
-            echo "::set-output name=integrationInstallation::❌ Package Installation (DEV)"
+            echo "::set-output name=integrationInstallation::❌ Package Installation (UAT)"
           fi
 
       # Generate changelog from commits
