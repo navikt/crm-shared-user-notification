@@ -34,6 +34,7 @@ public with sharing class UN_DoneAction {
             String key = UN_NokkelMapper.userNotificationToNokkelInput(userNotifications[index]).eventId;
             if (sr.isSuccess()) {
                 responseMap.get(key).success = true;
+                responseMap.get(key).userNotification = userNotifications[index];
             } else {
                 responseMap.get(key).success = false;
                 responseMap.get(key).errorMessage = sr.getErrors()[0].getMessage();
