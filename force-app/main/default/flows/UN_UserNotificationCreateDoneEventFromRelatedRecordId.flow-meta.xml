@@ -198,13 +198,16 @@ The query filter will filter on user notifications where Done = false, System us
             <targetReference>Has_Related_Record_Id</targetReference>
         </connector>
     </start>
-    <status>Draft</status>
+    <status>Active</status>
     <variables>
         <name>appname</name>
         <dataType>String</dataType>
         <isCollection>false</isCollection>
         <isInput>true</isInput>
         <isOutput>false</isOutput>
+        <value>
+            <stringValue>sf-brukernotifikasjon</stringValue>
+        </value>
     </variables>
     <variables>
         <name>DoneDateTime</name>
@@ -222,6 +225,9 @@ The query filter will filter on user notifications where Done = false, System us
         <isCollection>false</isCollection>
         <isInput>true</isInput>
         <isOutput>false</isOutput>
+        <value>
+            <stringValue>teamnks</stringValue>
+        </value>
     </variables>
     <variables>
         <name>RelatedRecordId</name>
