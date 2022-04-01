@@ -183,6 +183,12 @@ The query filter will filter on user notifications where Done = false, System us
             </value>
         </filters>
         <inputAssignments>
+            <field>CRM_Done__c</field>
+            <value>
+                <booleanValue>true</booleanValue>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
             <field>INT_DoneEventTime__c</field>
             <value>
                 <elementReference>DoneDateTime</elementReference>
