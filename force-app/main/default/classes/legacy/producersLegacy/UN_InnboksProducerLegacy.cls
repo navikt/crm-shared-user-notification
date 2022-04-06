@@ -1,4 +1,4 @@
-public with sharing class UN_InnboksProducerLegacy {
+public without sharing class UN_InnboksProducerLegacy {
     @InvocableMethod(
         label='Create Innboks Notification'
         description='Create an innboks notification that appears on Nav.no. See https://navikt.github.io/dittnav-brukernotifikasjoner-intro/ for details'

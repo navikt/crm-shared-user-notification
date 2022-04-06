@@ -1,4 +1,4 @@
-public inherited sharing class UN_InnboksAction {
+public without sharing class UN_InnboksAction {
     @InvocableMethod(
         label='Create Innboks Notification'
         description='Create an innboks notification that appears on Nav.no. See https://navikt.github.io/dittnav-brukernotifikasjoner-intro/ for details'
