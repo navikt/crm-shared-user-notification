@@ -41,7 +41,13 @@ public inherited sharing class UN_UserNotifications {
             log.publish();
         }
 
-        upsert innboksNotifications;
+        try {
+            upsert innboksNotifications;
+        } catch (Exception e) {
+            LoggerUtility log = new LoggerUtility();
+            log.exception(e);
+            log.publish();
+        }
 
         return innboksNotifications;
     }
@@ -84,7 +90,9 @@ public inherited sharing class UN_UserNotifications {
         }
 
         try {
-            publishDoneEvent(doneEvents, isSystemContext);
+            if (doneEvents.size() > 0) {
+                publishDoneEvent(doneEvents, isSystemContext);
+            }
         } catch (Exception e) {
             for (UserNotification__c done : userNotifications) {
                 if (done.CRM_SuccessfullySentDone__c) {
@@ -98,7 +106,13 @@ public inherited sharing class UN_UserNotifications {
             log.publish();
         }
 
-        update userNotifications;
+        try {
+            update userNotifications;
+        } catch (Exception e) {
+            LoggerUtility log = new LoggerUtility();
+            log.exception(e);
+            log.publish();
+        }
 
         return userNotifications;
     }

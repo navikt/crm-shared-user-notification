@@ -21,9 +21,9 @@ public virtual inherited sharing class UN_EventProducer {
             when INNBOKS {
                 UN_InnboksMapper.innboksLegacyToUserNotification((UN_InnboksLegacy) value, this.userNotification);
             }
-            when DONE {
-                UN_DoneMapper.doneLegacyToUserNotification((UN_DoneLegacy) value, this.userNotification);
-            }
+            // when DONE {
+            //     UN_DoneMapper.doneLegacyToUserNotification((UN_DoneLegacy) value, this.userNotification);
+            // }
         }
 
         return this;
@@ -65,9 +65,9 @@ public virtual inherited sharing class UN_EventProducer {
                 when INNBOKS {
                     innboksUserNotifications.add(producer.getUserNotification());
                 }
-                when DONE {
-                    doneUserNotifications.add(producer.getUserNotification());
-                }
+                // when DONE {
+                //     doneUserNotifications.add(producer.getUserNotification());
+                // }
             }
         }
 
@@ -75,9 +75,9 @@ public virtual inherited sharing class UN_EventProducer {
             userNotifications.addAll(UN_UserNotifications.publishInboksEvent(innboksUserNotifications, true));
         }
 
-        if (false == doneUserNotifications.isEmpty()) {
-            userNotifications.addAll(UN_UserNotifications.publishDoneEvent(innboksUserNotifications, true));
-        }
+        // if (false == doneUserNotifications.isEmpty()) {
+        //     userNotifications.addAll(UN_UserNotifications.publishDoneEvent(innboksUserNotifications, true));
+        // }
 
         return userNotifications;
     }
