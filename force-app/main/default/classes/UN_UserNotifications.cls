@@ -41,7 +41,13 @@ public inherited sharing class UN_UserNotifications {
             log.publish();
         }
 
-        upsert innboksNotifications;
+        try {
+            upsert innboksNotifications;
+        } catch (Exception e) {
+            LoggerUtility log = new LoggerUtility();
+            log.exception(e);
+            log.publish();
+        }
 
         return innboksNotifications;
     }
@@ -98,7 +104,13 @@ public inherited sharing class UN_UserNotifications {
             log.publish();
         }
 
-        update userNotifications;
+        try {
+            update userNotifications;
+        } catch (Exception e) {
+            LoggerUtility log = new LoggerUtility();
+            log.exception(e);
+            log.publish();
+        }
 
         return userNotifications;
     }
