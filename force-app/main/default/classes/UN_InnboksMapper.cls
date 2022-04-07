@@ -16,19 +16,6 @@ public with sharing class UN_InnboksMapper {
         return userNotification;
     }
 
-    // public static UN_InnboksLegacy userNotificationToInnboksLegacy(UserNotification__c userNotification) {
-    //     return new UN_InnboksBuilderLegacy()
-    //         .withEksternVarsling(userNotification.INT_ExternalNotification__c)
-    //         .withFodselsnummer(userNotification.INT_SocialSecurityNumber__c)
-    //         .withGrupperingsId(userNotification.INT_GroupingId__c)
-    //         .withLink(userNotification.INT_Link__c)
-    //         .withPrefererteKanaler(UN_Util.multiSelectToString(userNotification.INT_PreferredChannel__c))
-    //         .withSikkerhetsnivaa(userNotification.INT_SecurityLevel__c)
-    //         .withTekst(userNotification.INT_Description__c)
-    //         .withTidspunkt(userNotification.INT_EventTime__c)
-    //         .build();
-    // }
-
     public static UserNotification__c innboksInputToUserNotification(
         UN_InnboksInput innboks,
         UserNotification__c userNotification
