@@ -48,11 +48,6 @@ public with sharing class UN_InnboksBuilderLegacy {
         return this;
     }
 
-    public UN_InnboksBuilderLegacy withPrefererteKanaler(List<UN_PreferertKanal> prefererteKanaler) {
-        this.prefererteKanaler = prefererteKanaler;
-        return this;
-    }
-
     public UN_InnboksBuilderLegacy withPrefererteKanaler(String prefererteKanaler) {
         List<UN_PreferertKanal> kanaler;
         if (String.isNotBlank(prefererteKanaler)) {
