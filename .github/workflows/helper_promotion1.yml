@@ -18,7 +18,6 @@ jobs:
           echo "Package ID: ${{ github.event.inputs.packageId }}"
           echo "Initiator: ${{ github.actor }}"
           echo "Comment: ${{ github.event.inputs.comment }}"
-
   promote-package:
     name: Promote Package
     runs-on: ubuntu-latest
@@ -40,7 +39,6 @@ jobs:
           echo ${{ secrets.PROD_SFDX_URL}} > ./PROD_SFDX_URL.txt
           sfdx auth:sfdxurl:store -f ./PROD_SFDX_URL.txt -a devhub -d
           rm -f ./PROD_SFDX_URL.txt
-
       # Promote package
       - name: Promote package
         run: sfdx force:package:version:promote --package ${{ github.event.inputs.packageId }} --noprompt
@@ -60,7 +58,6 @@ jobs:
           echo ${{ secrets.PREPROD_SFDX_URL}} > ./PREPROD_SFDX_URL.txt
           sfdx auth:sfdxurl:store -f ./PREPROD_SFDX_URL.txt -a preprod -s
           rm -f ./PREPROD_SFDX_URL.txt
-
       # Install package version to preprod
       - name: Install package version to preprod
         run: sfdx force:package:install --package ${{ github.event.inputs.packageId }} -w 20 -b 20 -u preprod -r -k ${{ secrets.PACKAGE_KEY }} --json
@@ -76,7 +73,6 @@ jobs:
             echo "Starting deployment of ./force-app/unpackagable-with-auto-deploy"
             sfdx force:source:deploy -p ./force-app/unpackagable-with-auto-deploy -u preprod -l RunLocalTests
           fi
-
   push-new-version-number-to-master:
     name: Push new version number to master
     runs-on: ubuntu-latest
@@ -100,7 +96,6 @@ jobs:
         run: |
           echo "::set-output name=message::(CI) Updated to new version number $(cat sfdx-project.json | jq '.packageDirectories | map(select(.package != null))[0].versionNumber' -r | sed 's/.\{5\}$//')"
           cat sfdx-project.json
-
       # The main branch is protected
       - name: Create new branch and pull request for updated package version ID
         uses: peter-evans/create-pull-request@v3
@@ -142,7 +137,6 @@ jobs:
           echo ${{ secrets.PROD_SFDX_URL}} > ./PROD_SFDX_URL.txt
           sfdx auth:sfdxurl:store -f ./PROD_SFDX_URL.txt -a devhub -d
           rm -f ./PROD_SFDX_URL.txt
-
       # Set release variables
       - name: Set release fields
         id: release-fields
@@ -151,7 +145,6 @@ jobs:
           echo "::set-output name=releaseName::$(cat sfdx-project.json | jq '.packageDirectories | map(select(.package != null))[0].versionNumber' -r | sed 's/.\{5\}$//')"
           echo "::set-output name=bodyVersion::$(cat sfdx-project.json | jq '.packageDirectories | map(select(.package != null))[0].versionNumber' -r | sed 's/.\{5\}$//')"
           echo "::set-output name=codeCoverage::$( sfdx force:package:version:report -p ${{ github.event.inputs.packageId }} --json | jq '.result.CodeCoverage.apexCodeCoveragePercentage' -r )"
-
       # Generate changelog from commits
       - name: Generate changelog
         id: changelog
@@ -171,12 +164,9 @@ jobs:
             **Version**: ${{ steps.release-fields.outputs.bodyVersion }}
             **Package ID**: ${{ github.event.inputs.packageId }}
             **Code Coverage**: ${{ steps.release-fields.outputs.codeCoverage }}%
-
             **Author**: ${{ github.actor }}
             **Comment**: ${{ github.event.inputs.comment }}
-
             ## Changelog
-
             ${{ steps.changelog.outputs.changelog }}
           draft: false
           prerelease: false
