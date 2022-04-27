@@ -10,6 +10,8 @@ public with sharing class UN_BrukernotifikasjonCalloutService {
         apiCtrl.initRequest(API_CONFIG_NAME, 'UN_POST_INNBOKS_EVENTS');
         apiCtrl.addServiceAuthHeader(SERVICE_AUTH_HEADER);
         apiCtrl.addHeader('Content-Type', 'application/json');
+        apiCtrl.addHeader('target-ingress', 'https://sf-brukernotifikasjon-v2.dev.intern.nav.no');
+        apiCtrl.addHeader('target-client-id', '50819f36-cd2d-4a5d-b335-74a3c0739353');
         apiCtrl.setBody(JSON.serialize(innboksEvents));
         apiCtrl.doCallout();
 
@@ -24,6 +26,8 @@ public with sharing class UN_BrukernotifikasjonCalloutService {
         apiCtrl.initRequest(API_CONFIG_NAME, 'UN_POST_DONE_EVENTS');
         apiCtrl.addServiceAuthHeader(SERVICE_AUTH_HEADER);
         apiCtrl.addHeader('Content-Type', 'application/json');
+        apiCtrl.addHeader('target-ingress', 'https://sf-brukernotifikasjon-v2.dev.intern.nav.no');
+        apiCtrl.addHeader('target-client-id', '50819f36-cd2d-4a5d-b335-74a3c0739353');
         apiCtrl.setBody(JSON.serialize(doneEvents));
         apiCtrl.doCallout();
 
