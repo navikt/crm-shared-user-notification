@@ -58,7 +58,7 @@ jobs:
   # ################################################################# #
   create-release:
     name: Create alpha release
-    needs: [create-package, validate-in-dev]
+    needs: [create-package]
     runs-on: ubuntu-latest
     steps:
       # Checkout source code
@@ -78,12 +78,6 @@ jobs:
           echo "::set-output name=bodyPackage::${{ needs.create-package.outputs.packageId }}"
 
           echo "::set-output name=packageCreation::✅ Package Creation"
-
-           if [ ${{ needs.validate-in-dev.outputs.successfullyInstalled }} == "true" ]; then
-            echo "::set-output name=integrationInstallation::✅ Package Installation (DEV)"
-          else
-            echo "::set-output name=integrationInstallation::❌ Package Installation (DEV)"
-          fi
 
       # Generate changelog from commits
       - name: Generate changelog
