@@ -22,7 +22,7 @@
 &quot;body&quot;: [
 	{
         &quot;produsent&quot;: &quot;sf-brukernotifikasjon&quot;,
-        &quot;eventTidspunkt&quot;: &quot;2021-10-26T10:47:46+02:00[Europe/Oslo]&quot;,
+        &quot;forstBehandlet&quot;: &quot;2021-10-26T10:47:46+02:00[Europe/Oslo]&quot;,
         &quot;fodselsnummer&quot;: &quot;10108000398&quot;,
         &quot;eventId&quot;: &quot;6e989752-c29b-45b5-a5a5-180f3fb46452&quot;,
         &quot;grupperingsId&quot;: &quot;a1Wcad3ac13fa488ed&quot;,
@@ -34,7 +34,7 @@
     },
     {
         &quot;produsent&quot;: &quot;sf-brukernotifikasjon&quot;,
-        &quot;eventTidspunkt&quot;: &quot;2021-11-17T14:56:05+01:00[Europe/Oslo]&quot;,
+        &quot;forstBehandlet&quot;: &quot;2021-11-17T14:56:05+01:00[Europe/Oslo]&quot;,
         &quot;fodselsnummer&quot;: &quot;10108000398&quot;,
         &quot;eventId&quot;: &quot;dec2ddbe-722d-46e6-afaf-4e47c1655df3&quot;,
         &quot;grupperingsId&quot;: &quot;a1Ke65b88d15595c1c&quot;,
@@ -46,7 +46,7 @@
     },
     {
         &quot;produsent&quot;: &quot;tms-event-test-producer&quot;,
-        &quot;eventTidspunkt&quot;: &quot;2022-03-07T15:14:33.332+01:00[Europe/Oslo]&quot;,
+        &quot;forstBehandlet&quot;: &quot;2022-03-07T15:14:33.332+01:00[Europe/Oslo]&quot;,
         &quot;fodselsnummer&quot;: &quot;10108000398&quot;,
         &quot;eventId&quot;: &quot;b670d4fc-9a85-4fc9-9cab-bbe1e8baf4b5&quot;,
         &quot;grupperingsId&quot;: &quot;1234&quot;,
