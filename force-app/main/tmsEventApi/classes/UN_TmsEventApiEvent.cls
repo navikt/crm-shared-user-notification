@@ -16,6 +16,14 @@ public virtual class UN_TmsEventApiEvent {
         }
     }
     @AuraEnabled
+    public String forstBehandlet;
+    @AuraEnabled
+    public DateTime forstBehandletDT {
+        get {
+            return getDtFromString(forstBehandlet);
+        }
+    }
+    @AuraEnabled
     public String produsent;
     @AuraEnabled
     public Integer sikkerhetsnivaa;
