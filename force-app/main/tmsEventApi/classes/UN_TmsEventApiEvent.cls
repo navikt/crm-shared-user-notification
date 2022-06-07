@@ -8,13 +8,11 @@ public virtual class UN_TmsEventApiEvent {
     @AuraEnabled
     public String eventId;
     @AuraEnabled
-    public String eventTidspunkt;
+    public String forstBehandlet;
     @AuraEnabled
-    public DateTime eventTidspunktDT {
+    public DateTime forstBehandletDT {
         get {
-            return String.isBlank(eventTidspunkt)
-                ? null
-                : DateTime.valueOf(eventTidspunkt.substringBefore('[').replace('T', ' '));
+            return getDtFromString(forstBehandlet);
         }
     }
     @AuraEnabled
@@ -26,9 +24,7 @@ public virtual class UN_TmsEventApiEvent {
     @AuraEnabled
     public DateTime sistOppdatertDT {
         get {
-            return String.isBlank(sistOppdatert)
-                ? null
-                : DateTime.valueOf(sistOppdatert.substringBefore('[').replace('T', ' '));
+            return getDtFromString(sistOppdatert);
         }
     }
     @AuraEnabled
@@ -41,4 +37,8 @@ public virtual class UN_TmsEventApiEvent {
     public String type;
     @AuraEnabled
     public String typeLabel;
+
+    private Datetime getDtFromString(String stringDT) {
+        return String.isBlank(stringDT) ? null : DateTime.valueOf(stringDT.substringBefore('[').replace('T', ' '));
+    }
 }
