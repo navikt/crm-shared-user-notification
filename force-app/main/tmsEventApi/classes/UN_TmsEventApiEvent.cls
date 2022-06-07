@@ -8,6 +8,16 @@ public virtual class UN_TmsEventApiEvent {
     @AuraEnabled
     public String eventId;
     @AuraEnabled
+    public String eventTidspunkt;
+    @AuraEnabled
+    public DateTime eventTidspunktDT {
+        get {
+            return String.isBlank(eventTidspunkt)
+                ? null
+                : DateTime.valueOf(eventTidspunkt.substringBefore('[').replace('T', ' '));
+        }
+    }
+    @AuraEnabled
     public String forstBehandlet;
     @AuraEnabled
     public DateTime forstBehandletDT {
