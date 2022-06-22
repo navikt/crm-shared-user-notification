@@ -12,7 +12,7 @@ private with sharing class UN_TmsEventApiTest {
         System.assertEquals(false, result.isEmpty(), 'Expected to get some results');
         for (UN_TmsEventApiEvent e : result) {
             if (UN_TmsEventApi.PRODUCERS_TO_SKIP.contains(e.produsent)) {
-                System.assertEquals(
+                System.assert(
                     false,
                     'Event is created by the producer ' +
                     e.produsent +
