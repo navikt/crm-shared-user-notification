@@ -1,4 +1,6 @@
 public inherited sharing class UN_TmsEventApi {
+    @TestVisible private final static Set<String> PRODUCERS_TO_SKIP = new Set<String>{ 'srvsosial-dialog' };
+
     @AuraEnabled
     public static List<UN_TmsEventApiEvent> getAllEventsAura(String ident) {
         try {
@@ -33,6 +35,9 @@ public inherited sharing class UN_TmsEventApi {
                     List<UN_TmsEventApiEvent>.class
                 )
             ) {
+                if (PRODUCERS_TO_SKIP.contains(tmsEvent.produsent)) {
+                    continue;
+                }
                 switch on eventType {
                     when INNBOKS {
                         tmsEvent.type = 'INNBOKS';
