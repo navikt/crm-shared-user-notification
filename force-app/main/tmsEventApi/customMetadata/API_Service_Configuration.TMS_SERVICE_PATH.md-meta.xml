@@ -55,6 +55,18 @@
         &quot;sikkerhetsnivaa&quot;: 4,
         &quot;sistOppdatert&quot;: &quot;2022-03-07T15:14:33.369992+01:00[Europe/Oslo]&quot;,
         &quot;aktiv&quot;: true
+    },
+    {
+        &quot;produsent&quot;: &quot;srvsosial-dialog&quot;,
+        &quot;forstBehandlet&quot;: &quot;2022-03-07T15:14:33.332+01:00[Europe/Oslo]&quot;,
+        &quot;fodselsnummer&quot;: &quot;10108000398&quot;,
+        &quot;eventId&quot;: &quot;b670d4fc-9a85-4fc9-9cab-bbe1e8baf4b5&quot;,
+        &quot;grupperingsId&quot;: &quot;1234&quot;,
+        &quot;tekst&quot;: &quot;Dummy notifikasjon 3&quot;,
+        &quot;link&quot;: &quot;https://www.dev.nav.no/person/dittnav/&quot;,
+        &quot;sikkerhetsnivaa&quot;: 4,
+        &quot;sistOppdatert&quot;: &quot;2022-05-07T15:14:33.369992+01:00[Europe/Oslo]&quot;,
+        &quot;aktiv&quot;: true
     }
 ]
 },
