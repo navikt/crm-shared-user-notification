@@ -1,5 +1,9 @@
 public inherited sharing class UN_TmsEventApi {
-    @TestVisible private final static Set<String> PRODUCERS_TO_SKIP = new Set<String>{ 'srvsosial-dialog' };
+    @TestVisible
+    private final static Set<String> PRODUCERS_TO_SKIP = new Set<String>{
+        'sosialhjelp-dialog-api',
+        'sosialhjelp-dialog-api-dev'
+    };
 
     @AuraEnabled
     public static List<UN_TmsEventApiEvent> getAllEventsAura(String ident) {
@@ -20,7 +24,7 @@ public inherited sharing class UN_TmsEventApi {
         return events;
     }
 
-    private List<UN_TmsEventApiEvent> getEvents(
+    public List<UN_TmsEventApiEvent> getEvents(
         String ident,
         UN_TmsEventApiEventType eventType,
         UN_TmsEventApiEventFilter filter
