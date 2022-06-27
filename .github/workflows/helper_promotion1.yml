@@ -116,7 +116,7 @@ jobs:
         uses: juliangruber/merge-pull-request-action@v1
         with:
           # ! USES CUSTOM PAT TO INITIATE STATUS CHECKS (SEE "Require status checks to pass before merging" IN BRANCHES SETTINGS IN REPO)
-          github-token: ${{ secrets.DEPLOYMENT_PAT }}
+          github-token: ${{ secrets.CRM_DEPLOYMENT_PAT }}
           number: ${{ env.PULL_REQUEST_NUMBER }}
           method: squash
 
