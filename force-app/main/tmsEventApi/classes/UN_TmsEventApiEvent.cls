@@ -12,9 +12,7 @@ public virtual class UN_TmsEventApiEvent {
     @AuraEnabled
     public DateTime eventTidspunktDT {
         get {
-            return String.isBlank(eventTidspunkt)
-                ? null
-                : DateTime.valueOf(eventTidspunkt.substringBefore('[').replace('T', ' '));
+            return getDtFromString(eventTidspunkt);
         }
     }
     @AuraEnabled
@@ -47,6 +45,10 @@ public virtual class UN_TmsEventApiEvent {
     public String type;
     @AuraEnabled
     public String typeLabel;
+    @AuraEnabled
+    public Boolean eksternVarslingSendt;
+    @AuraEnabled
+    public public List<String> eksternVarslingKanaler;
 
     private Datetime getDtFromString(String stringDT) {
         return String.isBlank(stringDT) ? null : DateTime.valueOf(stringDT.substringBefore('[').replace('T', ' '));
