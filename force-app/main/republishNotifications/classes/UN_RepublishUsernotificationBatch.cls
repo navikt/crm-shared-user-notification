@@ -18,8 +18,8 @@ public without sharing class UN_RepublishUsernotificationBatch implements Databa
         return this;
     }
 
-    public void run() {
-        Database.executeBatch(this, this.batchSize);
+    public Id run() {
+        return Database.executeBatch(this, this.batchSize);
     }
 
     public Database.QueryLocator start(Database.BatchableContext BC) {
