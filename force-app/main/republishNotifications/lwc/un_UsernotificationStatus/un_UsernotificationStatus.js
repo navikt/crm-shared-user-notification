@@ -104,7 +104,7 @@ export default class UN_UsernotificationStatus extends LightningElement {
                 this.runningRepublishBatches = [];
             })
             .finally(() => {
-                this.runningFindRunningRepublishBatches = true;
+                this.runningFindRunningRepublishBatches = false;
             });
     }
 
