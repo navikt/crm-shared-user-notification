@@ -14,6 +14,9 @@ export default class UN_UsernotificationStatus extends LightningElement {
     aggregatedUnpublishedNotifications = [];
     aggregatedUnpublishedDoneNotifications = [];
     runningRepublishBatches = [];
+    syncingGetAggregatedUnpublishedNotifications = false;
+    syncingGetAggregatedUnpublishedDoneNotifications = false;
+    runningFindRunningRepublishBatches = false;
 
     set pollingActivated(value) {
         if (false === (this._pollingActivated === value)) {
@@ -61,6 +64,7 @@ export default class UN_UsernotificationStatus extends LightningElement {
     }
 
     runGetAggregatedUnpublishedNotifications() {
+        this.syncingGetAggregatedUnpublishedNotifications = true;
         getAggregatedUnpublishedNotifications({ fromDate: this.fromDate })
             .then((result) => {
                 this.aggregatedUnpublishedNotifications = result;
@@ -68,10 +72,14 @@ export default class UN_UsernotificationStatus extends LightningElement {
             .catch((error) => {
                 console.error(error);
                 this.aggregatedUnpublishedNotifications = [];
+            })
+            .finally(() => {
+                this.syncingGetAggregatedUnpublishedNotifications = false;
             });
     }
 
     runGetAggregatedUnpublishedDoneNotifications() {
+        this.syncingGetAggregatedUnpublishedDoneNotifications = true;
         getAggregatedUnpublishedDoneNotifications({ fromDate: this.fromDate })
             .then((result) => {
                 this.aggregatedUnpublishedDoneNotifications = result;
@@ -79,10 +87,14 @@ export default class UN_UsernotificationStatus extends LightningElement {
             .catch((error) => {
                 console.error(error);
                 this.aggregatedUnpublishedDoneNotifications = [];
+            })
+            .finally(() => {
+                this.syncingGetAggregatedUnpublishedDoneNotifications = false;
             });
     }
 
     runFindRunningRepublishBatches() {
+        this.runningFindRunningRepublishBatches = true;
         findRunningRepublishBatches()
             .then((result) => {
                 this.runningRepublishBatches = result;
@@ -90,6 +102,9 @@ export default class UN_UsernotificationStatus extends LightningElement {
             .catch((error) => {
                 console.error(error);
                 this.runningRepublishBatches = [];
+            })
+            .finally(() => {
+                this.runningFindRunningRepublishBatches = true;
             });
     }
 
@@ -134,5 +149,12 @@ export default class UN_UsernotificationStatus extends LightningElement {
     abortPolling() {
         clearTimeout(this.timeoutId);
         this.timeoutId = null;
+    }
+
+    handleDateChange(event) {
+        this.fromDate = event.target.value;
+        if (this.pollingActivated === false) {
+            this.refreshAll();
+        }
     }
 }

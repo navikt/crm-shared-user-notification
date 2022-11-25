@@ -22,6 +22,7 @@
                     type="Date"
                     value={fromDate}
                     label="From date"
+                    onchange={handleDateChange}
                     field-level-help="From date used in query"
                 ></lightning-input>
             </lightning-layout-item>
@@ -35,6 +36,11 @@
                         slot="actions"
                     ></lightning-button>
                     <div class="slds-var-p-horizontal_small">
+                        <lightning-spinner
+                            if:true={syncingGetAggregatedUnpublishedNotifications}
+                            alternative-text="Loading..."
+                        >
+                        </lightning-spinner>
                         <lightning-datatable
                             if:true={hasAggregatedUnpublishedNotifications}
                             key-field="key"
@@ -57,6 +63,11 @@
                         slot="actions"
                     ></lightning-button>
                     <div class="slds-var-p-horizontal_small">
+                        <lightning-spinner
+                            if:true={syncingGetAggregatedUnpublishedDoneNotifications}
+                            alternative-text="Loading..."
+                        >
+                        </lightning-spinner>
                         <lightning-datatable
                             if:true={hasAggregatedUnpublishedDoneNotifications}
                             key-field="key"
@@ -73,6 +84,8 @@
             <lightning-layout-item if:true={hasRunningRepublishBatches} size="12">
                 <lightning-card title="Running republish batch">
                     <div class="slds-var-p-horizontal_small">
+                        <lightning-spinner if:true={runningFindRunningRepublishBatches} alternative-text="Loading...">
+                        </lightning-spinner>
                         <ul class="slds-has-dividers_around-space">
                             <template for:each={runningRepublishBatches} for:item="runningRepublishBatch">
                                 <li class="slds-item" key={runningRepublishBatch.key}>
