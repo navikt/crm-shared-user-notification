@@ -28,5 +28,8 @@
         "**/.vscode": true,
         "**/.idea": true
     },
-    "salesforcedx-vscode-core.telemetry.enabled": false
+    "salesforcedx-vscode-core.telemetry.enabled": false,
+    "scratch.default.permissionsets": [
+        "UN_Scratch"
+    ]
 }

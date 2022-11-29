@@ -1,0 +1,133 @@
+<template>
+    <lightning-card title="Unpublished User Notifications" icon-name="custom:custom53">
+        <lightning-button-stateful
+            label-when-off="Start Sync"
+            label-when-on="Syncing"
+            label-when-hover="Toogle sync"
+            icon-name-when-off="utility:close"
+            icon-name-when-on="utility:sync"
+            icon-name-when-hover="utility:sync"
+            variant="neutral"
+            selected={pollingActivated}
+            onclick={tooglePolling}
+            slot="actions"
+        >
+        </lightning-button-stateful>
+
+        <lightning-button-icon slot="actions" icon-name="utility:refresh" onclick={refreshAll}></lightning-button-icon>
+
+        <lightning-layout multiple-rows="true" class="slds-var-p-horizontal_small">
+            <lightning-layout-item size="3" alignment-bump="left">
+                <lightning-input
+                    type="Date"
+                    value={fromDate}
+                    label="From date"
+                    onchange={handleDateChange}
+                    field-level-help="From date used in query"
+                ></lightning-input>
+            </lightning-layout-item>
+            <lightning-layout-item size="12">
+                <lightning-card title="Notifications not published">
+                    <lightning-button
+                        if:true={hasAggregatedUnpublishedNotifications}
+                        onclick={runRepublishNotifications}
+                        disabled={hasRunningRepublishBatches}
+                        label="Rerun"
+                        slot="actions"
+                    ></lightning-button>
+                    <div class="slds-var-p-horizontal_small">
+                        <lightning-spinner
+                            if:true={syncingGetAggregatedUnpublishedNotifications}
+                            alternative-text="Loading..."
+                        >
+                        </lightning-spinner>
+                        <lightning-datatable
+                            if:true={hasAggregatedUnpublishedNotifications}
+                            key-field="key"
+                            data={aggregatedUnpublishedNotifications}
+                            columns={aggregatedColumns}
+                            hide-checkbox-column
+                        ></lightning-datatable>
+                        <div if:false={hasAggregatedUnpublishedNotifications} class="slds-text-body_regular">
+                            Nothing to report 😸
+                        </div>
+                    </div>
+                </lightning-card>
+            </lightning-layout-item>
+            <lightning-layout-item size="12">
+                <lightning-card title="Done notifications not published">
+                    <lightning-button
+                        if:true={hasAggregatedUnpublishedDoneNotifications}
+                        onclick={runRepublishDoneNotifications}
+                        label="Rerun"
+                        slot="actions"
+                    ></lightning-button>
+                    <div class="slds-var-p-horizontal_small">
+                        <lightning-spinner
+                            if:true={syncingGetAggregatedUnpublishedDoneNotifications}
+                            alternative-text="Loading..."
+                        >
+                        </lightning-spinner>
+                        <lightning-datatable
+                            if:true={hasAggregatedUnpublishedDoneNotifications}
+                            key-field="key"
+                            data={aggregatedUnpublishedDoneNotifications}
+                            columns={aggregatedColumns}
+                            hide-checkbox-column
+                        ></lightning-datatable>
+                        <div if:false={hasAggregatedUnpublishedDoneNotifications} class="slds-text-body_regular">
+                            Nothing to report 😸
+                        </div>
+                    </div>
+                </lightning-card>
+            </lightning-layout-item>
+            <lightning-layout-item if:true={hasRunningRepublishBatches} size="12">
+                <lightning-card title="Running republish batch">
+                    <div class="slds-var-p-horizontal_small">
+                        <lightning-spinner if:true={runningFindRunningRepublishBatches} alternative-text="Loading...">
+                        </lightning-spinner>
+                        <ul class="slds-has-dividers_around-space">
+                            <template for:each={runningRepublishBatches} for:item="runningRepublishBatch">
+                                <li class="slds-item" key={runningRepublishBatch.key}>
+                                    <lightning-layout vertical-align="center">
+                                        <lightning-layout-item class="slds-p-right_x-small">
+                                            <lightning-progress-ring
+                                                value={runningRepublishBatch.progress}
+                                                variant={runningRepublishBatch.variant}
+                                                size="large"
+                                            >
+                                            </lightning-progress-ring>
+                                        </lightning-layout-item>
+                                        <lightning-layout-item>
+                                            <dl class="slds-dl_inline">
+                                                <dt class="slds-dl_inline__label">Status:</dt>
+                                                <dd class="slds-dl_inline__detail">{runningRepublishBatch.status}</dd>
+
+                                                <dt class="slds-dl_inline__label">Progress:</dt>
+                                                <dd class="slds-dl_inline__detail">
+                                                    Processed {runningRepublishBatch.jobItemsProcessed} of
+                                                    {runningRepublishBatch.totalJobItems} items
+                                                </dd>
+
+                                                <dt class="slds-dl_inline__label">Number of errors:</dt>
+                                                <dd class="slds-dl_inline__detail">
+                                                    {runningRepublishBatch.numberOfErrors}
+                                                </dd>
+                                            </dl>
+                                        </lightning-layout-item>
+                                    </lightning-layout>
+                                </li>
+                            </template>
+                        </ul>
+                    </div></lightning-card
+                >
+            </lightning-layout-item>
+        </lightning-layout>
+        <div slot="footer">
+            <dl class="slds-dl_inline">
+                <dt class="slds-dl_inline__label">Last synced:</dt>
+                <dd class="slds-dl_inline__detail">{lastSync}</dd>
+            </dl>
+        </div>
+    </lightning-card>
+</template>
