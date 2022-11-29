@@ -48,7 +48,7 @@ public virtual class UN_TmsEventApiEvent {
     @AuraEnabled
     public Boolean eksternVarslingSendt;
     @AuraEnabled
-    public public List<String> eksternVarslingKanaler;
+    public List<String> eksternVarslingKanaler;
 
     private Datetime getDtFromString(String stringDT) {
         return String.isBlank(stringDT) ? null : DateTime.valueOf(stringDT.substringBefore('[').replace('T', ' '));
