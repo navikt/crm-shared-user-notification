@@ -30,7 +30,7 @@
                 <lightning-card title="Notifications not published">
                     <lightning-button
                         if:true={hasAggregatedUnpublishedNotifications}
-                        onclick={runRepublishNotifications}
+                        onclick={runRepublishUnsentNotifications}
                         disabled={hasRunningRepublishBatches}
                         label="Rerun"
                         slot="actions"
