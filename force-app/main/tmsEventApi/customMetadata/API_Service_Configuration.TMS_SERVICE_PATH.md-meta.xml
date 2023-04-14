@@ -19,56 +19,79 @@
         <value xsi:type="xsd:string">{
 &quot;200&quot;: {
 &quot;headers&quot;: null,
-&quot;body&quot;: [
-	{
-        &quot;produsent&quot;: &quot;sf-brukernotifikasjon&quot;,
-        &quot;forstBehandlet&quot;: &quot;2021-10-26T10:47:46+02:00[Europe/Oslo]&quot;,
-        &quot;fodselsnummer&quot;: &quot;10108000398&quot;,
-        &quot;eventId&quot;: &quot;6e989752-c29b-45b5-a5a5-180f3fb46452&quot;,
-        &quot;grupperingsId&quot;: &quot;a1Wcad3ac13fa488ed&quot;,
-        &quot;tekst&quot;: &quot;Dummy notifikasjon 1&quot;,
-        &quot;link&quot;: &quot;https://www.dev.nav.no/person/dittnav/&quot;,
-        &quot;sikkerhetsnivaa&quot;: 4,
-        &quot;sistOppdatert&quot;: &quot;2022-01-24T12:28:47.575496+01:00[Europe/Oslo]&quot;,
-        &quot;aktiv&quot;: false
-    },
-    {
-        &quot;produsent&quot;: &quot;sf-brukernotifikasjon&quot;,
-        &quot;forstBehandlet&quot;: &quot;2021-11-17T14:56:05+01:00[Europe/Oslo]&quot;,
-        &quot;fodselsnummer&quot;: &quot;10108000398&quot;,
-        &quot;eventId&quot;: &quot;dec2ddbe-722d-46e6-afaf-4e47c1655df3&quot;,
-        &quot;grupperingsId&quot;: &quot;a1Ke65b88d15595c1c&quot;,
-        &quot;tekst&quot;: &quot;Dummy notifikasjon 2&quot;,
-        &quot;link&quot;: &quot;https://www.dev.nav.no/person/dittnav/&quot;,
-        &quot;sikkerhetsnivaa&quot;: 4,
-        &quot;sistOppdatert&quot;: &quot;2022-01-24T12:28:47.575539+01:00[Europe/Oslo]&quot;,
-        &quot;aktiv&quot;: false
-    },
-    {
-        &quot;produsent&quot;: &quot;tms-event-test-producer&quot;,
-        &quot;forstBehandlet&quot;: &quot;2022-03-07T15:14:33.332+01:00[Europe/Oslo]&quot;,
-        &quot;fodselsnummer&quot;: &quot;10108000398&quot;,
-        &quot;eventId&quot;: &quot;b670d4fc-9a85-4fc9-9cab-bbe1e8baf4b5&quot;,
-        &quot;grupperingsId&quot;: &quot;1234&quot;,
-        &quot;tekst&quot;: &quot;Dummy notifikasjon 3&quot;,
-        &quot;link&quot;: &quot;https://www.dev.nav.no/person/dittnav/&quot;,
-        &quot;sikkerhetsnivaa&quot;: 4,
-        &quot;sistOppdatert&quot;: &quot;2022-03-07T15:14:33.369992+01:00[Europe/Oslo]&quot;,
-        &quot;aktiv&quot;: true
-    },
-    {
-        &quot;produsent&quot;: &quot;sosialhjelp-dialog-api&quot;,
-        &quot;forstBehandlet&quot;: &quot;2022-03-07T15:14:33.332+01:00[Europe/Oslo]&quot;,
-        &quot;fodselsnummer&quot;: &quot;10108000398&quot;,
-        &quot;eventId&quot;: &quot;b670d4fc-9a85-4fc9-9cab-bbe1e8baf4b5&quot;,
-        &quot;grupperingsId&quot;: &quot;1234&quot;,
-        &quot;tekst&quot;: &quot;Dummy notifikasjon 3&quot;,
-        &quot;link&quot;: &quot;https://www.dev.nav.no/person/dittnav/&quot;,
-        &quot;sikkerhetsnivaa&quot;: 4,
-        &quot;sistOppdatert&quot;: &quot;2022-05-07T15:14:33.369992+01:00[Europe/Oslo]&quot;,
-        &quot;aktiv&quot;: true
-    }
-]
+&quot;body&quot;: [ {
+  &quot;uid&quot; : null,
+  &quot;typeLabel&quot; : &quot;Beskjed&quot;,
+  &quot;type&quot; : &quot;BESKJED&quot;,
+  &quot;tekst&quot; : &quot;Ny melding i dialogen med veilederen din&quot;,
+  &quot;sistOppdatertDT&quot; : &quot;2023-04-11T08:08:36.000Z&quot;,
+  &quot;sistOppdatert&quot; : &quot;2023-04-11T10:08:36.689172Z&quot;,
+  &quot;sikkerhetsnivaa&quot; : 3,
+  &quot;produsent&quot; : &quot;veilarbdialog&quot;,
+  &quot;link&quot; : &quot;https://pto.dev.nav.no/arbeid/dialog/617177&quot;,
+  &quot;grupperingsId&quot; : &quot;N/A&quot;,
+  &quot;forstBehandletDT&quot; : &quot;2023-04-11T08:08:36.000Z&quot;,
+  &quot;forstBehandlet&quot; : &quot;2023-04-11T10:08:36.646657Z&quot;,
+  &quot;fodselsnummer&quot; : &quot;10108000398&quot;,
+  &quot;eventTidspunktDT&quot; : null,
+  &quot;eventTidspunkt&quot; : null,
+  &quot;eventId&quot; : &quot;151e7f87-b447-44cb-9b17-0e6373e7b297&quot;,
+  &quot;eksternVarslingSendt&quot; : true,
+  &quot;eksternVarslingKanaler&quot; : [ &quot;SMS&quot; ],
+  &quot;eksternVarsling&quot; : {
+    &quot;sendteKanaler&quot; : [ &quot;SMS&quot; ],
+    &quot;sendt&quot; : true,
+    &quot;renotifikasjonSendt&quot; : false,
+    &quot;prefererteKanaler&quot; : [ &quot;SMS&quot; ],
+    &quot;historikk&quot; : [ {
+      &quot;tidspunktDT&quot; : &quot;2023-04-11T08:08:37.000Z&quot;,
+      &quot;tidspunkt&quot; : &quot;2023-04-11T10:08:37.443Z&quot;,
+      &quot;status&quot; : &quot;bestilt&quot;,
+      &quot;renotifikasjon&quot; : null,
+      &quot;melding&quot; : &quot;Notifikasjon er behandlet og distribusjon er bestilt&quot;,
+      &quot;kanal&quot; : null,
+      &quot;distribusjonsId&quot; : null
+    }, {
+      &quot;tidspunktDT&quot; : &quot;2023-04-11T08:08:37.000Z&quot;,
+      &quot;tidspunkt&quot; : &quot;2023-04-11T10:08:37.529Z&quot;,
+      &quot;status&quot; : &quot;sendt&quot;,
+      &quot;renotifikasjon&quot; : false,
+      &quot;melding&quot; : &quot;notifikasjon sendt via sms&quot;,
+      &quot;kanal&quot; : &quot;SMS&quot;,
+      &quot;distribusjonsId&quot; : 605721
+    }, {
+      &quot;tidspunktDT&quot; : &quot;2023-04-11T08:08:38.000Z&quot;,
+      &quot;tidspunkt&quot; : &quot;2023-04-11T10:08:38.547Z&quot;,
+      &quot;status&quot; : &quot;ferdigstilt&quot;,
+      &quot;renotifikasjon&quot; : null,
+      &quot;melding&quot; : &quot;notifikasjon er FERDIGSTILT&quot;,
+      &quot;kanal&quot; : null,
+      &quot;distribusjonsId&quot; : null
+    } ]
+  },
+  &quot;aktiv&quot; : true
+}, {
+  &quot;uid&quot; : null,
+  &quot;typeLabel&quot; : &quot;Oppgave&quot;,
+  &quot;type&quot; : &quot;OPPGAVE&quot;,
+  &quot;tekst&quot; : &quot;oppgavetest&quot;,
+  &quot;sistOppdatertDT&quot; : &quot;2022-10-14T09:51:53.000Z&quot;,
+  &quot;sistOppdatert&quot; : &quot;2022-10-14T11:51:53.068597Z&quot;,
+  &quot;sikkerhetsnivaa&quot; : 4,
+  &quot;produsent&quot; : &quot;tms-event-test-producer&quot;,
+  &quot;link&quot; : &quot;https://nav.no&quot;,
+  &quot;grupperingsId&quot; : &quot;N/A&quot;,
+  &quot;forstBehandletDT&quot; : &quot;2022-10-14T09:51:53.000Z&quot;,
+  &quot;forstBehandlet&quot; : &quot;2022-10-14T11:51:53.053Z&quot;,
+  &quot;fodselsnummer&quot; : &quot;10108000398&quot;,
+  &quot;eventTidspunktDT&quot; : null,
+  &quot;eventTidspunkt&quot; : null,
+  &quot;eventId&quot; : &quot;791c3e06-db40-46a9-855c-181d77f0a6b4&quot;,
+  &quot;eksternVarslingSendt&quot; : false,
+  &quot;eksternVarslingKanaler&quot; : [ ],
+  &quot;eksternVarsling&quot; : null,
+  &quot;aktiv&quot; : true
+} ]
 },
 &quot;401&quot;: {
 &quot;headers&quot;: null,
