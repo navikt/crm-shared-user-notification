@@ -1,10 +1,6 @@
 @IsTest
 private with sharing class UN_TmsEventApiTest {
 
-    public static void xyzzy(Object o) {
-        System.debug('xyzzy ' + JSON.serializePretty(o));
-    }
-
     /**
      * Ensure that the new EksternVarsling and EksternVarslingHistorikkEntry
      * objects are picked up.
@@ -15,7 +11,6 @@ private with sharing class UN_TmsEventApiTest {
         List<UN_TmsEventApiEvent> result;
         Test.startTest();
         result = UN_TmsEventApi.getAllEventsAura('123456789');
-        xyzzy(result);
         Test.stopTest();
         System.assertEquals(
             result[0].eksternVarsling.historikk[0].status,
@@ -30,7 +25,6 @@ private with sharing class UN_TmsEventApiTest {
         List<UN_TmsEventApiEvent> result;
         Test.startTest();
         result = UN_TmsEventApi.getAllEventsAura('123456789');
-        xyzzy(result);
         Test.stopTest();
 
         System.assert(result.size() == 2 * 3, 'Expected to get two events three times');
