@@ -4,8 +4,8 @@
     <decisions>
         <name>Can_create_Done_Event</name>
         <label>Can create Done Event</label>
-        <locationX>704</locationX>
-        <locationY>518</locationY>
+        <locationX>968</locationX>
+        <locationY>458</locationY>
         <defaultConnector>
             <targetReference>User_Notification</targetReference>
         </defaultConnector>
@@ -44,7 +44,7 @@
         <name>Has_Related_Record_Id</name>
         <label>Has Related Record Id</label>
         <locationX>176</locationX>
-        <locationY>158</locationY>
+        <locationY>134</locationY>
         <defaultConnector>
             <targetReference>User_Notification_Collection</targetReference>
         </defaultConnector>
@@ -64,13 +64,14 @@
     </decisions>
     <description>Query User Notifications and create Done events for them with the supplied datetime variable.
 The query filter will filter on user notifications where Done = false, System user equals supplied system user and the event type can have done notifications.</description>
+    <environments>Default</environments>
     <interviewLabel>User Notification - Create Done Event From Related Record Id {!$Flow.CurrentDateTime}</interviewLabel>
     <label>User Notification - Create Done Event From Related Record Id</label>
     <loops>
         <name>User_Notification</name>
         <label>User Notification</label>
-        <locationX>484</locationX>
-        <locationY>398</locationY>
+        <locationX>616</locationX>
+        <locationY>350</locationY>
         <collectionReference>User_Notification_Collection</collectionReference>
         <iterationOrder>Asc</iterationOrder>
         <nextValueConnector>
@@ -96,11 +97,61 @@ The query filter will filter on user notifications where Done = false, System us
         </value>
     </processMetadataValues>
     <processType>AutoLaunchedFlow</processType>
+    <recordCreates>
+        <name>Create_Application_Log</name>
+        <label>Create Application Log</label>
+        <locationX>968</locationX>
+        <locationY>674</locationY>
+        <inputAssignments>
+            <field>Application_Domain__c</field>
+            <value>
+                <stringValue>NKS</stringValue>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Category__c</field>
+            <value>
+                <stringValue>User Notification</stringValue>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Log_Level__c</field>
+            <value>
+                <stringValue>Error</stringValue>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Log_Message__c</field>
+            <value>
+                <elementReference>$Flow.FaultMessage</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Referrence_ID__c</field>
+            <value>
+                <elementReference>User_Notification.Id</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Referrence_Info__c</field>
+            <value>
+                <stringValue>User_Notification__c</stringValue>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Source_Class__c</field>
+            <value>
+                <stringValue>User Notification - Create Done Event From Related Record Id</stringValue>
+            </value>
+        </inputAssignments>
+        <object>Application_Log__c</object>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordCreates>
     <recordLookups>
         <name>User_Notification_Collection</name>
         <label>User Notification Collection</label>
-        <locationX>484</locationX>
-        <locationY>278</locationY>
+        <locationX>616</locationX>
+        <locationY>242</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
             <targetReference>User_Notification</targetReference>
@@ -169,11 +220,14 @@ The query filter will filter on user notifications where Done = false, System us
     <recordUpdates>
         <name>Update_user_notification</name>
         <label>Update user notification</label>
-        <locationX>572</locationX>
-        <locationY>638</locationY>
+        <locationX>704</locationX>
+        <locationY>566</locationY>
         <connector>
             <targetReference>User_Notification</targetReference>
         </connector>
+        <faultConnector>
+            <targetReference>Create_Application_Log</targetReference>
+        </faultConnector>
         <filterLogic>and</filterLogic>
         <filters>
             <field>Id</field>
