@@ -15,6 +15,4 @@ jobs:
   quick-package-create:
     name: Quick Create Package
     uses: navikt/crm-workflows-base/.github/workflows/quickPackageCreate.yml@master
-    permissions:
-      contents: write
     secrets: inherit
