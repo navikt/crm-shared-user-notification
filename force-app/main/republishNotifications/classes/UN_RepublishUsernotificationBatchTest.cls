@@ -15,7 +15,7 @@ private with sharing class UN_RepublishUsernotificationBatchTest {
 
     @IsTest
     static void testResendUnreadNotification() {
-        ApiMock.setTestMock('POST_INNBOKS_EVENT', 200, 'OK');
+        ApiMock.setTestMock('UN_POST_INNBOKS_EVENTS', 200, 'OK');
         Account acc = [SELECT Id FROM Account WHERE CRM_Person__r.INT_ActorId__c = '9876543210'];
 
         UserNotification__c un = new UserNotification__c();
@@ -50,7 +50,7 @@ private with sharing class UN_RepublishUsernotificationBatchTest {
 
     @IsTest
     static void testResendUnreadNotificationError() {
-        ApiMock.setTestMock('POST_INNBOKS_EVENT', 401, 'ERROR');
+        ApiMock.setTestMock('UN_POST_INNBOKS_EVENTS', 401, 'ERROR');
         Account acc = [SELECT Id FROM Account WHERE CRM_Person__r.INT_ActorId__c = '9876543210'];
 
         UserNotification__c un = new UserNotification__c();
@@ -85,7 +85,7 @@ private with sharing class UN_RepublishUsernotificationBatchTest {
 
     @IsTest
     static void testResendReadNotificationSendMessage() {
-        ApiMock.setTestMock('POST_INNBOKS_EVENT', 200, 'OK');
+        ApiMock.setTestMock('UN_POST_INNBOKS_EVENTS', 200, 'OK');
         Account acc = [SELECT Id FROM Account WHERE CRM_Person__r.INT_ActorId__c = '9876543210'];
 
         UserNotification__c un = new UserNotification__c();
@@ -130,7 +130,7 @@ private with sharing class UN_RepublishUsernotificationBatchTest {
 
     @IsTest
     static void testResendReadNotificationSendDoneMessage() {
-        ApiMock.setTestMock('POST_INNBOKS_EVENT', 200, 'OK');
+        ApiMock.setTestMock('UN_POST_INNBOKS_EVENTS', 200, 'OK');
         Account acc = [SELECT Id FROM Account WHERE CRM_Person__r.INT_ActorId__c = '9876543210'];
 
         UserNotification__c un = new UserNotification__c();
@@ -178,7 +178,7 @@ private with sharing class UN_RepublishUsernotificationBatchTest {
 
     @IsTest
     static void testResendReadNotificationSendDoneMessageError() {
-        ApiMock.setTestMock('POST_INNBOKS_EVENT', 401, 'Error');
+        ApiMock.setTestMock('UN_POST_INNBOKS_EVENTS', 401, 'Error');
         Account acc = [SELECT Id FROM Account WHERE CRM_Person__r.INT_ActorId__c = '9876543210'];
 
         UserNotification__c un = new UserNotification__c();

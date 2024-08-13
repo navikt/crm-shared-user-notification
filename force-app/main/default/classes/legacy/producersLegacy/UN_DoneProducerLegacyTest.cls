@@ -17,7 +17,7 @@ private with sharing class UN_DoneProducerLegacyTest {
     static void testSuccess() {
         Account acc = [SELECT Id FROM Account WHERE CRM_Person__r.INT_ActorId__c = :'9876543210'];
 
-        ApiMock.setTestMock('POST_DONE_EVENT', 200, 'OK');
+        ApiMock.setTestMock('UN_POST_DONE_EVENTS', 200, 'OK');
 
         UN_InnboksProducerLegacy.Input input = new UN_InnboksProducerLegacy.Input();
         input.tidspunkt = DateTime.now();
@@ -50,7 +50,7 @@ private with sharing class UN_DoneProducerLegacyTest {
     static void testError() {
         Account acc = [SELECT Id FROM Account WHERE CRM_Person__r.INT_ActorId__c = :'9876543210'];
 
-        ApiMock.setTestMock('POST_INNBOKS_EVENT', 200, 'OK');
+        ApiMock.setTestMock('UN_POST_INNBOKS_EVENTS', 200, 'OK');
 
         UN_InnboksProducerLegacy.Input input = new UN_InnboksProducerLegacy.Input();
         input.tidspunkt = DateTime.now();
@@ -74,7 +74,7 @@ private with sharing class UN_DoneProducerLegacyTest {
         done.tidspunkt = Datetime.now();
         done.userNotification = result[0];
 
-        ApiMock.setTestMock('POST_DONE_EVENT', 500, 'Internal Server Error');
+        ApiMock.setTestMock('UN_POST_DONE_EVENTS', 500, 'Internal Server Error');
 
         Test.startTest();
         result = UN_DoneProducerLegacy.produceDoneNotification(new List<UN_DoneProducerLegacy.Input>{ done });
