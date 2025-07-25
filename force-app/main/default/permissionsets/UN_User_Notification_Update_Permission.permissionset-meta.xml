@@ -2,11 +2,6 @@
 <PermissionSet xmlns="http://soap.sforce.com/2006/04/metadata">
     <description>Permissionset for doing cleanup of usernotifications.</description>
     <fieldPermissions>
-        <editable>false</editable>
-        <field>UserNotification__c.CRM_CaseTheme__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
         <editable>true</editable>
         <field>UserNotification__c.CRM_Done__c</field>
         <readable>true</readable>
@@ -42,11 +37,6 @@
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>false</editable>
-        <field>UserNotification__c.INT_CaseTheme__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
         <editable>true</editable>
         <field>UserNotification__c.INT_DoneEventTime__c</field>
         <readable>true</readable>
@@ -74,11 +64,6 @@
     <fieldPermissions>
         <editable>false</editable>
         <field>UserNotification__c.INT_GroupingId__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>false</editable>
-        <field>UserNotification__c.INT_InternalStatus__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
