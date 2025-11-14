@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Flow xmlns="http://soap.sforce.com/2006/04/metadata">
     <actionCalls>
-        <name>Create_Innboks_Event</name>
-        <label>Create Innboks Event</label>
-        <locationX>176</locationX>
-        <locationY>278</locationY>
-        <actionName>UN_InnboksProducerLegacy</actionName>
+        <name>Create_Inbox_Event</name>
+        <label>Create Inbox Event</label>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <actionName>UN_InnboksAction</actionName>
         <actionType>apex</actionType>
         <faultConnector>
             <targetReference>Error_message</targetReference>
@@ -18,33 +18,21 @@
             </value>
         </inputParameters>
         <inputParameters>
-            <name>eksternVarsling</name>
+            <name>ident</name>
             <value>
-                <elementReference>Ekstern_varsling</elementReference>
+                <elementReference>Ident</elementReference>
             </value>
         </inputParameters>
         <inputParameters>
-            <name>fodselsnummer</name>
+            <name>kanBatches</name>
             <value>
-                <elementReference>Fodselsnummer</elementReference>
-            </value>
-        </inputParameters>
-        <inputParameters>
-            <name>grupperingsId</name>
-            <value>
-                <elementReference>Grupperings_Id</elementReference>
-            </value>
-        </inputParameters>
-        <inputParameters>
-            <name>link</name>
-            <value>
-                <elementReference>Link</elementReference>
+                <elementReference>Kan_Batches.value</elementReference>
             </value>
         </inputParameters>
         <inputParameters>
             <name>prefererteKanaler</name>
             <value>
-                <elementReference>prefererteKanaler</elementReference>
+                <elementReference>Prefererte_kanaler</elementReference>
             </value>
         </inputParameters>
         <inputParameters>
@@ -54,32 +42,21 @@
             </value>
         </inputParameters>
         <inputParameters>
-            <name>sikkerhetsnivaa</name>
+            <name>sensitivitet</name>
             <value>
-                <numberValue>4.0</numberValue>
+                <elementReference>Sensitivitet</elementReference>
             </value>
         </inputParameters>
         <inputParameters>
-            <name>systembruker</name>
+            <name>tekster</name>
             <value>
-                <elementReference>Systembruker</elementReference>
-            </value>
-        </inputParameters>
-        <inputParameters>
-            <name>tekst</name>
-            <value>
-                <elementReference>Tekst</elementReference>
-            </value>
-        </inputParameters>
-        <inputParameters>
-            <name>tidspunkt</name>
-            <value>
-                <elementReference>Tidspunkt</elementReference>
+                <elementReference>Tekster</elementReference>
             </value>
         </inputParameters>
         <storeOutputAutomatically>true</storeOutputAutomatically>
     </actionCalls>
-    <apiVersion>52.0</apiVersion>
+    <apiVersion>65.0</apiVersion>
+    <environments>Default</environments>
     <interviewLabel>Test new event {!$Flow.CurrentDateTime}</interviewLabel>
     <label>Test new event</label>
     <processMetadataValues>
@@ -104,13 +81,13 @@
     <screens>
         <name>Error_message</name>
         <label>Error message</label>
-        <locationX>440</locationX>
-        <locationY>398</locationY>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
         <allowBack>false</allowBack>
         <allowFinish>true</allowFinish>
         <allowPause>false</allowPause>
         <fields>
-            <name>Error</name>
+            <name>Copy_1_of_Error</name>
             <fieldText>&lt;p&gt;{!$Flow.FaultMessage}&lt;/p&gt;</fieldText>
             <fieldType>DisplayText</fieldType>
         </fields>
@@ -120,51 +97,38 @@
     <screens>
         <name>Input</name>
         <label>Input</label>
-        <locationX>176</locationX>
-        <locationY>158</locationY>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
         <allowBack>false</allowBack>
         <allowFinish>true</allowFinish>
         <allowPause>false</allowPause>
         <connector>
-            <targetReference>Create_Innboks_Event</targetReference>
+            <targetReference>Create_Inbox_Event</targetReference>
         </connector>
         <fields>
-            <name>Tidspunkt</name>
-            <dataType>DateTime</dataType>
-            <defaultValue>
-                <elementReference>$Flow.CurrentDateTime</elementReference>
-            </defaultValue>
-            <fieldText>Tidspunkt</fieldText>
-            <fieldType>InputField</fieldType>
-            <isRequired>true</isRequired>
-        </fields>
-        <fields>
-            <name>Grupperings_Id</name>
+            <name>Varsel_Id</name>
             <dataType>String</dataType>
-            <defaultValue>
-                <stringValue>1234</stringValue>
-            </defaultValue>
-            <fieldText>Grupperings Id</fieldText>
+            <fieldText>Varsel Id</fieldText>
             <fieldType>InputField</fieldType>
-            <isRequired>true</isRequired>
+            <isRequired>false</isRequired>
         </fields>
         <fields>
-            <name>Tekst</name>
-            <defaultValue>
-                <stringValue>Test test TEST</stringValue>
-            </defaultValue>
-            <fieldText>Tekst</fieldText>
-            <fieldType>LargeTextArea</fieldType>
-            <isRequired>true</isRequired>
-        </fields>
-        <fields>
-            <name>Fodselsnummer</name>
+            <name>Ident</name>
             <dataType>String</dataType>
             <defaultValue>
                 <stringValue>12345678901</stringValue>
             </defaultValue>
-            <fieldText>Fodselsnummer</fieldText>
+            <fieldText>Ident</fieldText>
             <fieldType>InputField</fieldType>
+            <isRequired>true</isRequired>
+        </fields>
+        <fields>
+            <name>Tekster</name>
+            <defaultValue>
+                <stringValue>Test test TEST</stringValue>
+            </defaultValue>
+            <fieldText>Tekster</fieldText>
+            <fieldType>LargeTextArea</fieldType>
             <isRequired>true</isRequired>
         </fields>
         <fields>
@@ -175,30 +139,78 @@
             <isRequired>false</isRequired>
         </fields>
         <fields>
-            <name>sikkerhetsnivaa</name>
-            <dataType>Number</dataType>
-            <defaultValue>
-                <numberValue>4.0</numberValue>
-            </defaultValue>
-            <fieldText>sikkerhetsnivaa</fieldText>
-            <fieldType>InputField</fieldType>
-            <isRequired>true</isRequired>
-            <scale>0</scale>
-        </fields>
-        <fields>
-            <name>Systembruker</name>
+            <name>Sensitivitet</name>
             <dataType>String</dataType>
             <defaultValue>
-                <stringValue>teamCRM</stringValue>
+                <stringValue>high</stringValue>
             </defaultValue>
-            <fieldText>Systembruker</fieldText>
+            <fieldText>Sensitivitet</fieldText>
             <fieldType>InputField</fieldType>
             <isRequired>false</isRequired>
         </fields>
         <fields>
-            <name>relatedRecordSfId</name>
+            <name>Prefererte_kanaler</name>
             <dataType>String</dataType>
-            <fieldText>relatedRecordSfId</fieldText>
+            <defaultValue>
+                <stringValue>SMS, EPOST</stringValue>
+            </defaultValue>
+            <fieldText>Prefererte kanaler</fieldText>
+            <fieldType>InputField</fieldType>
+            <isRequired>false</isRequired>
+        </fields>
+        <fields>
+            <name>SMS_Varslingstekst</name>
+            <dataType>String</dataType>
+            <fieldText>SMS Varslingstekst</fieldText>
+            <fieldType>InputField</fieldType>
+            <isRequired>false</isRequired>
+        </fields>
+        <fields>
+            <name>Epost_Varslingstittel</name>
+            <dataType>String</dataType>
+            <fieldText>Epost Varslingstittel</fieldText>
+            <fieldType>InputField</fieldType>
+            <isRequired>false</isRequired>
+        </fields>
+        <fields>
+            <name>Epost_Varslingstekst</name>
+            <dataType>String</dataType>
+            <fieldText>Epost Varslingstekst</fieldText>
+            <fieldType>InputField</fieldType>
+            <isRequired>false</isRequired>
+        </fields>
+        <fields>
+            <name>Kan_Batches</name>
+            <extensionName>flowruntime:toggle</extensionName>
+            <fieldType>ComponentInstance</fieldType>
+            <inputParameters>
+                <name>label</name>
+                <value>
+                    <stringValue>Kan batches</stringValue>
+                </value>
+            </inputParameters>
+            <inputsOnNextNavToAssocScrn>UseStoredValues</inputsOnNextNavToAssocScrn>
+            <isRequired>true</isRequired>
+            <storeOutputAutomatically>true</storeOutputAutomatically>
+        </fields>
+        <fields>
+            <name>Cluster</name>
+            <dataType>String</dataType>
+            <fieldText>Cluster</fieldText>
+            <fieldType>InputField</fieldType>
+            <isRequired>false</isRequired>
+        </fields>
+        <fields>
+            <name>Name_Space</name>
+            <dataType>String</dataType>
+            <fieldText>Name Space</fieldText>
+            <fieldType>InputField</fieldType>
+            <isRequired>false</isRequired>
+        </fields>
+        <fields>
+            <name>App_Navn</name>
+            <dataType>String</dataType>
+            <fieldText>App Navn</fieldText>
             <fieldType>InputField</fieldType>
             <isRequired>false</isRequired>
         </fields>
@@ -224,30 +236,32 @@
                     <stringValue>UserNotification__c</stringValue>
                 </value>
             </inputParameters>
-
             <inputsOnNextNavToAssocScrn>UseStoredValues</inputsOnNextNavToAssocScrn>
             <isRequired>true</isRequired>
             <storeOutputAutomatically>true</storeOutputAutomatically>
         </fields>
         <fields>
-            <name>prefererteKanaler</name>
+            <name>relatedRecordSfId</name>
             <dataType>String</dataType>
-            <fieldText>prefererteKanaler</fieldText>
+            <fieldText>relatedRecordSfId</fieldText>
             <fieldType>InputField</fieldType>
             <isRequired>false</isRequired>
         </fields>
         <fields>
-            <name>Ekstern_varsling</name>
-            <dataType>Boolean</dataType>
-            <fieldText>Ekstern varsling</fieldText>
+            <name>Systembruker</name>
+            <dataType>String</dataType>
+            <defaultValue>
+                <stringValue>teamCRM</stringValue>
+            </defaultValue>
+            <fieldText>Systembruker</fieldText>
             <fieldType>InputField</fieldType>
-            <isRequired>true</isRequired>
+            <isRequired>false</isRequired>
         </fields>
         <showFooter>true</showFooter>
         <showHeader>true</showHeader>
     </screens>
     <start>
-        <locationX>50</locationX>
+        <locationX>0</locationX>
         <locationY>0</locationY>
         <connector>
             <targetReference>Input</targetReference>

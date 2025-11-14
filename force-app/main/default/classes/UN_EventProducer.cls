@@ -19,7 +19,7 @@ public virtual inherited sharing class UN_EventProducer {
 
         switch on this.eventType {
             when INNBOKS {
-                UN_InnboksMapper.innboksLegacyToUserNotification((UN_InnboksLegacy) value, this.userNotification);
+                UN_OldInnboksMapper.innboksLegacyToUserNotification((UN_InnboksLegacy) value, this.userNotification);
             }
             // when DONE {
             //     UN_DoneMapper.doneLegacyToUserNotification((UN_DoneLegacy) value, this.userNotification);

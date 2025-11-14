@@ -84,6 +84,11 @@
         <field>UserNotification__c.INT_VisibleUntil__c</field>
         <readable>true</readable>
     </fieldPermissions>
+     <fieldPermissions>
+        <editable>true</editable>
+        <field>UserNotification__c.INT_Sensitivity__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
     <hasActivationRequired>false</hasActivationRequired>
     <label>UN - Scratch</label>
     <objectPermissions>

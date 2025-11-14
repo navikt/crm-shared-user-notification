@@ -1,50 +1,60 @@
 public with sharing class UN_InnboksMapper {
-    public static UserNotification__c innboksLegacyToUserNotification(
-        UN_InnboksLegacy innboks,
+    public static void mapUserNotificationToInnboksEvent(
+        UN_InnboksEvent innboksEvent,
         UserNotification__c userNotification
     ) {
-        userNotification.INT_GroupingId__c = innboks.grupperingsId;
-        userNotification.INT_SocialSecurityNumber__c = innboks.fodselsnummer;
-        userNotification.INT_Link__c = innboks.link;
-        userNotification.INT_SecurityLevel__c = innboks.sikkerhetsnivaa;
-        userNotification.INT_Description__c = innboks.tekst;
-        userNotification.INT_EventTime__c = innboks.tidspunkt;
-        userNotification.INT_Type__c = 'INNBOKS';
-        userNotification.INT_PreferredChannel__c = UN_Util.stringToMultiSelect(innboks.prefererteKanaler, ',');
-        userNotification.INT_ExternalNotification__c = innboks.eksternVarsling;
-
-        return userNotification;
+        userNotification.INT_Type__c = innboksEvent.type;
+        userNotification.INT_EventId__c = innboksEvent.varselId;
+        userNotification.INT_SocialSecurityNumber__c = innboksEvent.ident;
+        List<String> tekstValues = new List<String>();
+        for (UN_Tekst t : innboksEvent.tekster) {
+            tekstValues.add(t.tekst);
+        }
+        userNotification.INT_Description__c = String.join(tekstValues, '; ');
+        userNotification.INT_Link__c = innboksEvent.link;
+        userNotification.INT_Sensitivity__c = innboksEvent.sensitivitet;
+        userNotification.INT_PreferredChannel__c = String.join(innboksEvent.eksternVarsling.prefererteKanaler, ', ');
+        userNotification.INT_SmsText__c = innboksEvent.eksternVarsling.smsVarslingstekst;
+        userNotification.INT_EmailSubject__c = innboksEvent.eksternVarsling.epostVarslingstittel;
+        userNotification.INT_EmailBody__c = innboksEvent.eksternVarsling.epostVarslingstekst;
+        userNotification.INT_Namespace__c = innboksEvent.produsent.namespace;
+        userNotification.INT_AppName__c = innboksEvent.produsent.appnavn;
     }
 
-    public static UserNotification__c innboksInputToUserNotification(
-        UN_InnboksInput innboks,
-        UserNotification__c userNotification
-    ) {
-        userNotification.INT_Link__c = innboks.link;
-        userNotification.INT_SecurityLevel__c = innboks.sikkerhetsnivaa;
-        userNotification.INT_Description__c = innboks.tekst;
-        userNotification.INT_EventTime__c = DateTime.newInstance(innboks.tidspunkt);
-        userNotification.INT_Type__c = 'INNBOKS';
-        userNotification.INT_PreferredChannel__c = UN_Util.listToMultiSelect(innboks.prefererteKanaler);
-        userNotification.INT_ExternalNotification__c = innboks.eksternVarsling;
-        userNotification.INT_SmsText__c = innboks.smsVarslingstekst;
-        userNotification.INT_EmailSubject__c = innboks.epostVarslingstittel;
-        userNotification.INT_EmailBody__c = innboks.epostVarslingstekst;
-
-        return userNotification;
-    }
-
-    public static UN_InnboksInput userNotificationToInnboksInput(UserNotification__c userNotification) {
-        return new UN_InnboksInputBuilder()
-            .withEksternVarsling(userNotification.INT_ExternalNotification__c)
-            .withLink(userNotification.INT_Link__c)
-            .withPrefererteKanaler(UN_Util.multiSelectToString(userNotification.INT_PreferredChannel__c))
-            .withSikkerhetsnivaa(userNotification.INT_SecurityLevel__c)
-            .withTekst(userNotification.INT_Description__c)
-            .withTidspunkt(userNotification.INT_EventTime__c)
-            .withEpostVarslingstekst(userNotification.INT_EmailBody__c)
-            .withEpostVarslingstittel(userNotification.INT_EmailSubject__c)
-            .withSmsVarslingstekst(userNotification.INT_SmsText__c)
-            .build();
+    public static UN_InnboksEvent createInnboksEventFromUserNotification(UserNotification__c userNotification) {
+        List<UN_Tekst> tekster = new List<UN_Tekst>();
+        if (userNotification.INT_Description__c != null) {
+            List<String> teksterStr = userNotification.INT_Description__c.split(';');
+            Integer idx = 0;
+            for (String t : teksterStr) {
+                tekster.add(new UN_Tekst('no', t.trim(), idx == 0));
+                idx++;
+            }
+        }
+        List<String> kanaler = new List<String>();
+        if (userNotification.INT_PreferredChannel__c != null) {
+            kanaler = userNotification.INT_PreferredChannel__c.split(',');
+        }
+        UN_EksternVarsling eksternVarsling = new UN_EksternVarsling(
+            kanaler,
+            userNotification.INT_SmsText__c,
+            userNotification.INT_EmailSubject__c,
+            userNotification.INT_EmailBody__c,
+            false
+        );
+        UN_Produsent produsent = new UN_Produsent(
+            'CRM', // må sjekkes hva som er riktig verdi her
+            userNotification.INT_Namespace__c,
+            userNotification.INT_AppName__c
+        );
+        return new UN_InnboksEvent(
+            userNotification.INT_EventId__c,
+            userNotification.INT_SocialSecurityNumber__c,
+            tekster,
+            userNotification.INT_Link__c,
+            userNotification.INT_Sensitivity__c,
+            eksternVarsling,
+            produsent
+        );
     }
 }

@@ -1,5 +1,5 @@
 @IsTest
-private with sharing class UN_PublishInnboksNotificationActionTest {
+private with sharing class UN_OldPublishInnboksActionTest {
     @TestSetup
     static void makeData() {
         Person__c person = (Person__c) UN_TestDataFactory.createRecord(
@@ -34,7 +34,7 @@ private with sharing class UN_PublishInnboksNotificationActionTest {
                 .build(),
             un
         );
-        UN_InnboksMapper.innboksInputToUserNotification(
+        UN_OldInnboksMapper.innboksInputToUserNotification(
             new UN_InnboksInputBuilder()
                 .withEksternVarsling(true)
                 .withTidspunkt(DateTime.now())
@@ -47,7 +47,7 @@ private with sharing class UN_PublishInnboksNotificationActionTest {
         insert un;
 
         Test.startTest();
-        UN_PublishInnboksNotificationAction.publishInnboksNotification(
+        UN_OldPublishInnboksAction.publishInnboksNotification(
             UN_Util.getUserNotifications(new List<UserNotification__c>{ un })
         );
         Test.stopTest();

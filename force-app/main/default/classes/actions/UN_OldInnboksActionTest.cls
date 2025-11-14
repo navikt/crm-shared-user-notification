@@ -1,5 +1,5 @@
 @IsTest
-public with sharing class UN_InnboksActionTest {
+public with sharing class UN_OldInnboksActionTest {
     @TestSetup
     static void makeData() {
         Person__c person = (Person__c) UN_TestDataFactory.createRecord(
@@ -20,9 +20,9 @@ public with sharing class UN_InnboksActionTest {
             FROM Person__c
             WHERE Name = '12345678901'
         ];
-        List<UN_InnboksAction.Input> inputList = new List<UN_InnboksAction.Input>();
+        List<UN_OldInnboksAction.Input> inputList = new List<UN_OldInnboksAction.Input>();
 
-        inputList.add(new UN_InnboksAction.Input());
+        inputList.add(new UN_OldInnboksAction.Input());
         inputList[0].accountId = p.CRM_Account__c;
         inputList[0].appnavn = 'sf-brukernotifikasjoner';
         inputList[0].eksternVarsling = true;
@@ -40,10 +40,10 @@ public with sharing class UN_InnboksActionTest {
         inputList[0].tekst = 'tekst';
         inputList[0].tidspunkt = Datetime.now();
 
-        List<UN_InnboksAction.Response> insertResponses;
+        List<UN_OldInnboksAction.Response> insertResponses;
 
         Test.startTest();
-        insertResponses = UN_InnboksAction.produceInnboksNotification(inputList);
+        insertResponses = UN_OldInnboksAction.produceInnboksNotification(inputList);
         Test.stopTest();
 
         System.assertEquals(1, insertResponses.size(), 'Expected a response');

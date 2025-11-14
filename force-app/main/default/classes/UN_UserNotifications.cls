@@ -3,7 +3,7 @@ public inherited sharing class UN_UserNotifications {
         List<UserNotification__c> innboksNotifications,
         Boolean isSystemContext
     ) {
-        List<UN_InnboksEvent> innboksEvents = new List<UN_InnboksEvent>();
+        List<UN_OldInnboksEvent> innboksEvents = new List<UN_OldInnboksEvent>();
         for (UserNotification__c un : innboksNotifications) {
             if (un.CRM_SuccessfullySentNotification__c == true) {
                 continue;
@@ -20,7 +20,7 @@ public inherited sharing class UN_UserNotifications {
             }
 
             try {
-                innboksEvents.add(new UN_InnboksEvent(un));
+                innboksEvents.add(new UN_OldInnboksEvent(un));
             } catch (Exception e) {
                 un.CRM_SuccessfullySentNotification__c = false;
                 un.CRM_NotificationError__c = e.getMessage();
@@ -52,7 +52,7 @@ public inherited sharing class UN_UserNotifications {
         return innboksNotifications;
     }
 
-    public static String publishInnboksEvent(List<UN_InnboksEvent> innboksEvents, Boolean isSystemContext) {
+    public static String publishInnboksEvent(List<UN_OldInnboksEvent> innboksEvents, Boolean isSystemContext) {
         HttpResponse resp = UN_BrukernotifikasjonCalloutService.postInnboksNotification(innboksEvents, isSystemContext);
 
         if (resp.getStatusCode() != 200) {
