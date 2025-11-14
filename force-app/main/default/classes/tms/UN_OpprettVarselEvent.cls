@@ -1,5 +1,4 @@
 public virtual inherited sharing class UN_OpprettVarselEvent {
-    public String event_name;
     public String type;
     public String varselId;
     public String ident;
@@ -21,7 +20,6 @@ public virtual inherited sharing class UN_OpprettVarselEvent {
         UN_EksternVarsling eksternVarsling,
         UN_Produsent produsent
     ) {
-        this.event_name = 'opprett'; 
         this.type = type;
         this.varselId = varselId;
         this.ident = ident;
