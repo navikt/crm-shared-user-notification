@@ -40,7 +40,6 @@ public with sharing class UN_UserNotificationService {
             teksterList.add(tekstMap);
         }
         payload.put('tekster', teksterList);
-
         payload.put('link', event.link);
         payload.put('sensitivitet', event.sensitivitet);
         payload.put('aktivFremTil', event.aktivFremTil);
@@ -65,6 +64,10 @@ public with sharing class UN_UserNotificationService {
             payload.put('produsent', produsentMap);
         }
 
+        // log for test
+        LoggerUtility logger = new LoggerUtility('User Notification');
+        logger.info('UN_UserNotificationService payload: ' + JSON.serialize(payload), null);
+        logger.publish();
         return payload;
     }
 }

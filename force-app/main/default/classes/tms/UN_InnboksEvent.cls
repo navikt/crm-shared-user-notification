@@ -31,9 +31,7 @@ public inherited sharing class UN_InnboksEvent extends UN_OpprettVarselEvent {
             userNotification.INT_Sensitivity__c,
             null,
             new UN_EksternVarsling(
-                (userNotification.INT_PreferredChannel__c != null
-                    ? userNotification.INT_PreferredChannel__c.split(',')
-                    : new List<String>()),
+                splitPreferredChannels(userNotification.INT_PreferredChannel__c),
                 userNotification.INT_SmsText__c,
                 userNotification.INT_EmailSubject__c,
                 userNotification.INT_EmailBody__c,
@@ -58,5 +56,17 @@ public inherited sharing class UN_InnboksEvent extends UN_OpprettVarselEvent {
             }
         }
         return tekster;
+    }
+
+    private static List<String> splitPreferredChannels(String preferred) {
+        List<String> kanaler = new List<String>();
+        if (preferred != null) {
+            for (String kanal : preferred.split(';')) {
+                String trimmed = kanal.trim();
+                if (trimmed != '')
+                    kanaler.add(trimmed);
+            }
+        }
+        return kanaler;
     }
 }

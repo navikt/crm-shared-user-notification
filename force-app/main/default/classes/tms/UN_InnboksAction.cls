@@ -11,10 +11,15 @@ public without sharing class UN_InnboksAction {
         for (Input input : inputList) {
             String varselId = (input.varselId != null && input.varselId != '') ? input.varselId : new Uuid().getValue();
 
-            List<String> prefererteKanaler = (input.prefererteKanaler != null &&
-                input.prefererteKanaler != '')
-                ? input.prefererteKanaler.split(',')
-                : new List<String>();
+            List<String> prefererteKanaler = new List<String>();
+            if (input.prefererteKanaler != null && input.prefererteKanaler != '') {
+                for (String val : input.prefererteKanaler.split(';')) {
+                    String trimmedVal = val.trim();
+                    if (trimmedVal != '') {
+                        prefererteKanaler.add(trimmedVal);
+                    }
+                }
+            }
             UN_EksternVarsling eksternVarsling = new UN_EksternVarsling(
                 prefererteKanaler,
                 input.smsVarslingstekst,
@@ -76,16 +81,16 @@ public without sharing class UN_InnboksAction {
         @InvocableVariable(label='Ident' required=true)
         public String ident;
         @InvocableVariable(label='Tekster' required=true)
-        public String tekster; // Semicolon or comma separated in Flow
+        public String tekster;
         @InvocableVariable(label='Link' required=false)
         public String link;
         @InvocableVariable(label='Sensitivitet' required=false)
         public String sensitivitet;
         @InvocableVariable(label='Prefererte Kanaler' required=false)
-        public String prefererteKanaler; // Comma separated in Flow
+        public String prefererteKanaler;
         @InvocableVariable(label='SMS Varslingstekst' required=false)
         public String smsVarslingstekst;
-        @InvocableVariable  (label='Epost Varslingstittel' required=false)
+        @InvocableVariable(label='Epost Varslingstittel' required=false)
         public String epostVarslingstittel;
         @InvocableVariable(label='Epost Varslingstekst' required=false)
         public String epostVarslingstekst;

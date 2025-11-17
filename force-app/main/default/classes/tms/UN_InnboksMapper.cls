@@ -13,12 +13,16 @@ public with sharing class UN_InnboksMapper {
         userNotification.INT_Description__c = String.join(tekstValues, '; ');
         userNotification.INT_Link__c = innboksEvent.link;
         userNotification.INT_Sensitivity__c = innboksEvent.sensitivitet;
-        userNotification.INT_PreferredChannel__c = String.join(innboksEvent.eksternVarsling.prefererteKanaler, ', ');
+        userNotification.INT_PreferredChannel__c = String.join(innboksEvent.eksternVarsling.prefererteKanaler, '; ');
         userNotification.INT_SmsText__c = innboksEvent.eksternVarsling.smsVarslingstekst;
         userNotification.INT_EmailSubject__c = innboksEvent.eksternVarsling.epostVarslingstittel;
         userNotification.INT_EmailBody__c = innboksEvent.eksternVarsling.epostVarslingstekst;
         userNotification.INT_Namespace__c = innboksEvent.produsent.namespace;
         userNotification.INT_AppName__c = innboksEvent.produsent.appnavn;
+        userNotification.INT_Key__c =
+            innboksEvent.produsent.appnavn +
+            innboksEvent.produsent.namespace +
+            innboksEvent.varselId;
     }
 
     public static UN_InnboksEvent createInnboksEventFromUserNotification(UserNotification__c userNotification) {
@@ -33,7 +37,11 @@ public with sharing class UN_InnboksMapper {
         }
         List<String> kanaler = new List<String>();
         if (userNotification.INT_PreferredChannel__c != null) {
-            kanaler = userNotification.INT_PreferredChannel__c.split(',');
+            for (String kanal : userNotification.INT_PreferredChannel__c.split(';')) {
+                String trimmed = kanal.trim();
+                if (trimmed != '')
+                    kanaler.add(trimmed);
+            }
         }
         UN_EksternVarsling eksternVarsling = new UN_EksternVarsling(
             kanaler,

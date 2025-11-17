@@ -1,19 +1,19 @@
 public inherited sharing class UN_UserNotificationController {
+    private static LoggerUtility logger = new LoggerUtility('User Notification');
+
     public static String publishInnboksEvent(List<UN_InnboksEvent> innboksEvents, Boolean isSystemContext) {
         List<UN_OpprettVarselEvent> opprettVarselEvents = new List<UN_OpprettVarselEvent>();
-for (UN_InnboksEvent e : innboksEvents) {
-    opprettVarselEvents.add(e);
-}
+        for (UN_InnboksEvent e : innboksEvents) {
+            opprettVarselEvents.add(e);
+        }
         HttpResponse resp = UN_UserNotificationService.postOpprettVarselEvent(opprettVarselEvents, isSystemContext);
         if (resp.getStatusCode() != 200) {
             String logUuid;
-            LoggerUtility log = new LoggerUtility();
-            log.httpError('Could not publish user notifications', resp, null, null);
-            logUuid = log.peek().UUID__c;
-            log.publish();
+            logger.httpError('Could not publish user notifications', resp, null, null);
+            logUuid = logger.peek().UUID__c;
+            logger.publish();
             throw new UN_UserNotificationsException('Could not publish user notifications. Log uuid: ' + logUuid);
         }
-
         return resp.getBody();
     }
 
@@ -29,13 +29,6 @@ for (UN_InnboksEvent e : innboksEvents) {
             un.INT_Namespace__c = 'teamnks';
             un.INT_AppName__c = 'sf-brukernotifikasjon';
             un.CRM_SuccessfullySentNotification__c = true;
-
-            if (true == un.CRM_Done__c) {
-                un.INT_ExternalNotification__c = false;
-                un.INT_PreferredChannel__c = '';
-            } else {
-                un.CRM_NotificationError__c = '';
-            }
 
             try {
                 innboksEvents.add(new UN_InnboksEvent(un));
@@ -54,22 +47,20 @@ for (UN_InnboksEvent e : innboksEvents) {
                     un.CRM_NotificationError__c = e.getMessage();
                 }
             }
-            LoggerUtility log = new LoggerUtility();
-            log.exception(e);
-            log.publish();
+            logger.exception(e);
+            logger.publish();
         }
 
         try {
             upsert userNotifications;
         } catch (Exception e) {
-            LoggerUtility log = new LoggerUtility();
-            log.exception(e);
-            log.publish();
+            logger.exception(e);
+            logger.publish();
         }
 
         return userNotifications;
     }
 
-      public class UN_UserNotificationsException extends Exception {
+    public class UN_UserNotificationsException extends Exception {
     }
 }
