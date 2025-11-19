@@ -6,62 +6,71 @@ public without sharing class UN_InnboksAction {
     )
     public static List<Response> produceInnboksNotification(List<Input> inputList) {
         List<UserNotification__c> userNotifications = new List<UserNotification__c>();
-        List<String> varselIds = new List<String>();
+        List<UN_InnboksEvent> events = new List<UN_InnboksEvent>();
 
         for (Input input : inputList) {
-            String varselId = (input.varselId != null && input.varselId != '') ? input.varselId : new Uuid().getValue();
+            String varselId = String.isNotBlank(input.varselId) ? input.varselId : new Uuid().getValue();
 
-            List<String> prefererteKanaler = new List<String>();
-            if (input.prefererteKanaler != null && input.prefererteKanaler != '') {
-                for (String val : input.prefererteKanaler.split(';')) {
-                    String trimmedVal = val.trim();
-                    if (trimmedVal != '') {
-                        prefererteKanaler.add(trimmedVal);
-                    }
-                }
-            }
-            UN_EksternVarsling eksternVarsling = new UN_EksternVarsling(
-                prefererteKanaler,
-                input.smsVarslingstekst,
-                input.epostVarslingstittel,
-                input.epostVarslingstekst,
-                input.kanBatches
-            );
+            List<UN_Kanal> prefererteKanaler = UN_NotificationUtils.parseKanalString(input.prefererteKanaler);
 
-            UN_Produsent produsent = new UN_Produsent(input.cluster, input.namespace, input.appnavn);
+            UN_EksternVarsling eksternVarsling = (input.smsVarslingstekst == null &&
+                input.epostVarslingstittel == null &&
+                input.epostVarslingstekst == null &&
+                input.kanBatches == null)
+                ? new UN_EksternVarsling(prefererteKanaler)
+                : new UN_EksternVarsling(
+                      prefererteKanaler,
+                      input.smsVarslingstekst,
+                      input.epostVarslingstittel,
+                      input.epostVarslingstekst,
+                      input.kanBatches
+                  );
 
-            List<UN_Tekst> tekster = new List<UN_Tekst>();
-            if (input.tekster != null && input.tekster != '') {
-                List<String> tekstList = input.tekster.split(',|;');
-                for (Integer idx = 0; idx < tekstList.size(); idx++) {
-                    tekster.add(new UN_Tekst('no', tekstList[idx], idx == 0));
-                }
-            }
+            UN_Produsent produsent = (String.isBlank(input.cluster) &&
+                String.isBlank(input.namespace) &&
+                String.isBlank(input.appnavn))
+                ? new UN_Produsent()
+                : new UN_Produsent(
+                      String.isNotBlank(input.cluster) ? input.cluster : UN_Produsent.DEFAULT_CLUSTER,
+                      String.isNotBlank(input.namespace) ? input.namespace : UN_Produsent.DEFAULT_NAMESPACE,
+                      String.isNotBlank(input.appnavn) ? input.appnavn : UN_Produsent.DEFAULT_APPNAVN
+                  );
+
+            List<UN_Tekst> tekster = String.isNotBlank(input.tekster)
+                ? UN_NotificationUtils.parseTekster(input.tekster)
+                : new List<UN_Tekst>();
+
+            UN_Sensitivitet sensitivitet = UN_NotificationUtils.sensitivitetIsValid(input.sensitivitet)
+                ? UN_Sensitivitet.valueOf(input.sensitivitet.trim().toUpperCase())
+                : UN_Sensitivitet.HIGH;
 
             UN_InnboksEvent innboksEvent = new UN_InnboksEvent(
                 varselId,
                 input.ident,
                 tekster,
                 input.link,
-                input.sensitivitet,
+                sensitivitet,
                 eksternVarsling,
                 produsent
             );
+            innboksEvent.validate();
+            events.add(innboksEvent);
 
             UserNotification__c un = new UserNotification__c();
             un.CRM_Account__c = input.accountId;
             un.CRM_RelatedSfRecord__c = input.relatedRecordSfId;
             UN_InnboksMapper.mapUserNotificationToInnboksEvent(innboksEvent, un);
             userNotifications.add(un);
-            varselIds.add(varselId);
         }
 
+        List<Database.SaveResult> results = Database.insert(userNotifications, false);
+
         List<Response> responses = new List<Response>();
-        Integer idx = 0;
-        for (Database.SaveResult sr : Database.insert(userNotifications, false)) {
+        for (Integer i = 0; i < results.size(); i++) {
+            Database.SaveResult sr = results[i];
             Response resp = new Response();
-            resp.relatedRecordSfId = inputList[idx].relatedRecordSfId;
-            resp.userNotification = userNotifications[idx];
+            resp.relatedRecordSfId = inputList[i].relatedRecordSfId;
+            resp.userNotification = userNotifications[i];
             resp.success = sr.isSuccess();
             resp.errorMessage = sr.isSuccess()
                 ? null
@@ -70,7 +79,6 @@ public without sharing class UN_InnboksAction {
                       ? sr.getErrors()[0].getMessage()
                       : 'Unknown error');
             responses.add(resp);
-            idx++;
         }
         return responses;
     }
@@ -107,7 +115,6 @@ public without sharing class UN_InnboksAction {
         @InvocableVariable(label='Related Record Sf Id' required=false)
         public String relatedRecordSfId;
     }
-
     public class Response {
         @InvocableVariable
         public UserNotification__c userNotification;
