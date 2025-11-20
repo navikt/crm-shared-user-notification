@@ -19,6 +19,7 @@ public with sharing class UN_UserNotificationService {
         return apiCtrl.getResponse();
     }
 
+    @TestVisible
     private static Map<String, Object> buildEventPayload(UN_OpprettVarselEvent event) {
         Map<String, Object> payload = new Map<String, Object>();
         payload.put('@event_name', 'opprett');
