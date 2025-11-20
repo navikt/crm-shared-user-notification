@@ -7,6 +7,7 @@ public with sharing class UN_UserNotificationService {
         Boolean isSystemContext
     ) {
         Map<String, Object> payload = buildEventPayload(opprettVarselEvent);
+        UN_NotificationUtils.removeNulls(payload);
         ApiController apiCtrl = new ApiController();
         if (isSystemContext)
             apiCtrl.setSystemContext();
@@ -28,13 +29,14 @@ public with sharing class UN_UserNotificationService {
         if (event.tekster != null && !event.tekster.isEmpty()) {
             List<Map<String, Object>> teksterList = new List<Map<String, Object>>();
             for (UN_Tekst t : event.tekster) {
-                teksterList.add(
-                    new Map<String, Object>{
-                        'spraakkode' => t.spraakkode,
-                        'tekst' => t.tekst,
-                        'default' => t.defaultValue
-                    }
-                );
+                Map<String, Object> tekstMap = new Map<String, Object>{
+                    'spraakkode' => t.spraakkode,
+                    'tekst' => t.tekst,
+                    'default' => t.defaultValue
+                };
+                if (!tekstMap.isEmpty()) {
+                    teksterList.add(tekstMap);
+                }
             }
             payload.put('tekster', teksterList);
         }
@@ -44,29 +46,44 @@ public with sharing class UN_UserNotificationService {
         payload.put('aktivFremTil', event.aktivFremTil);
 
         if (event.eksternVarsling != null) {
-            payload.put(
-                'eksternVarsling',
-                new Map<String, Object>{
-                    'prefererteKanaler' => event.eksternVarsling.prefererteKanaler != null
-                        ? UN_NotificationUtils.kanalerToString(event.eksternVarsling.prefererteKanaler).split(';')
-                        : new List<String>(),
-                    'smsVarslingstekst' => event.eksternVarsling.smsVarslingstekst,
-                    'epostVarslingstittel' => event.eksternVarsling.epostVarslingstittel,
-                    'epostVarslingstekst' => event.eksternVarsling.epostVarslingstekst,
-                    'kanBatches' => event.eksternVarsling.kanBatches
+            Map<String, Object> eksternVarslingMap = new Map<String, Object>();
+
+            if (event.eksternVarsling.prefererteKanaler != null) {
+                String kanalerStr = UN_NotificationUtils.kanalerToString(event.eksternVarsling.prefererteKanaler);
+                if (kanalerStr != null && kanalerStr.trim() != '') {
+                    List<String> kanalerList = kanalerStr.split(';');
+                    List<String> cleanList = new List<String>();
+                    for (String k : kanalerList) {
+                        if (k != null && k.trim() != '') {
+                            cleanList.add(k);
+                        }
+                    }
+                    if (!cleanList.isEmpty()) {
+                        eksternVarslingMap.put('prefererteKanaler', cleanList);
+                    }
                 }
-            );
+            }
+
+            eksternVarslingMap.put('smsVarslingstekst', event.eksternVarsling.smsVarslingstekst);
+            eksternVarslingMap.put('epostVarslingstittel', event.eksternVarsling.epostVarslingstittel);
+            eksternVarslingMap.put('epostVarslingstekst', event.eksternVarsling.epostVarslingstekst);
+            eksternVarslingMap.put('kanBatches', event.eksternVarsling.kanBatches);
+
+            UN_NotificationUtils.removeNulls(eksternVarslingMap);
+            if (!eksternVarslingMap.isEmpty()) {
+                payload.put('eksternVarsling', eksternVarslingMap);
+            }
         }
 
         if (event.produsent != null) {
-            payload.put(
-                'produsent',
-                new Map<String, Object>{
-                    'cluster' => event.produsent.cluster,
-                    'namespace' => event.produsent.namespace,
-                    'appnavn' => event.produsent.appnavn
-                }
-            );
+            Map<String, Object> produsentMap = new Map<String, Object>{
+                'cluster' => event.produsent.cluster,
+                'namespace' => event.produsent.namespace,
+                'appnavn' => event.produsent.appnavn
+            };
+            if (!produsentMap.isEmpty()) {
+                payload.put('produsent', produsentMap);
+            }
         }
         return payload;
     }

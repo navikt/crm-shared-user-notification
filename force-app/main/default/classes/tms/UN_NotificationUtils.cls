@@ -107,7 +107,7 @@ public inherited sharing class UN_NotificationUtils {
     public static List<UN_Kanal> parseKanalString(String kanalString) {
         List<UN_Kanal> values = new List<UN_Kanal>();
         if (!String.isBlank(kanalString)) {
-            for (String s : kanalString.split(';')) {
+            for (String s : kanalString.split(';|,')) {
                 String v = s.trim().toUpperCase();
                 if (kanalIsValid(v))
                     values.add(UN_Kanal.valueOf(v));
@@ -121,5 +121,17 @@ public inherited sharing class UN_NotificationUtils {
         for (UN_Kanal c : kanaler)
             out.add(c.name());
         return String.join(out, ';');
+    }
+
+    public static void removeNulls(Map<String, Object> m) {
+        List<String> toRemove = new List<String>();
+        for (String k : m.keySet()) {
+            if (m.get(k) == null) {
+                toRemove.add(k);
+            }
+        }
+        for (String k : toRemove) {
+            m.remove(k);
+        }
     }
 }

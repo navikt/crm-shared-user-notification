@@ -36,15 +36,15 @@ public with sharing class UN_InnboksMapper {
         List<UN_Tekst> tekster = UN_NotificationUtils.parseTekster(userNotification.INT_Description__c);
         List<UN_Kanal> kanaler = UN_NotificationUtils.parseKanalString(userNotification.INT_PreferredChannel__c);
 
-        UN_EksternVarsling eksternVarsling = (String.isNotBlank(userNotification.INT_SmsText__c) ||
-            String.isNotBlank(userNotification.INT_EmailSubject__c) ||
+        UN_EksternVarsling eksternVarsling = (String.isNotBlank(userNotification.INT_SmsText__c) &&
+            String.isNotBlank(userNotification.INT_EmailSubject__c) &&
             String.isNotBlank(userNotification.INT_EmailBody__c))
             ? new UN_EksternVarsling(
                   kanaler,
                   userNotification.INT_SmsText__c,
                   userNotification.INT_EmailSubject__c,
                   userNotification.INT_EmailBody__c,
-                  false
+                  false // sjekk verdien her
               )
             : new UN_EksternVarsling(kanaler);
 
