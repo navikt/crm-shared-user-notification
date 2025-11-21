@@ -29,7 +29,18 @@ private class UN_OpprettVarselEventTest {
     @isTest
     static void testValidation_MissingType() {
         try {
-            buildValidEventWithAllOverrides(null, null, null, null, null, null, null, null, null).validate();
+            buildValidEventWithAllOverrides(
+                    null,
+                    null,
+                    null,
+                    null,
+                    null,
+                    UN_Sensitivitet.HIGH,
+                    null,
+                    null,
+                    new UN_Produsent('cluster', 'namespace', 'app')
+                )
+                .validate();
             Assert.fail();
         } catch (UN_OpprettVarselEvent.OpprettVarselValidationException e) {
             Assert.areEqual('type is required', e.getMessage());
@@ -39,7 +50,17 @@ private class UN_OpprettVarselEventTest {
     @isTest
     static void testValidation_InvalidVarselId() {
         try {
-            buildValidEventWithAllOverrides(UN_Type.INNBOKS, 'bad', null, null, null, null, null, null, null)
+            buildValidEventWithAllOverrides(
+                    UN_Type.INNBOKS,
+                    'bad',
+                    null,
+                    null,
+                    null,
+                    UN_Sensitivitet.HIGH,
+                    null,
+                    null,
+                    new UN_Produsent('cluster', 'namespace', 'app')
+                )
                 .validate();
             Assert.fail();
         } catch (UN_OpprettVarselEvent.OpprettVarselValidationException e) {
@@ -50,7 +71,17 @@ private class UN_OpprettVarselEventTest {
     @isTest
     static void testValidation_InvalidIdent() {
         try {
-            buildValidEventWithAllOverrides(UN_Type.INNBOKS, null, 'badIdent', null, null, null, null, null, null)
+            buildValidEventWithAllOverrides(
+                    UN_Type.INNBOKS,
+                    null,
+                    'badIdent',
+                    null,
+                    null,
+                    UN_Sensitivitet.HIGH,
+                    null,
+                    null,
+                    new UN_Produsent('cluster', 'namespace', 'app')
+                )
                 .validate();
             Assert.fail();
         } catch (UN_OpprettVarselEvent.OpprettVarselValidationException e) {
@@ -67,10 +98,10 @@ private class UN_OpprettVarselEventTest {
                     null,
                     new List<UN_Tekst>(),
                     null,
+                    UN_Sensitivitet.HIGH,
                     null,
                     null,
-                    null,
-                    null
+                    new UN_Produsent('cluster', 'namespace', 'app')
                 )
                 .validate();
             Assert.fail();
@@ -83,7 +114,17 @@ private class UN_OpprettVarselEventTest {
     static void testValidation_InvalidTeksterLanguage() {
         List<UN_Tekst> tekster = new List<UN_Tekst>{ new UN_Tekst('rubbish', 'te', true) };
         try {
-            buildValidEventWithAllOverrides(UN_Type.INNBOKS, null, null, tekster, null, null, null, null, null)
+            buildValidEventWithAllOverrides(
+                    UN_Type.INNBOKS,
+                    null,
+                    null,
+                    tekster,
+                    null,
+                    UN_Sensitivitet.HIGH,
+                    null,
+                    null,
+                    new UN_Produsent('cluster', 'namespace', 'app')
+                )
                 .validate();
             Assert.fail();
         } catch (UN_OpprettVarselEvent.OpprettVarselValidationException e) {
@@ -100,10 +141,10 @@ private class UN_OpprettVarselEventTest {
                     null,
                     null,
                     'ftp://wrong.com',
+                    UN_Sensitivitet.HIGH,
                     null,
                     null,
-                    null,
-                    null
+                    new UN_Produsent('cluster', 'namespace', 'app')
                 )
                 .validate();
             Assert.fail();
@@ -115,7 +156,18 @@ private class UN_OpprettVarselEventTest {
     @isTest
     static void testValidation_MissingSensitivitet() {
         try {
-            buildValidEventWithAllOverrides(UN_Type.INNBOKS, null, null, null, null, null, null, null, null).validate();
+            buildValidEventWithAllOverrides(
+                    UN_Type.INNBOKS,
+                    null,
+                    null,
+                    null,
+                    null,
+                    null,
+                    null,
+                    null,
+                    new UN_Produsent('cluster', 'namespace', 'app')
+                )
+                .validate();
             Assert.fail();
         } catch (UN_OpprettVarselEvent.OpprettVarselValidationException e) {
             Assert.areEqual('sensitivitet is required', e.getMessage());
@@ -134,7 +186,7 @@ private class UN_OpprettVarselEventTest {
                     UN_Sensitivitet.HIGH,
                     'notADate',
                     null,
-                    null
+                    new UN_Produsent('cluster', 'namespace', 'app')
                 )
                 .validate();
             Assert.fail();
@@ -156,7 +208,7 @@ private class UN_OpprettVarselEventTest {
                     UN_Sensitivitet.HIGH,
                     null,
                     ekst,
-                    null
+                    new UN_Produsent('cluster', 'namespace', 'app')
                 )
                 .validate();
             Assert.fail();
@@ -184,60 +236,6 @@ private class UN_OpprettVarselEventTest {
         } catch (UN_OpprettVarselEvent.OpprettVarselValidationException e) {
             Assert.areEqual('produsent fields required', e.getMessage());
         }
-        UN_Produsent incompleteProdusent = new UN_Produsent(null, 'foo', 'bar');
-        try {
-            buildValidEventWithAllOverrides(
-                    UN_Type.INNBOKS,
-                    null,
-                    null,
-                    null,
-                    null,
-                    UN_Sensitivitet.HIGH,
-                    null,
-                    null,
-                    incompleteProdusent
-                )
-                .validate();
-            Assert.fail();
-        } catch (UN_OpprettVarselEvent.OpprettVarselValidationException e) {
-            Assert.areEqual('produsent fields required', e.getMessage());
-        }
-        incompleteProdusent = new UN_Produsent('foo', null, 'bar');
-        try {
-            buildValidEventWithAllOverrides(
-                    UN_Type.INNBOKS,
-                    null,
-                    null,
-                    null,
-                    null,
-                    UN_Sensitivitet.HIGH,
-                    null,
-                    null,
-                    incompleteProdusent
-                )
-                .validate();
-            Assert.fail();
-        } catch (UN_OpprettVarselEvent.OpprettVarselValidationException e) {
-            Assert.areEqual('produsent fields required', e.getMessage());
-        }
-        incompleteProdusent = new UN_Produsent('foo', 'bar', null);
-        try {
-            buildValidEventWithAllOverrides(
-                    UN_Type.INNBOKS,
-                    null,
-                    null,
-                    null,
-                    null,
-                    UN_Sensitivitet.HIGH,
-                    null,
-                    null,
-                    incompleteProdusent
-                )
-                .validate();
-            Assert.fail();
-        } catch (UN_OpprettVarselEvent.OpprettVarselValidationException e) {
-            Assert.areEqual('produsent fields required', e.getMessage());
-        }
     }
 
     private static UN_OpprettVarselEvent buildValidEventWithAllOverrides(
@@ -251,21 +249,19 @@ private class UN_OpprettVarselEventTest {
         UN_EksternVarsling eksternVarslingOverride,
         UN_Produsent produsentOverride
     ) {
-        UN_Type type = typeOverride != null ? typeOverride : UN_Type.INNBOKS;
-        String varselId = varselIdOverride != null ? varselIdOverride : '12345678-9999-8888-7777-999999999999';
-        String ident = identOverride != null ? identOverride : '12345678901';
-        List<UN_Tekst> tekster = teksterOverride != null
+        UN_Type type = typeOverride;
+        String varselId = (varselIdOverride != null) ? varselIdOverride : '12345678-9999-8888-7777-999999999999';
+        String ident = (identOverride != null) ? identOverride : '12345678901';
+        List<UN_Tekst> tekster = (teksterOverride != null)
             ? teksterOverride
             : new List<UN_Tekst>{ new UN_Tekst('nb', 't', true) };
-        String link = linkOverride != null ? linkOverride : 'https://foo.bar';
-        UN_Sensitivitet sensitivitet = sensitivitetOverride != null ? sensitivitetOverride : UN_Sensitivitet.HIGH;
-        String aktivFremTil = aktivFremTilOverride != null ? aktivFremTilOverride : null;
-        UN_EksternVarsling ekst = eksternVarslingOverride != null
+        String link = (linkOverride != null) ? linkOverride : 'https://foo.bar';
+        UN_Sensitivitet sensitivitet = sensitivitetOverride;
+        String aktivFremTil = aktivFremTilOverride;
+        UN_EksternVarsling ekst = (eksternVarslingOverride != null)
             ? eksternVarslingOverride
             : new UN_EksternVarsling(new List<UN_Kanal>{ UN_Kanal.SMS });
-        UN_Produsent produsent = produsentOverride != null
-            ? produsentOverride
-            : new UN_Produsent('cluster', 'namespace', 'app');
+        UN_Produsent produsent = produsentOverride;
         return new UN_OpprettVarselEvent(
             type,
             varselId,
