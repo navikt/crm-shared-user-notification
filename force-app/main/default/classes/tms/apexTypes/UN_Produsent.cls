@@ -1,5 +1,5 @@
 public inherited sharing class UN_Produsent {
-    public static final String DEFAULT_CLUSTER = 'defaultCluster'; // Sett inn ønsket standardverdi her
+    public static final String DEFAULT_CLUSTER =  [SELECT OrganizationType FROM Organization LIMIT 1].OrganizationType == 'Sandbox' ? 'dev-gcp' : 'prod-gcp';
     public static final String DEFAULT_NAMESPACE = 'teamnks';
     public static final String DEFAULT_APPNAVN = 'sf-brukernotifikasjon';
 

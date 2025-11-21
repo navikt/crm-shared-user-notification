@@ -15,8 +15,7 @@ public without sharing class UN_InnboksAction {
 
             UN_EksternVarsling eksternVarsling = (input.smsVarslingstekst == null &&
                 input.epostVarslingstittel == null &&
-                input.epostVarslingstekst == null &&
-                input.kanBatches == null)
+                input.epostVarslingstekst == null)
                 ? new UN_EksternVarsling(prefererteKanaler)
                 : new UN_EksternVarsling(
                       prefererteKanaler,

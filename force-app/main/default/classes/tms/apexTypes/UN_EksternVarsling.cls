@@ -3,7 +3,7 @@ public inherited sharing class UN_EksternVarsling {
     public String smsVarslingstekst = null;
     public String epostVarslingstittel = null;
     public String epostVarslingstekst = null;
-    public Boolean kanBatches = null; // sjekk om varslingen kan batches
+    public Boolean kanBatches = false;
 
     public UN_EksternVarsling(
         List<UN_Kanal> prefererteKanaler,
@@ -16,10 +16,10 @@ public inherited sharing class UN_EksternVarsling {
         this.smsVarslingstekst = smsVarslingstekst;
         this.epostVarslingstittel = epostVarslingstittel;
         this.epostVarslingstekst = epostVarslingstekst;
-        this.kanBatches = kanBatches;
+        this.kanBatches = (kanBatches == null) ? false : kanBatches;
     }
 
     public UN_EksternVarsling(List<UN_Kanal> prefererteKanaler) {
-        this(prefererteKanaler, null, null, null, null);
+        this(prefererteKanaler, null, null, null, false);
     }
 }

@@ -44,7 +44,7 @@ public with sharing class UN_InnboksMapper {
                   userNotification.INT_SmsText__c,
                   userNotification.INT_EmailSubject__c,
                   userNotification.INT_EmailBody__c,
-                  false // sjekk verdien her
+                  false
               )
             : new UN_EksternVarsling(kanaler);
 

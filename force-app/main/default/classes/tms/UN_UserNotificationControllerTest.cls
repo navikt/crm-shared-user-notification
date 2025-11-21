@@ -100,7 +100,7 @@ private class UN_UserNotificationControllerTest {
             FROM Person__c
             WHERE Name = '12345678901'
         ];
-        // Insert only the first record. The duplicate will not be inserted and will just be in memory.
+
         UserNotification__c un = new UserNotification__c(
             CRM_Account__c = p.CRM_Account__c,
             INT_SocialSecurityNumber__c = p.Name,
@@ -113,7 +113,6 @@ private class UN_UserNotificationControllerTest {
         );
         insert un;
 
-        // Only create (do not insert) the duplicate, so we don't get a DML duplicate error, but will get an upsert issue in the tested code.
         UserNotification__c duplicateUn = new UserNotification__c(
             CRM_Account__c = p.CRM_Account__c,
             INT_SocialSecurityNumber__c = p.Name,
