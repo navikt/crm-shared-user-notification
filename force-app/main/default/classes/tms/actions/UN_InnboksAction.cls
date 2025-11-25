@@ -1,7 +1,7 @@
 public without sharing class UN_InnboksAction {
     @InvocableMethod(
         label='Create Innboks Notification'
-        description='Create an innboks notification that appears on Nav.no using Flow-compatible fields.'
+        description='Create an Innboks notification that appears on Nav.no using Flow-compatible fields.'
         category='User Notification'
     )
     public static List<Response> produceInnboksNotification(List<Input> inputList) {
@@ -10,20 +10,23 @@ public without sharing class UN_InnboksAction {
 
         for (Input input : inputList) {
             String varselId = String.isNotBlank(input.varselId) ? input.varselId : new Uuid().getValue();
-
-            List<UN_Kanal> prefererteKanaler = UN_NotificationUtils.parseKanalString(input.prefererteKanaler);
-
-            UN_EksternVarsling eksternVarsling = (input.smsVarslingstekst == null &&
-                input.epostVarslingstittel == null &&
-                input.epostVarslingstekst == null)
-                ? new UN_EksternVarsling(prefererteKanaler)
-                : new UN_EksternVarsling(
-                      prefererteKanaler,
-                      input.smsVarslingstekst,
-                      input.epostVarslingstittel,
-                      input.epostVarslingstekst,
-                      input.kanBatches
-                  );
+            UN_Kanal preferertKanal = UN_NotificationUtils.kanalIsValid(input.preferertKanal)
+                ? UN_Kanal.valueOf(input.preferertKanal.trim().toUpperCase())
+                : null;
+            UN_EksternVarsling eksternVarsling;
+            if (preferertKanal != null) {
+                eksternVarsling = (input.smsVarslingstekst == null &&
+                    input.epostVarslingstittel == null &&
+                    input.epostVarslingstekst == null)
+                    ? new UN_EksternVarsling(preferertKanal)
+                    : new UN_EksternVarsling(
+                          preferertKanal,
+                          input.smsVarslingstekst,
+                          input.epostVarslingstittel,
+                          input.epostVarslingstekst,
+                          input.kanBatches
+                      );
+            }
 
             UN_Produsent produsent = (String.isBlank(input.cluster) &&
                 String.isBlank(input.namespace) &&
@@ -58,7 +61,7 @@ public without sharing class UN_InnboksAction {
             UserNotification__c un = new UserNotification__c();
             un.CRM_Account__c = input.accountId;
             un.CRM_RelatedSfRecord__c = input.relatedRecordSfId;
-            UN_InnboksMapper.mapUserNotificationToInnboksEvent(innboksEvent, un);
+            UN_EventMapper.mapUserNotificationToInnboksEvent(innboksEvent, un);
             userNotifications.add(un);
         }
 
@@ -93,8 +96,8 @@ public without sharing class UN_InnboksAction {
         public String link;
         @InvocableVariable(label='Sensitivitet' required=false)
         public String sensitivitet;
-        @InvocableVariable(label='Prefererte Kanaler' required=false)
-        public String prefererteKanaler;
+        @InvocableVariable(label='Preferert Kanal' required=false)
+        public String preferertKanal;
         @InvocableVariable(label='SMS Varslingstekst' required=false)
         public String smsVarslingstekst;
         @InvocableVariable(label='Epost Varslingstittel' required=false)

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomMetadata xmlns="http://soap.sforce.com/2006/04/metadata" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-    <label>UN POST OPPRETT EVENTS</label>
+    <label>UN POST OPPRETT VARSEL EVENT</label>
     <protected>false</protected>
     <values>
         <field>API_Base_Configuration__c</field>
@@ -40,7 +40,7 @@
    &quot;sensitivitet&quot;: &quot;high&quot;,
    &quot;aktivFremTil&quot;: &quot;&quot;,
    &quot;eksternVarsling&quot;: {
-      &quot;prefererteKanaler&quot;: [&quot;SMS&quot;, &quot;EPOST&quot;]
+      &quot;preferertKanal&quot;: &quot;BETINGET_SMS&quot;
    },
    &quot;produsent&quot;: {
       &quot;cluster&quot;: &quot;defaultCluster&quot;,

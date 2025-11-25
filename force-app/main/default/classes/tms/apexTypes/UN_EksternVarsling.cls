@@ -1,25 +1,25 @@
 public inherited sharing class UN_EksternVarsling {
-    public List<UN_Kanal> prefererteKanaler = null;
+    public UN_Kanal preferertKanal = null;
     public String smsVarslingstekst = null;
     public String epostVarslingstittel = null;
     public String epostVarslingstekst = null;
     public Boolean kanBatches = false;
 
     public UN_EksternVarsling(
-        List<UN_Kanal> prefererteKanaler,
+        UN_Kanal preferertKanal,
         String smsVarslingstekst,
         String epostVarslingstittel,
         String epostVarslingstekst,
         Boolean kanBatches
     ) {
-        this.prefererteKanaler = prefererteKanaler;
+        this.preferertKanal = preferertKanal;
         this.smsVarslingstekst = smsVarslingstekst;
         this.epostVarslingstittel = epostVarslingstittel;
         this.epostVarslingstekst = epostVarslingstekst;
-        this.kanBatches = (kanBatches == null) ? false : kanBatches;
+        this.kanBatches = kanBatches;
     }
 
-    public UN_EksternVarsling(List<UN_Kanal> prefererteKanaler) {
-        this(prefererteKanaler, null, null, null, false);
+    public UN_EksternVarsling(UN_Kanal preferertKanal) {
+        this(preferertKanal, null, null, null, false);
     }
 }

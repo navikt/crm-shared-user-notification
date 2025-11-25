@@ -1,5 +1,5 @@
 @isTest
-public class UN_PublishInnboksNotificationActionTest {
+public class UN_PublishInnboksActionTest {
     @TestSetup
     static void makeData() {
         Person__c person = (Person__c) UN_TestDataFactory.createRecord(

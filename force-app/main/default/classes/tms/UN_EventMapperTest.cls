@@ -1,5 +1,5 @@
 @isTest
-private class UN_InnboksMapperTest {
+private class UN_EventMapperTest {
     @isTest
     static void testMapUserNotificationToInnboksEvent() {
         UN_InnboksEvent innboksEvent = new UN_InnboksEvent(
@@ -8,19 +8,13 @@ private class UN_InnboksMapperTest {
             new List<UN_Tekst>{ new UN_Tekst('nb', 'tekst', true) },
             'https://nav.no/link',
             UN_Sensitivitet.HIGH,
-            new UN_EksternVarsling(
-                new List<UN_Kanal>{ UN_Kanal.SMS, UN_Kanal.EPOST },
-                'smsText',
-                'emailSubject',
-                'emailBody',
-                true
-            ),
+            new UN_EksternVarsling(UN_Kanal.SMS, 'smsText', 'emailSubject', 'emailBody', true),
             new UN_Produsent('cluster', 'namespace', 'appnavn')
         );
 
         UserNotification__c userNotif = new UserNotification__c();
 
-        UN_InnboksMapper.mapUserNotificationToInnboksEvent(innboksEvent, userNotif);
+        UN_EventMapper.mapUserNotificationToInnboksEvent(innboksEvent, userNotif);
 
         Assert.areEqual('INNBOKS', userNotif.INT_Type__c);
         Assert.areEqual(innboksEvent.varselId, userNotif.INT_EventId__c);
@@ -28,8 +22,7 @@ private class UN_InnboksMapperTest {
         Assert.isTrue(userNotif.INT_Description__c.contains('tekst'));
         Assert.areEqual(innboksEvent.link, userNotif.INT_Link__c);
         Assert.areEqual('high', userNotif.INT_Sensitivity__c);
-        Assert.isTrue(userNotif.INT_PreferredChannel__c.contains('SMS'));
-        Assert.isTrue(userNotif.INT_PreferredChannel__c.contains('EPOST'));
+        Assert.areEqual('SMS', userNotif.INT_Preferred_Channel__c);
         Assert.areEqual('smsText', userNotif.INT_SmsText__c);
         Assert.areEqual('emailSubject', userNotif.INT_EmailSubject__c);
         Assert.areEqual('emailBody', userNotif.INT_EmailBody__c);
@@ -43,7 +36,6 @@ private class UN_InnboksMapperTest {
         String serTekst = UN_NotificationUtils.serializeTekster(
             new List<UN_Tekst>{ new UN_Tekst('nb', 'Tekst', true) }
         );
-        String kanalStr = UN_NotificationUtils.kanalerToString(new List<UN_Kanal>{ UN_Kanal.SMS, UN_Kanal.EPOST });
 
         UserNotification__c userNotif = new UserNotification__c(
             INT_Type__c = 'INNBOKS',
@@ -52,7 +44,7 @@ private class UN_InnboksMapperTest {
             INT_Description__c = serTekst,
             INT_Link__c = 'https://nav.no/event',
             INT_Sensitivity__c = 'high',
-            INT_PreferredChannel__c = kanalStr,
+            INT_Preferred_Channel__c = UN_Kanal.SMS.name(),
             INT_SmsText__c = 'smsalert',
             INT_EmailSubject__c = 'emne',
             INT_EmailBody__c = 'eposttekst',
@@ -60,7 +52,7 @@ private class UN_InnboksMapperTest {
             INT_AppName__c = 'applikasjon'
         );
 
-        UN_InnboksEvent event = UN_InnboksMapper.createInnboksEventFromUserNotification(userNotif);
+        UN_InnboksEvent event = UN_EventMapper.createInnboksEventFromUserNotification(userNotif);
 
         Assert.areEqual('eventid-987654321', event.varselId);
         Assert.areEqual('10987654321', event.ident);
@@ -73,7 +65,6 @@ private class UN_InnboksMapperTest {
         Assert.areEqual('smsalert', event.eksternVarsling.smsVarslingstekst);
         Assert.areEqual('emne', event.eksternVarsling.epostVarslingstittel);
         Assert.areEqual('eposttekst', event.eksternVarsling.epostVarslingstekst);
-        Assert.isTrue(event.eksternVarsling.prefererteKanaler.contains(UN_Kanal.SMS));
-        Assert.isTrue(event.eksternVarsling.prefererteKanaler.contains(UN_Kanal.EPOST));
+        Assert.isTrue(event.eksternVarsling.preferertKanal == UN_Kanal.SMS);
     }
 }

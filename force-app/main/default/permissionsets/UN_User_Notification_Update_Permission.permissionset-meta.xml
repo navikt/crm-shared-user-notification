@@ -111,6 +111,11 @@
         <field>UserNotification__c.INT_Sensitivity__c</field>
         <readable>true</readable>
     </fieldPermissions>
+     <fieldPermissions>
+        <editable>true</editable>
+        <field>UserNotification__c.INT_Preferred_Channel__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
     <hasActivationRequired>false</hasActivationRequired>
     <label>UN User Notification Update Permission</label>
     <objectPermissions>

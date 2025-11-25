@@ -52,6 +52,7 @@ public with sharing class UN_Util {
             .selectField('INT_SmsText__c')
             .selectField('INT_Namespace__c')
             .selectField('INT_AppName__c')
-            .selectField('INT_Sensitivity__c');
+            .selectField('INT_Sensitivity__c')
+            .selectField('INT_Preferred_Channel__c');
     }
 }

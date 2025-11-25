@@ -87,23 +87,6 @@ private class UN_NotificationUtilsTest {
     }
 
     @isTest
-    static void testParseKanalString() {
-        String kanalString = 'SMS;EPOST';
-        List<UN_Kanal> res = UN_NotificationUtils.parseKanalString(kanalString);
-        Assert.areEqual(2, res.size());
-        Assert.isTrue(res.contains(UN_Kanal.SMS));
-        Assert.isTrue(res.contains(UN_Kanal.EPOST));
-    }
-
-    @isTest
-    static void testKanalerToString() {
-        List<UN_Kanal> kanaler = new List<UN_Kanal>{ UN_Kanal.SMS, UN_Kanal.EPOST };
-        String s = UN_NotificationUtils.kanalerToString(kanaler);
-        Assert.isTrue(s.contains('SMS'));
-        Assert.isTrue(s.contains('EPOST'));
-    }
-
-    @isTest
     static void testRemoveNulls() {
         Map<String, Object> m = new Map<String, Object>{ 'A' => 'a', 'B' => null, 'C' => 3 };
         UN_NotificationUtils.removeNulls(m);

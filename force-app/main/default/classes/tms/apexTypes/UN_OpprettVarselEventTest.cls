@@ -10,7 +10,7 @@ private class UN_OpprettVarselEventTest {
         UN_Sensitivitet sens = UN_Sensitivitet.HIGH;
         String aktivFremTil = null;
         UN_Kanal kanal = UN_Kanal.SMS;
-        UN_EksternVarsling ekst = new UN_EksternVarsling(new List<UN_Kanal>{ kanal });
+        UN_EksternVarsling ekst = new UN_EksternVarsling(kanal);
         UN_Produsent produsent = new UN_Produsent('cluster-1', 'default', 'app');
         UN_OpprettVarselEvent evt = new UN_OpprettVarselEvent(
             type,
@@ -196,28 +196,6 @@ private class UN_OpprettVarselEventTest {
     }
 
     @isTest
-    static void testValidation_NullChannelInEksternVarsling() {
-        UN_EksternVarsling ekst = new UN_EksternVarsling(new List<UN_Kanal>{ null });
-        try {
-            buildValidEventWithAllOverrides(
-                    UN_Type.INNBOKS,
-                    null,
-                    null,
-                    null,
-                    null,
-                    UN_Sensitivitet.HIGH,
-                    null,
-                    ekst,
-                    new UN_Produsent('cluster', 'namespace', 'app')
-                )
-                .validate();
-            Assert.fail();
-        } catch (UN_OpprettVarselEvent.OpprettVarselValidationException e) {
-            Assert.areEqual('eksternVarsling channel not supported', e.getMessage());
-        }
-    }
-
-    @isTest
     static void testValidation_NullProdusentField() {
         try {
             buildValidEventWithAllOverrides(
@@ -260,7 +238,7 @@ private class UN_OpprettVarselEventTest {
         String aktivFremTil = aktivFremTilOverride;
         UN_EksternVarsling ekst = (eksternVarslingOverride != null)
             ? eksternVarslingOverride
-            : new UN_EksternVarsling(new List<UN_Kanal>{ UN_Kanal.SMS });
+            : new UN_EksternVarsling(UN_Kanal.SMS);
         UN_Produsent produsent = produsentOverride;
         return new UN_OpprettVarselEvent(
             type,

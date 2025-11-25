@@ -19,6 +19,19 @@ public with sharing class UN_UserNotificationService {
         return apiCtrl.getResponse();
     }
 
+    public static HttpResponse postInaktiverVarselEvent(UN_InaktiverEvent inaktiverEvent, Boolean isSystemContext) {
+        Map<String, Object> payload = buildInaktiverEventPayload(inaktiverEvent);
+        ApiController apiCtrl = new ApiController();
+        if (isSystemContext)
+            apiCtrl.setSystemContext();
+        apiCtrl.initRequest(API_CONFIG_NAME, 'UN_POST_INAKTIVER_VARSEL_EVENT');
+        apiCtrl.addServiceAuthHeader(SERVICE_AUTH_HEADER);
+        apiCtrl.addHeader('Content-Type', 'application/json');
+        apiCtrl.setBody(JSON.serialize(payload));
+        apiCtrl.doCallout();
+        return apiCtrl.getResponse();
+    }
+
     @TestVisible
     private static Map<String, Object> buildEventPayload(UN_OpprettVarselEvent event) {
         Map<String, Object> payload = new Map<String, Object>();
@@ -49,22 +62,9 @@ public with sharing class UN_UserNotificationService {
         if (event.eksternVarsling != null) {
             Map<String, Object> eksternVarslingMap = new Map<String, Object>();
 
-            if (event.eksternVarsling.prefererteKanaler != null) {
-                String kanalerStr = UN_NotificationUtils.kanalerToString(event.eksternVarsling.prefererteKanaler);
-                if (kanalerStr != null && kanalerStr.trim() != '') {
-                    List<String> kanalerList = kanalerStr.split(';');
-                    List<String> cleanList = new List<String>();
-                    for (String k : kanalerList) {
-                        if (k != null && k.trim() != '') {
-                            cleanList.add(k);
-                        }
-                    }
-                    if (!cleanList.isEmpty()) {
-                        eksternVarslingMap.put('prefererteKanaler', cleanList);
-                    }
-                }
+            if (event.eksternVarsling.preferertKanal != null) {
+                eksternVarslingMap.put('preferertKanal', event.eksternVarsling.preferertKanal.name());
             }
-
             eksternVarslingMap.put('smsVarslingstekst', event.eksternVarsling.smsVarslingstekst);
             eksternVarslingMap.put('epostVarslingstittel', event.eksternVarsling.epostVarslingstittel);
             eksternVarslingMap.put('epostVarslingstekst', event.eksternVarsling.epostVarslingstekst);
@@ -76,6 +76,24 @@ public with sharing class UN_UserNotificationService {
             }
         }
 
+        if (event.produsent != null) {
+            Map<String, Object> produsentMap = new Map<String, Object>{
+                'cluster' => event.produsent.cluster,
+                'namespace' => event.produsent.namespace,
+                'appnavn' => event.produsent.appnavn
+            };
+            if (!produsentMap.isEmpty()) {
+                payload.put('produsent', produsentMap);
+            }
+        }
+        return payload;
+    }
+
+    @TestVisible
+    private static Map<String, Object> buildInaktiverEventPayload(UN_InaktiverEvent event) {
+        Map<String, Object> payload = new Map<String, Object>();
+        payload.put('@event_name', 'inaktiver');
+        payload.put('varselId', event.varselId);
         if (event.produsent != null) {
             Map<String, Object> produsentMap = new Map<String, Object>{
                 'cluster' => event.produsent.cluster,

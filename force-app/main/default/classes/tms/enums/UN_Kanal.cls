@@ -1,4 +1,5 @@
 public enum UN_Kanal {
     SMS,
-    EPOST
+    EPOST,
+    BETINGET_SMS
 }

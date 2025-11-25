@@ -53,10 +53,6 @@ public virtual inherited sharing class UN_OpprettVarselEvent {
             !Pattern.matches('^\\d+$', aktivFremTil)
         )
             throw new OpprettVarselValidationException('aktivFremTil invalid format');
-        if (eksternVarsling != null && eksternVarsling.prefererteKanaler != null)
-            for (UN_Kanal k : eksternVarsling.prefererteKanaler)
-                if (k == null)
-                    throw new OpprettVarselValidationException('eksternVarsling channel not supported');
         if (
             produsent == null ||
             String.isBlank(produsent.cluster) ||

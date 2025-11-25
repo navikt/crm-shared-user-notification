@@ -104,25 +104,6 @@ public inherited sharing class UN_NotificationUtils {
         }
     }
 
-    public static List<UN_Kanal> parseKanalString(String kanalString) {
-        List<UN_Kanal> values = new List<UN_Kanal>();
-        if (!String.isBlank(kanalString)) {
-            for (String s : kanalString.split(';|,')) {
-                String v = s.trim().toUpperCase();
-                if (kanalIsValid(v))
-                    values.add(UN_Kanal.valueOf(v));
-            }
-        }
-        return values;
-    }
-
-    public static String kanalerToString(List<UN_Kanal> kanaler) {
-        List<String> out = new List<String>();
-        for (UN_Kanal c : kanaler)
-            out.add(c.name());
-        return String.join(out, ';');
-    }
-
     public static void removeNulls(Map<String, Object> m) {
         List<String> toRemove = new List<String>();
         for (String k : m.keySet()) {

@@ -32,9 +32,9 @@ public without sharing class UN_RepublishUsernotificationBatch implements Databa
         List<UserNotification__c> notificationsToUpdate = UN_Util.getUserNotifications(scope);
 
         if (isDoneNotifications == true) {
-            UN_UserNotifications.publishDoneEvent(notificationsToUpdate, true);
+            UN_UserNotificationController.publishInaktiverEvents(notificationsToUpdate, true);
         } else {
-            UN_UserNotifications.publishInboksEvent(notificationsToUpdate, true);
+            UN_UserNotificationController.publishInnboksEvents(notificationsToUpdate, true);
         }
     }
 

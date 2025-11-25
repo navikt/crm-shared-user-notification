@@ -1,4 +1,4 @@
-public with sharing class UN_InnboksMapper {
+public with sharing class UN_EventMapper {
     public static void mapUserNotificationToInnboksEvent(
         UN_InnboksEvent innboksEvent,
         UserNotification__c userNotification
@@ -11,9 +11,9 @@ public with sharing class UN_InnboksMapper {
         userNotification.INT_Sensitivity__c = innboksEvent.sensitivitet != null
             ? innboksEvent.sensitivitet.name().toLowerCase()
             : null;
-        userNotification.INT_PreferredChannel__c = (innboksEvent.eksternVarsling != null &&
-            innboksEvent.eksternVarsling.prefererteKanaler != null)
-            ? UN_NotificationUtils.kanalerToString(innboksEvent.eksternVarsling.prefererteKanaler)
+        userNotification.INT_Preferred_Channel__c = (innboksEvent.eksternVarsling != null &&
+            innboksEvent.eksternVarsling.preferertKanal != null)
+            ? innboksEvent.eksternVarsling.preferertKanal.name()
             : null;
         userNotification.INT_SmsText__c = (innboksEvent.eksternVarsling != null)
             ? innboksEvent.eksternVarsling.smsVarslingstekst
@@ -34,19 +34,24 @@ public with sharing class UN_InnboksMapper {
 
     public static UN_InnboksEvent createInnboksEventFromUserNotification(UserNotification__c userNotification) {
         List<UN_Tekst> tekster = UN_NotificationUtils.parseTekster(userNotification.INT_Description__c);
-        List<UN_Kanal> kanaler = UN_NotificationUtils.parseKanalString(userNotification.INT_PreferredChannel__c);
+        UN_Kanal kanal = userNotification.INT_Preferred_Channel__c != null
+            ? UN_Kanal.valueOf(userNotification.INT_Preferred_Channel__c.trim().toUpperCase())
+            : null;
 
-        UN_EksternVarsling eksternVarsling = (String.isNotBlank(userNotification.INT_SmsText__c) &&
-            String.isNotBlank(userNotification.INT_EmailSubject__c) &&
-            String.isNotBlank(userNotification.INT_EmailBody__c))
-            ? new UN_EksternVarsling(
-                  kanaler,
-                  userNotification.INT_SmsText__c,
-                  userNotification.INT_EmailSubject__c,
-                  userNotification.INT_EmailBody__c,
-                  false
-              )
-            : new UN_EksternVarsling(kanaler);
+        UN_EksternVarsling eksternVarsling = null;
+        if (kanal != null) {
+            eksternVarsling = (String.isNotBlank(userNotification.INT_SmsText__c) &&
+                String.isNotBlank(userNotification.INT_EmailSubject__c) &&
+                String.isNotBlank(userNotification.INT_EmailBody__c))
+                ? new UN_EksternVarsling(
+                      kanal,
+                      userNotification.INT_SmsText__c,
+                      userNotification.INT_EmailSubject__c,
+                      userNotification.INT_EmailBody__c,
+                      false
+                  )
+                : new UN_EksternVarsling(kanal);
+        }
 
         UN_Produsent produsent = (String.isNotBlank(userNotification.INT_Namespace__c) &&
             String.isNotBlank(userNotification.INT_AppName__c))
@@ -70,5 +75,27 @@ public with sharing class UN_InnboksMapper {
             eksternVarsling,
             produsent
         );
+    }
+
+    public static UserNotification__c mapUserNotificationToInaktiverEvent(
+        UN_InaktiverEvent inaktiver,
+        UserNotification__c userNotification
+    ) {
+        userNotification.CRM_Done__c = true;
+
+        return userNotification;
+    }
+
+    public static UN_InaktiverEvent createInaktiverEventFromUserNotification(UserNotification__c userNotification) {
+        UN_Produsent produsent = (String.isNotBlank(userNotification.INT_Namespace__c) &&
+            String.isNotBlank(userNotification.INT_AppName__c))
+            ? new UN_Produsent(
+                  UN_Produsent.DEFAULT_CLUSTER,
+                  userNotification.INT_Namespace__c,
+                  userNotification.INT_AppName__c
+              )
+            : new UN_Produsent();
+
+        return new UN_InaktiverEvent(userNotification.INT_EventId__c, produsent);
     }
 }

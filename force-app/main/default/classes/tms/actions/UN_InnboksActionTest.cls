@@ -26,7 +26,7 @@ public class UN_InnboksActionTest {
         input.tekster = '[{"spraakkode":"nb","tekst":"Test notification"}]';
         input.link = 'https://example.com';
         input.sensitivitet = 'HIGH';
-        input.prefererteKanaler = 'SMS';
+        input.preferertKanal = 'SMS';
         input.accountId = p.CRM_Account__c;
         input.relatedRecordSfId = p.CRM_Account__c;
         input.smsVarslingstekst = 'Test SMS';
@@ -64,7 +64,7 @@ public class UN_InnboksActionTest {
         input.tekster = '[{"spraakkode":"nb","tekst":"Fail notification"}]';
         input.link = null;
         input.sensitivitet = null;
-        input.prefererteKanaler = 'EPOST';
+        input.preferertKanal = 'EPOST';
         input.accountId = null;
         input.relatedRecordSfId = null;
 

@@ -6,7 +6,7 @@ private class UN_UserNotificationServiceTest {
         UN_Tekst tekst = new UN_Tekst('nb', 'Tittel', true);
         List<UN_Tekst> tekster = new List<UN_Tekst>{ tekst };
         UN_EksternVarsling eksternVarsling = new UN_EksternVarsling(
-            new List<UN_Kanal>{ UN_Kanal.SMS, UN_Kanal.EPOST },
+            UN_Kanal.SMS,
             'smsText',
             'epostTitle',
             'epostBody',
@@ -57,13 +57,7 @@ private class UN_UserNotificationServiceTest {
     static void testBuildEventPayload_fullAndMinimal() {
         UN_Tekst tekst = new UN_Tekst('nb', 'Tekst', true);
         List<UN_Tekst> tekster = new List<UN_Tekst>{ tekst };
-        UN_EksternVarsling eksternVarsling = new UN_EksternVarsling(
-            new List<UN_Kanal>{ UN_Kanal.SMS },
-            'sms',
-            'epostT',
-            'epostB',
-            false
-        );
+        UN_EksternVarsling eksternVarsling = new UN_EksternVarsling(UN_Kanal.SMS, 'sms', 'epostT', 'epostB', false);
         UN_Produsent produsent = new UN_Produsent('c', 'n', 'a');
         UN_OpprettVarselEvent fullEvent = new UN_OpprettVarselEvent(
             UN_Type.INNBOKS,
@@ -129,5 +123,35 @@ private class UN_UserNotificationServiceTest {
         Test.stopTest();
         Assert.isNotNull(resp);
         Assert.areEqual(200, resp.getStatusCode());
+    }
+
+    @isTest
+    static void testPostInaktiverVarselEvent_success_and_buildInaktiverPayload() {
+        ApiMock.setTestMock('UN_POST_INAKTIVER_VARSEL_EVENT', 200, '{"result":"inaktiver_ok"}');
+        UN_Produsent produsent = new UN_Produsent('sf-dev', 'teamnks', 'sf-brukernotifikasjon');
+        UN_InaktiverEvent event = new UN_InaktiverEvent('6499ba9-8133-4949-aaea-184d59ed8bdb', produsent);
+        Test.startTest();
+        HttpResponse resp = UN_UserNotificationService.postInaktiverVarselEvent(event, true);
+        Test.stopTest();
+        Assert.isNotNull(resp);
+        Assert.areEqual(200, resp.getStatusCode());
+    }
+
+    @isTest
+    static void testBuildInaktiverEventPayload_fullAndMinimal() {
+        UN_Produsent produsent = new UN_Produsent('sf-dev', 'teamnks', 'sf-brukernotifikasjon');
+        UN_InaktiverEvent fullEvent = new UN_InaktiverEvent('6499ba9-8133-4949-aaea-184d59ed8bdb', produsent);
+        Map<String, Object> payload = UN_UserNotificationService.buildInaktiverEventPayload(fullEvent);
+
+        Assert.areEqual('inaktiver', payload.get('@event_name'));
+        Assert.areEqual('6499ba9-8133-4949-aaea-184d59ed8bdb', payload.get('varselId'));
+        Assert.isTrue(payload.containsKey('produsent'));
+        Assert.areEqual('sf-dev', ((Map<String, Object>) payload.get('produsent')).get('cluster'));
+
+        UN_InaktiverEvent minEvent = new UN_InaktiverEvent('onlyid-01', null);
+        Map<String, Object> minPayload = UN_UserNotificationService.buildInaktiverEventPayload(minEvent);
+        Assert.areEqual('inaktiver', minPayload.get('@event_name'));
+        Assert.areEqual('onlyid-01', minPayload.get('varselId'));
+        Assert.isFalse(minPayload.containsKey('produsent'));
     }
 }

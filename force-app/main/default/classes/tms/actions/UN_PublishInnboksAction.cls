@@ -1,6 +1,6 @@
-public without sharing class UN_PublishInnboksNotificationAction {
+public without sharing class UN_PublishInnboksAction {
     @InvocableMethod(
-        label='Publish Innboks Notification'
+        label='Publish Innboks Notifications'
         description='Publish a list of user notifications so that they appear on Nav.no.'
         category='User Notification'
     )
