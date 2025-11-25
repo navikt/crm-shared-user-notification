@@ -7,7 +7,7 @@ public class UN_InaktiverEventTest {
         validProdusent.namespace = 'namespace';
         validProdusent.appnavn = 'appnavn';
 
-        UN_InaktiverVarselEvent evt = new UN_InaktiverVarselEvent('0123456789abcdef', validProdusent);
+        UN_InaktiverEvent evt = new UN_InaktiverEvent('0123456789abcdef', validProdusent);
         evt.validate();
     }
 
@@ -18,22 +18,22 @@ public class UN_InaktiverEventTest {
         validProdusent.namespace = 'namespace';
         validProdusent.appnavn = 'appnavn';
 
-        UN_InaktiverVarselEvent evt = new UN_InaktiverVarselEvent('invalid_id', validProdusent);
+        UN_InaktiverEvent evt = new UN_InaktiverEvent('invalid_id', validProdusent);
         try {
             evt.validate();
             Assert.fail();
-        } catch (UN_InaktiverVarselEvent.InaktiverVarselValidationException e) {
+        } catch (UN_InaktiverEvent.InaktiverVarselValidationException e) {
             Assert.areEqual('varselId must be valid UUID or ULID', e.getMessage());
         }
     }
 
     @IsTest
     static void testValidate_shouldFailWithMissingProdusent() {
-        UN_InaktiverVarselEvent evt = new UN_InaktiverVarselEvent('0123456789abcdef', null);
+        UN_InaktiverEvent evt = new UN_InaktiverEvent('0123456789abcdef', null);
         try {
             evt.validate();
             Assert.fail();
-        } catch (UN_InaktiverVarselEvent.InaktiverVarselValidationException e) {
+        } catch (UN_InaktiverEvent.InaktiverVarselValidationException e) {
             Assert.areEqual('produsent fields required', e.getMessage());
         }
     }
