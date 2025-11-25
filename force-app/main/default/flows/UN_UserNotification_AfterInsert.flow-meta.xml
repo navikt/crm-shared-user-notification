@@ -5,7 +5,7 @@
         <label>Publish Innboks Notification</label>
         <locationX>308</locationX>
         <locationY>276</locationY>
-        <actionName>UN_PublishInnboksNotificationAction</actionName>
+        <actionName>UN_PublishInnboksAction</actionName>
         <actionType>apex</actionType>
         <flowTransactionModel>Automatic</flowTransactionModel>
         <inputParameters>
@@ -14,12 +14,14 @@
                 <elementReference>$Record</elementReference>
             </value>
         </inputParameters>
-        <nameSegment>UN_PublishInnboksNotificationAction</nameSegment>
+        <nameSegment>UN_PublishInnboksAction</nameSegment>
         <offset>0</offset>
         <storeOutputAutomatically>true</storeOutputAutomatically>
     </actionCalls>
     <apiVersion>54.0</apiVersion>
+    <areMetricsLoggedToDataCloud>false</areMetricsLoggedToDataCloud>
     <description>Publish Innboks Notifications Async</description>
+    <environments>Default</environments>
     <interviewLabel>User Notification - After Insert {!$Flow.CurrentDateTime}</interviewLabel>
     <label>User Notification - After Insert</label>
     <processMetadataValues>
