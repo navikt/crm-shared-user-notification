@@ -35,7 +35,7 @@ public class UN_PublishInnboksActionTest {
         List<UserNotification__c> inputList = new List<UserNotification__c>{ un };
 
         Test.startTest();
-        List<UserNotification__c> result = UN_PublishInnboksNotificationAction.publishInnboksNotification(
+        List<UserNotification__c> result = UN_PublishInnboksAction.publishInnboksNotification(
             UN_Util.getUserNotifications(inputList)
         );
         Test.stopTest();
