@@ -1,5 +1,5 @@
 public without sharing class UN_RepublishUsernotificationBatch implements Database.Batchable<sObject>, Database.AllowsCallouts, Database.Stateful {
-    public String filter = 'CreatedDate = TODAY  AND INT_Type__c =\'INNBOKS\' AND INT_ExternalNotification__c = false AND CRM_NotificationError__c != null';
+    public String filter = 'CreatedDate = TODAY  AND INT_Type__c =\'INNBOKS\' AND INT_Preferred_Channel__c != null AND CRM_NotificationError__c != null';
     public Boolean isDoneNotifications = false;
     public Integer batchSize = 50;
 
