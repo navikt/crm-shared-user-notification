@@ -20,6 +20,6 @@ public inherited sharing class UN_EksternVarsling {
     }
 
     public UN_EksternVarsling(UN_Kanal preferertKanal) {
-        this(preferertKanal, null, null, null, false);
+        this(preferertKanal, null, null, null, true);
     }
 }
