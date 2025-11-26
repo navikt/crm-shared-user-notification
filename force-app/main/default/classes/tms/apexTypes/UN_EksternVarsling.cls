@@ -19,7 +19,7 @@ public inherited sharing class UN_EksternVarsling {
         this.kanBatches = kanBatches;
     }
 
-    public UN_EksternVarsling(UN_Kanal preferertKanal) {
-        this(preferertKanal, null, null, null, true);
+    public UN_EksternVarsling(UN_Kanal preferertKanal, Boolean kanBatches) {
+        this(preferertKanal, null, null, null, kanBatches);
     }
 }

@@ -50,7 +50,7 @@ public with sharing class UN_EventMapper {
                       userNotification.INT_EmailBody__c,
                       true 
                   )
-                : new UN_EksternVarsling(kanal);
+                : new UN_EksternVarsling(kanal, true);
         }
 
         UN_Produsent produsent = (String.isNotBlank(userNotification.INT_Namespace__c) &&

@@ -10,7 +10,7 @@ private class UN_OpprettVarselEventTest {
         UN_Sensitivitet sens = UN_Sensitivitet.HIGH;
         String aktivFremTil = null;
         UN_Kanal kanal = UN_Kanal.SMS;
-        UN_EksternVarsling ekst = new UN_EksternVarsling(kanal);
+        UN_EksternVarsling ekst = new UN_EksternVarsling(kanal, true);
         UN_Produsent produsent = new UN_Produsent('cluster-1', 'default', 'app');
         UN_OpprettVarselEvent evt = new UN_OpprettVarselEvent(
             type,
@@ -238,7 +238,7 @@ private class UN_OpprettVarselEventTest {
         String aktivFremTil = aktivFremTilOverride;
         UN_EksternVarsling ekst = (eksternVarslingOverride != null)
             ? eksternVarslingOverride
-            : new UN_EksternVarsling(UN_Kanal.SMS);
+            : new UN_EksternVarsling(UN_Kanal.SMS, true);
         UN_Produsent produsent = produsentOverride;
         return new UN_OpprettVarselEvent(
             type,
