@@ -1,4 +1,4 @@
-public without sharing class UN_InnboksAction {
+public without sharing class UN_OldInnboksAction {
     @InvocableMethod(
         label='Create Innboks Notification'
         description='Create an innboks notification that appears on Nav.no. See https://navikt.github.io/dittnav-brukernotifikasjoner-intro/ for details'
@@ -35,7 +35,7 @@ public without sharing class UN_InnboksAction {
                 UserNotification__c un = new UserNotification__c();
                 un.CRM_Account__c = input.accountId;
                 un.CRM_RelatedSfRecord__c = input.relatedRecordSfId;
-                UN_InnboksMapper.innboksInputToUserNotification(innboks, un);
+                UN_OldInnboksMapper.innboksInputToUserNotification(innboks, un);
                 UN_NokkelMapper.nokkelInputToUserNotification(nokkel, un);
                 resp.userNotification = un;
                 userNotifications.add(un);

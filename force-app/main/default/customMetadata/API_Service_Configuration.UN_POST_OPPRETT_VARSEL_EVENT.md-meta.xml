@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomMetadata xmlns="http://soap.sforce.com/2006/04/metadata" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+    <label>UN POST OPPRETT VARSEL EVENT</label>
+    <protected>false</protected>
+    <values>
+        <field>API_Base_Configuration__c</field>
+        <value xsi:type="xsd:string">UN_SF_BRUKERNOTIFIKASJONER</value>
+    </values>
+    <values>
+        <field>HTTP_Method__c</field>
+        <value xsi:type="xsd:string">POST</value>
+    </values>
+    <values>
+        <field>Has_Path_Parameters__c</field>
+        <value xsi:type="xsd:boolean">false</value>
+    </values>
+    <values>
+        <field>Mock_Response__c</field>
+        <value xsi:type="xsd:string">{
+&quot;200&quot;: {
+&quot;headers&quot;: null,
+&quot;body&quot;: {
+   &quot;@event_name&quot;: &quot;opprett&quot;,
+   &quot;type&quot;: &quot;innboks&quot;,
+   &quot;varselId&quot;: &quot;6499ba9-8133-4949-aaea-184d59ed8bdb&quot;,
+   &quot;ident&quot;: &quot;06520192032&quot;,
+   &quot;tekster&quot;: [
+      {
+         &quot;spraakkode&quot;: &quot;no&quot;,
+         &quot;tekst&quot;: &quot;Norsk tekst&quot;,
+         &quot;default&quot;: true
+      },
+        {
+             &quot;spraakkode&quot;: &quot;en&quot;,
+             &quot;tekst&quot;: &quot;English text&quot;,
+             &quot;default&quot;: false
+        }
+   ],
+   &quot;link&quot;: &quot;https://nav.no&quot;,
+   &quot;sensitivitet&quot;: &quot;high&quot;,
+   &quot;aktivFremTil&quot;: &quot;&quot;,
+   &quot;eksternVarsling&quot;: {
+      &quot;preferertKanal&quot;: &quot;BETINGET_SMS&quot;
+   },
+   &quot;produsent&quot;: {
+      &quot;cluster&quot;: &quot;defaultCluster&quot;,
+      &quot;namespace&quot;: &quot;teamnks&quot;,
+      &quot;appnavn&quot;: &quot;sf-brukernotifikasjon&quot;
+   }
+}
+},
+&quot;401&quot;: {
+&quot;headers&quot;: null,
+&quot;body&quot;: null
+},
+&quot;404&quot;: {&quot;headers&quot;: null,
+&quot;body&quot;: null
+},
+&quot;500&quot;: {
+&quot;headers&quot;: null,
+&quot;body&quot;: null
+}
+}</value>
+    </values>
+    <values>
+        <field>Service_Path__c</field>
+        <value xsi:type="xsd:string">/varsel</value>
+    </values>
+</CustomMetadata>

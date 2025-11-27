@@ -31,5 +31,6 @@
     "salesforcedx-vscode-core.telemetry.enabled": false,
     "scratch.default.permissionsets": [
         "UN_Scratch"
-    ]
+    ],
+    "xml.preferences.showSchemaDocumentationType": "none"
 }

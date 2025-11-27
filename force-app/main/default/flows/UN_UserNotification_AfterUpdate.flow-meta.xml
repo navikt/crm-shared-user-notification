@@ -1,23 +1,27 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Flow xmlns="http://soap.sforce.com/2006/04/metadata">
     <actionCalls>
-        <name>Publish_Done_Notification</name>
-        <label>Publish Done Notification</label>
+        <name>Publish_Inaktiver_Event</name>
+        <label>Publish Inaktiver Event</label>
         <locationX>308</locationX>
-        <locationY>288</locationY>
-        <actionName>UN_PublishDoneNotificationAction</actionName>
+        <locationY>276</locationY>
+        <actionName>UN_PublishInaktiverAction</actionName>
         <actionType>apex</actionType>
-        <flowTransactionModel>CurrentTransaction</flowTransactionModel>
+        <flowTransactionModel>Automatic</flowTransactionModel>
         <inputParameters>
             <name>userNotifications</name>
             <value>
                 <elementReference>$Record</elementReference>
             </value>
         </inputParameters>
+        <nameSegment>UN_PublishInaktiverAction</nameSegment>
+        <offset>0</offset>
         <storeOutputAutomatically>true</storeOutputAutomatically>
     </actionCalls>
     <apiVersion>54.0</apiVersion>
+    <areMetricsLoggedToDataCloud>false</areMetricsLoggedToDataCloud>
     <description>Publish done event if done event time is set</description>
+    <environments>Default</environments>
     <interviewLabel>User Notification - After Update - Done Event Ti {!$Flow.CurrentDateTime}</interviewLabel>
     <label>User Notification - After Update</label>
     <processMetadataValues>
@@ -76,7 +80,7 @@
         <recordTriggerType>Update</recordTriggerType>
         <scheduledPaths>
             <connector>
-                <targetReference>Publish_Done_Notification</targetReference>
+                <targetReference>Publish_Inaktiver_Event</targetReference>
             </connector>
             <pathType>AsyncAfterCommit</pathType>
         </scheduledPaths>

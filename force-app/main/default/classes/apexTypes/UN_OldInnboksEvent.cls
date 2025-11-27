@@ -1,4 +1,4 @@
-public inherited sharing class UN_InnboksEvent {
+public inherited sharing class UN_OldInnboksEvent {
     public Datetime tidspunkt;
     public String tekst;
     public String link;
@@ -14,14 +14,14 @@ public inherited sharing class UN_InnboksEvent {
     public String grupperingsId;
     public String fodselsnummer;
 
-    public UN_InnboksEvent(UserNotification__c userNotification) {
+    public UN_OldInnboksEvent(UserNotification__c userNotification) {
         this(
             UN_NokkelMapper.userNotificationToNokkelInput(userNotification),
-            UN_InnboksMapper.userNotificationToInnboksInput(userNotification)
+            UN_OldInnboksMapper.userNotificationToInnboksInput(userNotification)
         );
     }
 
-    public UN_InnboksEvent(UN_NokkelInput nokkel, UN_InnboksInput innboksEvent) {
+    public UN_OldInnboksEvent(UN_NokkelInput nokkel, UN_InnboksInput innboksEvent) {
         this.tidspunkt = DateTime.newInstance(innboksEvent.tidspunkt);
         this.tekst = innboksEvent.tekst;
         this.link = innboksEvent.link;
