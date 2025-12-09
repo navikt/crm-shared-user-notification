@@ -2,8 +2,14 @@
 private class UN_EventMapperTest {
     @isTest
     static void testMapUserNotificationToInnboksEvent() {
-        List<UN_Kanal> prefererteKanaler = new List<UN_Kanal> { UN_Kanal.SMS };
-        UN_EksternVarsling eksternVarsling = new UN_EksternVarsling(prefererteKanaler, 'smsText', 'emailSubject', 'emailBody', true);
+        List<UN_Kanal> prefererteKanaler = new List<UN_Kanal>{ UN_Kanal.SMS };
+        UN_EksternVarsling eksternVarsling = new UN_EksternVarsling(
+            prefererteKanaler,
+            'smsText',
+            'emailSubject',
+            'emailBody',
+            true
+        );
 
         UN_InnboksEvent innboksEvent = new UN_InnboksEvent(
             'varselid-12345abcdefghi',
@@ -69,8 +75,8 @@ private class UN_EventMapperTest {
         Assert.areEqual('emne', event.eksternVarsling.epostVarslingstittel);
         Assert.areEqual('eposttekst', event.eksternVarsling.epostVarslingstekst);
         Assert.isTrue(
-            event.eksternVarsling.prefererteKanaler.size() == 1 
-            && event.eksternVarsling.prefererteKanaler[0] == UN_Kanal.BETINGET_SMS
+            event.eksternVarsling.prefererteKanaler.size() == 1 &&
+            event.eksternVarsling.prefererteKanaler[0] == UN_Kanal.BETINGET_SMS
         );
     }
 }

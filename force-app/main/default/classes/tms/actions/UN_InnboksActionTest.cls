@@ -26,7 +26,7 @@ public class UN_InnboksActionTest {
         input.tekster = '[{"spraakkode":"nb","tekst":"Test notification"}]';
         input.link = 'https://example.com';
         input.sensitivitet = 'HIGH';
-        input.preferertKanal = 'SMS'; 
+        input.preferertKanal = 'SMS';
         input.accountId = p.CRM_Account__c;
         input.relatedRecordSfId = p.CRM_Account__c;
         input.smsVarslingstekst = 'Test SMS';

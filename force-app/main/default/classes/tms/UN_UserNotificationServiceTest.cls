@@ -91,10 +91,10 @@ private class UN_UserNotificationServiceTest {
         Assert.isTrue(payload.containsKey('eksternVarsling'));
         Assert.isTrue(payload.containsKey('produsent'));
 
-        Map<String, Object> eksternVarslingMap = (Map<String, Object>)payload.get('eksternVarsling');
-        Assert.isTrue((List<Object>)eksternVarslingMap.get('prefererteKanaler') != null);
-        Assert.areEqual(1, ((List<Object>)eksternVarslingMap.get('prefererteKanaler')).size());
-        Assert.areEqual('SMS', ((List<Object>)eksternVarslingMap.get('prefererteKanaler'))[0]);
+        Map<String, Object> eksternVarslingMap = (Map<String, Object>) payload.get('eksternVarsling');
+        Assert.isTrue((List<Object>) eksternVarslingMap.get('prefererteKanaler') != null);
+        Assert.areEqual(1, ((List<Object>) eksternVarslingMap.get('prefererteKanaler')).size());
+        Assert.areEqual('SMS', ((List<Object>) eksternVarslingMap.get('prefererteKanaler'))[0]);
 
         UN_OpprettVarselEvent testEvent = new UN_OpprettVarselEvent(
             UN_Type.INNBOKS,

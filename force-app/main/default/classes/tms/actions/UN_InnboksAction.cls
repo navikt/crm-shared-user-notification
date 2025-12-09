@@ -18,10 +18,11 @@ public without sharing class UN_InnboksAction {
 
             UN_EksternVarsling eksternVarsling;
             if (!prefererteKanaler.isEmpty()) {
-                if (input.smsVarslingstekst == null &&
+                if (
+                    input.smsVarslingstekst == null &&
                     input.epostVarslingstittel == null &&
-                    input.epostVarslingstekst == null) 
-                {
+                    input.epostVarslingstekst == null
+                ) {
                     eksternVarsling = new UN_EksternVarsling(prefererteKanaler, input.kanBatches);
                 } else {
                     eksternVarsling = new UN_EksternVarsling(
