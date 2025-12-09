@@ -55,6 +55,7 @@ public class UN_InnboksActionTest {
             String.isBlank(notifications[0].CRM_NotificationError__c),
             'Expected blank, not ' + notifications[0].CRM_NotificationError__c
         );
+        Assert.areEqual(UN_Kanal.SMS.name(), notifications[0].INT_Preferred_Channel__c);
     }
 
     @isTest

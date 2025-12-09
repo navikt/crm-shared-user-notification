@@ -62,9 +62,14 @@ public with sharing class UN_UserNotificationService {
         if (event.eksternVarsling != null) {
             Map<String, Object> eksternVarslingMap = new Map<String, Object>();
 
-            if (event.eksternVarsling.preferertKanal != null) {
-                eksternVarslingMap.put('preferertKanal', event.eksternVarsling.preferertKanal.name());
+            if (event.eksternVarsling.prefererteKanaler != null && !event.eksternVarsling.prefererteKanaler.isEmpty()) {
+                List<String> kanalList = new List<String>();
+                for (UN_Kanal kanal : event.eksternVarsling.prefererteKanaler) {
+                    kanalList.add(kanal.name());
+                }
+                eksternVarslingMap.put('prefererteKanaler', kanalList);
             }
+
             eksternVarslingMap.put('smsVarslingstekst', event.eksternVarsling.smsVarslingstekst);
             eksternVarslingMap.put('epostVarslingstittel', event.eksternVarsling.epostVarslingstittel);
             eksternVarslingMap.put('epostVarslingstekst', event.eksternVarsling.epostVarslingstekst);

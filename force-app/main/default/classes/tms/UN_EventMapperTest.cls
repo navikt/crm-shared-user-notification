@@ -2,13 +2,22 @@
 private class UN_EventMapperTest {
     @isTest
     static void testMapUserNotificationToInnboksEvent() {
+        List<UN_Kanal> prefererteKanaler = new List<UN_Kanal>{ UN_Kanal.SMS };
+        UN_EksternVarsling eksternVarsling = new UN_EksternVarsling(
+            prefererteKanaler,
+            'smsText',
+            'emailSubject',
+            'emailBody',
+            true
+        );
+
         UN_InnboksEvent innboksEvent = new UN_InnboksEvent(
             'varselid-12345abcdefghi',
             '12345678901',
             new List<UN_Tekst>{ new UN_Tekst('nb', 'tekst', true) },
             'https://nav.no/link',
             UN_Sensitivitet.HIGH,
-            new UN_EksternVarsling(UN_Kanal.SMS, 'smsText', 'emailSubject', 'emailBody', true),
+            eksternVarsling,
             new UN_Produsent('cluster', 'namespace', 'appnavn')
         );
 
@@ -44,7 +53,7 @@ private class UN_EventMapperTest {
             INT_Description__c = serTekst,
             INT_Link__c = 'https://nav.no/event',
             INT_Sensitivity__c = 'high',
-            INT_Preferred_Channel__c = UN_Kanal.SMS.name(),
+            INT_Preferred_Channel__c = UN_Kanal.BETINGET_SMS.name(),
             INT_SmsText__c = 'smsalert',
             INT_EmailSubject__c = 'emne',
             INT_EmailBody__c = 'eposttekst',
@@ -65,6 +74,9 @@ private class UN_EventMapperTest {
         Assert.areEqual('smsalert', event.eksternVarsling.smsVarslingstekst);
         Assert.areEqual('emne', event.eksternVarsling.epostVarslingstittel);
         Assert.areEqual('eposttekst', event.eksternVarsling.epostVarslingstekst);
-        Assert.isTrue(event.eksternVarsling.preferertKanal == UN_Kanal.SMS);
+        Assert.isTrue(
+            event.eksternVarsling.prefererteKanaler.size() == 1 &&
+            event.eksternVarsling.prefererteKanaler[0] == UN_Kanal.BETINGET_SMS
+        );
     }
 }

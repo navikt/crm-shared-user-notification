@@ -40,7 +40,7 @@
    &quot;sensitivitet&quot;: &quot;high&quot;,
    &quot;aktivFremTil&quot;: &quot;&quot;,
    &quot;eksternVarsling&quot;: {
-      &quot;preferertKanal&quot;: &quot;BETINGET_SMS&quot;
+      &quot;prefererteKanaler&quot;: [&quot;BETINGET_SMS&quot;]
    },
    &quot;produsent&quot;: {
       &quot;cluster&quot;: &quot;defaultCluster&quot;,
