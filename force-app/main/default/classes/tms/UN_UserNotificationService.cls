@@ -16,11 +16,6 @@ public with sharing class UN_UserNotificationService {
         apiCtrl.addHeader('Content-Type', 'application/json');
         apiCtrl.setBody(JSON.serialize(payload));
         apiCtrl.doCallout();
-
-        LoggerUtility logger = new LoggerUtility('User Notification');
-        logger.info ('Posted opprett varsel event: ' + apiCtrl.getRequest().getBody(), null);
-        logger.info ('Response status: ' + apiCtrl.getResponse().getBody(), null);
-        logger.publish();
         return apiCtrl.getResponse();
     }
 
