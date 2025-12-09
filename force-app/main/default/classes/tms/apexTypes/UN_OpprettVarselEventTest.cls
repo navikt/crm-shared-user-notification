@@ -9,8 +9,8 @@ private class UN_OpprettVarselEventTest {
         String link = 'https://domain.no/test';
         UN_Sensitivitet sens = UN_Sensitivitet.HIGH;
         String aktivFremTil = null;
-        UN_Kanal kanal = UN_Kanal.SMS;
-        UN_EksternVarsling ekst = new UN_EksternVarsling(kanal, true);
+        List<UN_Kanal> prefererteKanaler = new List<UN_Kanal>{ UN_Kanal.SMS };
+        UN_EksternVarsling ekst = new UN_EksternVarsling(prefererteKanaler, true);
         UN_Produsent produsent = new UN_Produsent('cluster-1', 'default', 'app');
         UN_OpprettVarselEvent evt = new UN_OpprettVarselEvent(
             type,
@@ -236,9 +236,13 @@ private class UN_OpprettVarselEventTest {
         String link = (linkOverride != null) ? linkOverride : 'https://foo.bar';
         UN_Sensitivitet sensitivitet = sensitivitetOverride;
         String aktivFremTil = aktivFremTilOverride;
-        UN_EksternVarsling ekst = (eksternVarslingOverride != null)
-            ? eksternVarslingOverride
-            : new UN_EksternVarsling(UN_Kanal.SMS, true);
+        UN_EksternVarsling ekst;
+        if (eksternVarslingOverride != null) {
+            ekst = eksternVarslingOverride;
+        } else {
+            List<UN_Kanal> prefererteKanaler = new List<UN_Kanal>{ UN_Kanal.SMS };
+            ekst = new UN_EksternVarsling(prefererteKanaler, true);
+        }
         UN_Produsent produsent = produsentOverride;
         return new UN_OpprettVarselEvent(
             type,

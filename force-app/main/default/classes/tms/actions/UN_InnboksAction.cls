@@ -10,22 +10,28 @@ public without sharing class UN_InnboksAction {
 
         for (Input input : inputList) {
             String varselId = String.isNotBlank(input.varselId) ? input.varselId : new Uuid().getValue();
-            UN_Kanal preferertKanal = UN_NotificationUtils.kanalIsValid(input.preferertKanal)
-                ? UN_Kanal.valueOf(input.preferertKanal.trim().toUpperCase())
-                : null;
+
+            List<UN_Kanal> prefererteKanaler = new List<UN_Kanal>();
+            if (UN_NotificationUtils.kanalIsValid(input.preferertKanal)) {
+                prefererteKanaler.add(UN_Kanal.valueOf(input.preferertKanal.trim().toUpperCase()));
+            }
+
             UN_EksternVarsling eksternVarsling;
-            if (preferertKanal != null) {
-                eksternVarsling = (input.smsVarslingstekst == null &&
+            if (!prefererteKanaler.isEmpty()) {
+                if (input.smsVarslingstekst == null &&
                     input.epostVarslingstittel == null &&
-                    input.epostVarslingstekst == null)
-                    ? new UN_EksternVarsling(preferertKanal, input.kanBatches)
-                    : new UN_EksternVarsling(
-                          preferertKanal,
-                          input.smsVarslingstekst,
-                          input.epostVarslingstittel,
-                          input.epostVarslingstekst,
-                          input.kanBatches
-                      );
+                    input.epostVarslingstekst == null) 
+                {
+                    eksternVarsling = new UN_EksternVarsling(prefererteKanaler, input.kanBatches);
+                } else {
+                    eksternVarsling = new UN_EksternVarsling(
+                        prefererteKanaler,
+                        input.smsVarslingstekst,
+                        input.epostVarslingstittel,
+                        input.epostVarslingstekst,
+                        input.kanBatches
+                    );
+                }
             }
 
             UN_Produsent produsent = (String.isBlank(input.cluster) &&

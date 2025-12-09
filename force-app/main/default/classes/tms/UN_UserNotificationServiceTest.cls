@@ -5,8 +5,9 @@ private class UN_UserNotificationServiceTest {
         ApiMock.setTestMock('UN_POST_OPPRETT_VARSEL_EVENT', 200, '{"result":"ok"}');
         UN_Tekst tekst = new UN_Tekst('nb', 'Tittel', true);
         List<UN_Tekst> tekster = new List<UN_Tekst>{ tekst };
+        List<UN_Kanal> prefererteKanaler = new List<UN_Kanal>{ UN_Kanal.SMS };
         UN_EksternVarsling eksternVarsling = new UN_EksternVarsling(
-            UN_Kanal.SMS,
+            prefererteKanaler,
             'smsText',
             'epostTitle',
             'epostBody',
@@ -57,7 +58,14 @@ private class UN_UserNotificationServiceTest {
     static void testBuildEventPayload_fullAndMinimal() {
         UN_Tekst tekst = new UN_Tekst('nb', 'Tekst', true);
         List<UN_Tekst> tekster = new List<UN_Tekst>{ tekst };
-        UN_EksternVarsling eksternVarsling = new UN_EksternVarsling(UN_Kanal.SMS, 'sms', 'epostT', 'epostB', false);
+        List<UN_Kanal> prefererteKanaler = new List<UN_Kanal>{ UN_Kanal.SMS };
+        UN_EksternVarsling eksternVarsling = new UN_EksternVarsling(
+            prefererteKanaler,
+            'sms',
+            'epostT',
+            'epostB',
+            false
+        );
         UN_Produsent produsent = new UN_Produsent('c', 'n', 'a');
         UN_OpprettVarselEvent fullEvent = new UN_OpprettVarselEvent(
             UN_Type.INNBOKS,
@@ -82,6 +90,11 @@ private class UN_UserNotificationServiceTest {
         Assert.areEqual('2025-11-21 11:11:11', payload.get('aktivFremTil'));
         Assert.isTrue(payload.containsKey('eksternVarsling'));
         Assert.isTrue(payload.containsKey('produsent'));
+
+        Map<String, Object> eksternVarslingMap = (Map<String, Object>)payload.get('eksternVarsling');
+        Assert.isTrue((List<Object>)eksternVarslingMap.get('prefererteKanaler') != null);
+        Assert.areEqual(1, ((List<Object>)eksternVarslingMap.get('prefererteKanaler')).size());
+        Assert.areEqual('SMS', ((List<Object>)eksternVarslingMap.get('prefererteKanaler'))[0]);
 
         UN_OpprettVarselEvent testEvent = new UN_OpprettVarselEvent(
             UN_Type.INNBOKS,

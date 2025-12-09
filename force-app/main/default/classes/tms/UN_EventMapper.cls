@@ -12,8 +12,9 @@ public with sharing class UN_EventMapper {
             ? innboksEvent.sensitivitet.name().toLowerCase()
             : null;
         userNotification.INT_Preferred_Channel__c = (innboksEvent.eksternVarsling != null &&
-            innboksEvent.eksternVarsling.preferertKanal != null)
-            ? innboksEvent.eksternVarsling.preferertKanal.name()
+            innboksEvent.eksternVarsling.prefererteKanaler != null &&
+            !innboksEvent.eksternVarsling.prefererteKanaler.isEmpty())
+            ? innboksEvent.eksternVarsling.prefererteKanaler[0].name()
             : null;
         userNotification.INT_SmsText__c = (innboksEvent.eksternVarsling != null)
             ? innboksEvent.eksternVarsling.smsVarslingstekst
@@ -34,23 +35,24 @@ public with sharing class UN_EventMapper {
 
     public static UN_InnboksEvent createInnboksEventFromUserNotification(UserNotification__c userNotification) {
         List<UN_Tekst> tekster = UN_NotificationUtils.parseTekster(userNotification.INT_Description__c);
-        UN_Kanal kanal = userNotification.INT_Preferred_Channel__c != null
-            ? UN_Kanal.valueOf(userNotification.INT_Preferred_Channel__c.trim().toUpperCase())
-            : null;
+        List<UN_Kanal> kanaler = new List<UN_Kanal>();
+        if (userNotification.INT_Preferred_Channel__c != null) {
+            kanaler.add(UN_Kanal.valueOf(userNotification.INT_Preferred_Channel__c.trim().toUpperCase()));
+        }
 
         UN_EksternVarsling eksternVarsling = null;
-        if (kanal != null) {
+        if (!kanaler.isEmpty()) {
             eksternVarsling = (String.isNotBlank(userNotification.INT_SmsText__c) &&
                 String.isNotBlank(userNotification.INT_EmailSubject__c) &&
                 String.isNotBlank(userNotification.INT_EmailBody__c))
                 ? new UN_EksternVarsling(
-                      kanal,
+                      kanaler,
                       userNotification.INT_SmsText__c,
                       userNotification.INT_EmailSubject__c,
                       userNotification.INT_EmailBody__c,
-                      true 
+                      true
                   )
-                : new UN_EksternVarsling(kanal, true);
+                : new UN_EksternVarsling(kanaler, true);
         }
 
         UN_Produsent produsent = (String.isNotBlank(userNotification.INT_Namespace__c) &&
@@ -82,7 +84,6 @@ public with sharing class UN_EventMapper {
         UserNotification__c userNotification
     ) {
         userNotification.CRM_Done__c = true;
-
         return userNotification;
     }
 
@@ -95,7 +96,6 @@ public with sharing class UN_EventMapper {
                   userNotification.INT_AppName__c
               )
             : new UN_Produsent();
-
         return new UN_InaktiverEvent(userNotification.INT_EventId__c, produsent);
     }
 }

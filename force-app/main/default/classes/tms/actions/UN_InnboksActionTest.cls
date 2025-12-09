@@ -26,7 +26,7 @@ public class UN_InnboksActionTest {
         input.tekster = '[{"spraakkode":"nb","tekst":"Test notification"}]';
         input.link = 'https://example.com';
         input.sensitivitet = 'HIGH';
-        input.preferertKanal = 'SMS';
+        input.preferertKanal = 'SMS'; 
         input.accountId = p.CRM_Account__c;
         input.relatedRecordSfId = p.CRM_Account__c;
         input.smsVarslingstekst = 'Test SMS';
@@ -55,6 +55,7 @@ public class UN_InnboksActionTest {
             String.isBlank(notifications[0].CRM_NotificationError__c),
             'Expected blank, not ' + notifications[0].CRM_NotificationError__c
         );
+        Assert.areEqual(UN_Kanal.SMS.name(), notifications[0].INT_Preferred_Channel__c);
     }
 
     @isTest
