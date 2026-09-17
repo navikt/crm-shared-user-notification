@@ -34,7 +34,7 @@ private with sharing class UN_PublishDoneNotificationActionTest {
                 .build(),
             un
         );
-        UN_InnboksMapper.innboksInputToUserNotification(
+        UN_OldInnboksMapper.innboksInputToUserNotification(
             new UN_InnboksInputBuilder()
                 .withEksternVarsling(true)
                 .withTidspunkt(DateTime.now().addDays(-1))

@@ -1,4 +1,4 @@
-public with sharing class UN_InnboksMapper {
+public with sharing class UN_OldInnboksMapper {
     public static UserNotification__c innboksLegacyToUserNotification(
         UN_InnboksLegacy innboks,
         UserNotification__c userNotification

@@ -3,6 +3,10 @@
     <label>UN_SF_BRUKERNOTIFIKASJONER</label>
     <protected>false</protected>
     <values>
+        <field>App_Name__c</field>
+        <value xsi:nil="true"/>
+    </values>
+    <values>
         <field>Base_Endpoint_Test__c</field>
         <value xsi:type="xsd:string">https://sf-brukernotifikasjon-v2.ekstern.dev.nav.no</value>
     </values>
@@ -12,14 +16,18 @@
     </values>
     <values>
         <field>Named_Credential_Test__c</field>
-        <value xsi:nil="true" />
+        <value xsi:nil="true"/>
     </values>
     <values>
         <field>Named_Credential__c</field>
-        <value xsi:nil="true" />
+        <value xsi:nil="true"/>
     </values>
     <values>
         <field>Salesforce_API__c</field>
+        <value xsi:type="xsd:boolean">false</value>
+    </values>
+    <values>
+        <field>Use_GCP_Saas_Proxy__c</field>
         <value xsi:type="xsd:boolean">false</value>
     </values>
     <values>

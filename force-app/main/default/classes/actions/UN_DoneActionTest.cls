@@ -35,7 +35,7 @@ private with sharing class UN_DoneActionTest {
                 .build(),
             un
         );
-        UN_InnboksMapper.innboksInputToUserNotification(
+        UN_OldInnboksMapper.innboksInputToUserNotification(
             new UN_InnboksInputBuilder()
                 .withEksternVarsling(true)
                 .withTidspunkt(DateTime.now().addHours(-1))
