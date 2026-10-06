@@ -34,15 +34,6 @@ public inherited sharing class UN_InnboksInputBuilder {
         return this;
     }
 
-    public UN_InnboksInputBuilder withPreferertKanal(UN_PreferertKanal preferertKanal) {
-        if (this.prefererteKanaler == null) {
-            this.prefererteKanaler = new List<UN_PreferertKanal>();
-        }
-        this.prefererteKanaler.add(preferertKanal);
-
-        return this;
-    }
-
     public UN_InnboksInputBuilder withPrefererteKanaler(List<UN_PreferertKanal> prefererteKanaler) {
         this.prefererteKanaler = prefererteKanaler;
         return this;

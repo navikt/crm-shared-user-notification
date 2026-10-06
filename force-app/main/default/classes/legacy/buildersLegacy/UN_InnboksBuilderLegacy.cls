@@ -33,11 +33,6 @@ public with sharing class UN_InnboksBuilderLegacy {
         return this;
     }
 
-    public UN_InnboksBuilderLegacy withSikkerhetsnivaa(Decimal sikkerhetsnivaa) {
-        this.withSikkerhetsnivaa(sikkerhetsnivaa.intValue());
-        return this;
-    }
-
     public UN_InnboksBuilderLegacy withSikkerhetsnivaa(Integer sikkerhetsnivaa) {
         this.sikkerhetsnivaa = sikkerhetsnivaa;
         return this;
